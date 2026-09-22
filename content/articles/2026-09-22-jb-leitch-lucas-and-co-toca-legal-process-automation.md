@@ -10,7 +10,8 @@ sector: "Law"
 quote: "This project is an important step in the continued evolution of JB Leitch. Working with Toca and Lucas and Co allows us to streamline complex processes, strengthen our operational capabilities, and create a strong foundation for the future use of AI. Ultimately, it enables our people to focus on what matters most: delivering specialist expertise, efficiency, and an exceptional service to our clients."
 quote_by: "Matt Jarvis"
 quote_role: "Managing Director, JB Leitch"
-image: "2026-09-22-jb-leitch-lucas-and-co-toca.png"
+image: "2026-09-22-matt-jarvis-jb-leitch.jpg"
+lead: true
 ---
 When automating complex legal workflows, standard low-code and process automation tools often fall short. Property management litigation and leasehold legal services involve intricate, high-stakes processes that demand precision, security and absolute reliability. Attempting to force rigid, generic software onto legacy case management systems (CMS) usually results in costly IT overhauls, operational downtime and frustrated fee-earners.
 
@@ -37,6 +38,8 @@ Technology is only as effective as the process strategy behind it. Lucas and Co 
 Deploying enterprise AI effectively requires structured, reliable data and clear operational baselines. Toca's integration layer provides JB Leitch with clean data feeds and transparent workflows, establishing the exact digital foundation required to deploy future AI capabilities safely and measure return on investment accurately.
 
 ## Leadership insights
+
+![Matt Jarvis, Managing Director, JB Leitch](2026-09-22-matt-jarvis-jb-leitch.jpg)
 
 As **Matt Jarvis**, Managing Director at JB Leitch, noted regarding the project's impact:
 
