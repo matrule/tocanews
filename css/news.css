@@ -13,9 +13,6 @@
 .fsite .what { font-family: var(--font-mono); font-size: var(--text-xs); line-height: 1.15; color: var(--color-muted); }
 a.fsite:hover { border-bottom-color: var(--color-ink); }
 a.fsite:hover b, a.fsite:hover .dim { color: var(--color-ink); }
-.fhere b { color: var(--color-ink); }
-.fhere .what { color: var(--color-muted); }
-.fhere { border-bottom-color: var(--color-ink); }
 
 .hdr { border-bottom: var(--rule-hair) solid var(--color-rule); } .hdr-in { height: 4.5rem; justify-content: space-between; }
 .brand { display: inline-flex; align-items: center; gap: .5rem; text-decoration: none; color: var(--color-ink); font-weight: 600; font-size: 1.15rem; }
@@ -221,6 +218,5 @@ body.dark .tile .play::after { border-left-color: var(--color-ink); }
 body.dark .sectors a { background: var(--color-paper-3); }
 body.dark .sectors a[aria-current] { background: var(--color-ink); color: var(--color-paper); border-color: var(--color-ink); }
 body.dark .brand img { filter: none; }
-body.dark .fhere { border-bottom-color: var(--color-ink); }
 body.dark .hdr-nav a[aria-current] { border-color: var(--color-ink); }
 body.dark img { opacity: .96; }
