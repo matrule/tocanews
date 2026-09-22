@@ -1,0 +1,12 @@
+[build]
+  publish = "site"
+  command = "pip install -r requirements.txt && python3 build.py"
+
+[build.environment]
+  PYTHON_VERSION = "3.11"
+
+# /feed is the page for integrators, /feed.json is the data; be forgiving about the slash
+[[redirects]]
+  from = "/feed"
+  to = "/feed/"
+  status = 301
