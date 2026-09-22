@@ -31,6 +31,7 @@ OUTPUTS
   img/cards/*.webp        card thumbnails, CARD_W wide
   img/full/*.webp         images inside native articles, FULL_W wide
   toca-mark.svg           the mark for the header, footer and favicon (source: img/toca-mark.svg)
+  llms.txt                FEED.md served as plain text: the integration how-to, unlisted
   404.html, robots.txt, sitemap.xml, _headers
 
 The JSON is for the sister sites; it is not linked from the pages. FEED.md documents it.
@@ -382,6 +383,7 @@ def main():
     for f in (ROOT / 'fonts').glob('*.woff2'): shutil.copy(f, fdst / f.name)
     shutil.copy(ROOT / 'news-cards.js', SITE / 'news-cards.js')
     shutil.copy(ROOT / 'img' / 'toca-mark.svg', SITE / 'toca-mark.svg')   # header, footer and favicon; the pink mark as toca.health serves it
+    shutil.copy(ROOT / 'FEED.md', SITE / 'llms.txt')   # the integration how-to for the sister sites' people and agents; unlisted, plain text
     everything = load(); arts = [a for a in everything if not a.get('draft')]
     write_feeds(arts); write_home(arts); write_blog(arts); write_404()
     for a in everything: write_article(a)   # drafts get a page to preview, but no card and no feed entry
@@ -399,6 +401,10 @@ def main():
   Cache-Control: public, max-age=604800
 /news-cards.js
   Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+/llms.txt
+  Access-Control-Allow-Origin: *
+  Content-Type: text/plain; charset=utf-8
   Cache-Control: public, max-age=3600
 /*
   X-Content-Type-Options: nosniff
