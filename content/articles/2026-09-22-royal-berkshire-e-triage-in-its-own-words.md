@@ -4,6 +4,7 @@ date: '2026-09-22'
 figure: 51%
 figure_label: less referral admin workload
 kind: customer
+wide: true
 logo: royal-berkshire.png
 sector: Healthcare
 sites:

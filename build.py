@@ -13,6 +13,7 @@ Front matter fields:
     customer, sector      who and which sector filter ("Healthcare", "Law", "Finance", "Charity", ...)
     logo                  file name in content/images, single-colour ink mark (recoloured to paper for the dark page); the name is used until one exists
     lead: true            pins this story as the wall's lead tile; otherwise the newest customer story leads
+    wide: true            gives the tile two of the wall's three columns (every seventh tile is wide anyway); the lead always takes all three
     figure, figure_label  one number and its claim ("15%", "of England's GP referrals")
     quote, quote_by, quote_role
     video, video_start    a YouTube ID (and optional start second). The film plays on a page here, whatever `external` says.
@@ -265,8 +266,10 @@ def tile(a, i, R=''):
         pic = filmpic(True) if a['video'] else (f'<span class="pic"><img src="{R}{esc(rel(a["card"][0]))}" alt="" loading="eager"></span>' if a['card'] else '<span class="pic empty"></span>')
         by = f'<span class="by"><b>{esc(a["quote_by"])}</b>{esc(a["quote_role"])}</span>' if a['quote_by'] and not fig else ''
         return f'<a class="tile lead" {common}><span class="txt">{logo(a, R)}{sector}<h2>{esc(a["title"])}</h2><p>{esc(a["subtitle"])}</p>{fig}{by}</span>{pic}</a>'
-    wide = i % 7 == 0
+    wide = i % 7 == 0 or bool(a.get('wide'))
     if a['video']:
+        if wide:   # text left, film right, like the lead
+            return f'<a class="tile film wide pictured" {common}><span class="txt">{logo(a, R)}{sector}<h3>{esc(a["title"])}</h3><p>{esc(a["subtitle"])}</p>{fig}</span>{filmpic(False)}</a>'
         return f'<a class="tile film" {common}>{filmpic(False)}<span class="txt">{logo(a, R)}{sector}<h3>{esc(a["title"])}</h3></span></a>'
     if a['quote']:
         by = f'<span class="by"><b>{esc(a["quote_by"])}</b>{esc(a["quote_role"])}</span>' if a['quote_by'] else ''
