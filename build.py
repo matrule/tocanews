@@ -30,6 +30,7 @@ OUTPUTS
   news-cards.js           the drop-in renderer, served from here as well as vendored
   img/cards/*.webp        card thumbnails, CARD_W wide
   img/full/*.webp         images inside native articles, FULL_W wide
+  toca-mark.svg           the mark for the header, footer and favicon (source: img/toca-mark.svg)
   404.html, robots.txt, sitemap.xml, _headers
 
 The JSON is for the sister sites; it is not linked from the pages. FEED.md documents it.
@@ -380,6 +381,7 @@ def main():
     fdst = SITE / 'assets/fonts'; fdst.mkdir(parents=True, exist_ok=True)
     for f in (ROOT / 'fonts').glob('*.woff2'): shutil.copy(f, fdst / f.name)
     shutil.copy(ROOT / 'news-cards.js', SITE / 'news-cards.js')
+    shutil.copy(ROOT / 'img' / 'toca-mark.svg', SITE / 'toca-mark.svg')   # header, footer and favicon; the pink mark as toca.health serves it
     everything = load(); arts = [a for a in everything if not a.get('draft')]
     write_feeds(arts); write_home(arts); write_blog(arts); write_404()
     for a in everything: write_article(a)   # drafts get a page to preview, but no card and no feed entry
