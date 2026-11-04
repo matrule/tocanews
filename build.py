@@ -21,7 +21,7 @@ Front matter fields:
 A story with a body and no `external` gets its own page at /articles/<slug>/ and the card links there.
 
 OUTPUTS
-  index.html              customer stories: the wall, filters by sector, plus the latest news
+  index.html              customer stories: the lead as a spotlight, then sector filters over the wall, plus the latest news
   blog/index.html         the blog, everything that is not a customer story: lead, the latest BLOG_RECENT, then the archive as rows
   articles/<slug>/        native stories, and pages for any story with a film (the film plays here)
   feed.json               JSON Feed 1.1, newest FEED_MAX, all sites
@@ -287,11 +287,13 @@ def write_home(arts):
     news = [a for a in arts if not a['customer_story']][:3]
     sectors = sorted({a['sector'] for a in cust if a['sector']})
     filt = '<nav class="sectors" aria-label="Sector"><a href="#" data-val="">All</a>' + ''.join(f'<a href="#sector={esc(x)}" data-val="{esc(x)}">{esc(x)}</a>' for x in sectors) + '</nav>'
-    wall = ''.join(tile(a, i) for i, a in enumerate(cust))
+    spot = tile(cust[0], 0) if cust else ''                                   # the lead: the spotlight, above the filters and never filtered
+    wall = ''.join(tile(a, i) for i, a in enumerate(cust) if i)              # indices kept so every seventh tile stays wide
     latest = ''.join(card(a) for a in news)
     body = f'''
 <section class="page-head"><div class="band-narrow"><p class="kicker">Customer stories</p><h1>Built on Toca.</h1><p class="support">NHS trusts, law firms, charities and a portfolio platform: what they built, in their numbers and their words.</p></div></section>
 <section class="band wall"><div class="band-narrow">
+<div class="spot">{spot}</div>
 {filt}
 <div class="wallgrid">{wall}</div>
 <p class="empty" hidden>No stories in that sector yet.</p>
