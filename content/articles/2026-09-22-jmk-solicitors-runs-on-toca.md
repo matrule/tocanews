@@ -13,6 +13,7 @@ subtitle: JMK Solicitors handles more than double the caseload of any competitor
   with case management, medical agencies and the MOJ Portal connected through Toca.
 tag: Case Study
 title: Northern Ireland's number one personal injury firm runs on Toca
+image: 2026-09-22-jmk-solicitors-reception.jpg
 ---
 
 JMK Solicitors is Northern Ireland's number one personal injury and car accident claims firm, handling thousands of cases a year and more than double the caseload of any competitor.

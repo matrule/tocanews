@@ -16,6 +16,7 @@ subtitle: 'Filmed on site with the clinicians and referral teams who use E-triag
 tag: Case Study
 title: Royal Berkshire, in its own words
 video: M4_brphr6k8
+image: 2026-09-22-royal-berkshire-film.jpg
 ---
 
 Royal Berkshire runs E-triage on Toca.health. GP referrals arrive with the notes and results attached, the right clinician sees them the same day, and Advice & Guidance is answered without a round trip back to the GP.
