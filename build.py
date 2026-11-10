@@ -29,6 +29,7 @@ OUTPUTS
   archive.json            everything, all sites
   news-cards.js           the drop-in renderer, served from here as well as vendored
   img/cards/*.webp        card thumbnails, CARD_W wide
+  img/og/*.jpg            link-preview images (og:image, Article JSON-LD), OG_W wide
   img/full/*.webp         images inside native articles, FULL_W wide (a .gif or .svg is copied here unchanged)
   toca-mark.svg           the mark for the header, footer and favicon (source: img/toca-mark.svg)
   llms.txt                FEED.md served as plain text: the integration how-to, unlisted
@@ -44,6 +45,7 @@ ROOT = pathlib.Path(__file__).parent
 CONTENT, SITE = ROOT / 'content', ROOT / 'site'
 BASE = 'https://news.toca.io'
 CARD_W = 640
+OG_W = 1200   # link-preview image (og:image): JPEG, since not every unfurler reads WebP
 FULL_W = 1600          # images inside an article body
 FEED_MAX = 50
 SITES = {'io': 'toca.io', 'health': 'toca.health', 'legal': 'toca.legal'}
@@ -98,6 +100,15 @@ def card_image(name):
     if im.width > CARD_W: im = im.resize((CARD_W, round(im.height * CARD_W / im.width)), Image.LANCZOS)
     im.save(out, 'WEBP', quality=78)
     return f'{BASE}/img/cards/{out.name}', im.width, im.height
+
+def og_image(name):
+    """The link-preview image: JPEG, at most OG_W wide. Returns (url, w, h)."""
+    src = CONTENT / 'images' / name
+    out = SITE / 'img/og' / (pathlib.Path(name).stem + '.jpg'); out.parent.mkdir(parents=True, exist_ok=True)
+    im = Image.open(src).convert('RGB')
+    if im.width > OG_W: im = im.resize((OG_W, round(im.height * OG_W / im.width)), Image.LANCZOS)
+    im.save(out, 'JPEG', quality=82, optimize=True)
+    return f'{BASE}/img/og/{out.name}', im.width, im.height
 
 def full_image(name):
     """Resize once for an article body (WebP, at most FULL_W wide). Returns the site-relative path or None.
@@ -161,6 +172,7 @@ def load():
         a['href'] = f'articles/{a["slug"]}/' if (a['video'] or not a.get('external')) else a['external']
         a['source'] = source_of(a['external']) if a.get('external') else 'news.toca.io'
         a['card'] = card_image(a.get('image'))
+        a['og'] = og_image(a.get('image')) if a['card'] and (a['video'] or not a.get('external')) else None   # only stories with a page here
         a['body_images'] = []
         if a['body'] and not a.get('external'):
             a['body'], a['body_images'] = body_images(a['body'])
@@ -203,7 +215,37 @@ def write_feeds(arts):
         (SITE / 'feed' / f'{s}.json').write_text(feed_doc(sub[:FEED_MAX], f'{BASE}/feed/{s}.json', f'Toca news · {host}'))
 
 # ---------------------------------------------------------------- page chrome
-def chrome(title, desc, body, canonical, depth=0, current='', dark=False):
+def social_meta(title, desc, canonical, a=None):
+    """Open Graph and Twitter tags for every page; for a native story also article dates and Article JSON-LD.
+    A story whose canonical is elsewhere (an external story with a film page here) gets the tags but no JSON-LD:
+    the article itself lives at the other site, and claiming it here would contradict the canonical tag."""
+    og_title = a['title'] if a else title
+    tags = [('property', 'og:site_name', 'Toca news'), ('property', 'og:locale', 'en_GB'),
+            ('property', 'og:type', 'article' if a else 'website'), ('property', 'og:title', og_title),
+            ('property', 'og:description', desc), ('property', 'og:url', canonical)]
+    img = a and a['og']
+    if img:
+        tags += [('property', 'og:image', img[0]), ('property', 'og:image:width', img[1]), ('property', 'og:image:height', img[2])]
+    if a:
+        tags.append(('property', 'article:published_time', a['date'] + 'T09:00:00Z'))
+        tags.append(('property', 'article:section', a['tag']))
+    tags += [('name', 'twitter:card', 'summary_large_image' if img else 'summary'),
+             ('name', 'twitter:title', og_title), ('name', 'twitter:description', desc)]
+    out = ''.join(f'<meta {k}="{n}" content="{esc(v)}">' for k, n, v in tags)
+    if a and a.get('draft'): out += '<meta name="robots" content="noindex">'
+    if a and not a.get('external'):
+        ld = {'@context': 'https://schema.org', '@type': 'Article', 'headline': a['title'], 'description': a['subtitle'],
+              'datePublished': a['date'], 'url': canonical, 'mainEntityOfPage': canonical, 'inLanguage': 'en-GB',
+              'articleSection': a['tag'], 'author': {'@type': 'Organization', 'name': 'Toca', 'url': IO},
+              'publisher': {'@type': 'Organization', 'name': 'Toca', 'url': IO}}
+        if img: ld['image'] = img[0]
+        if a['video']: ld['video'] = {'@type': 'VideoObject', 'name': a['title'], 'description': a['subtitle'] or a['title'],
+                                      'embedUrl': f'https://www.youtube-nocookie.com/embed/{a["video"]}',
+                                      'thumbnailUrl': f'https://i.ytimg.com/vi/{a["video"]}/hqdefault.jpg', 'uploadDate': a['date']}
+        out += '\n<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace('</', '<\\/') + '</script>'
+    return out
+
+def chrome(title, desc, body, canonical, depth=0, current='', dark=False, article=None):
     R = '../' * depth   # relative root, so the built pages open styled from file:// as well as the site root
     cur = lambda k: ' aria-current="page"' if k == current else ''
     return f'''<!doctype html>
@@ -212,6 +254,7 @@ def chrome(title, desc, body, canonical, depth=0, current='', dark=False):
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title><meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{canonical}">
+{social_meta(title, desc, canonical, article)}
 <link rel="alternate" type="application/feed+json" title="Toca news" href="{BASE}/feed.json">
 <link rel="icon" href="{R}toca-mark.svg" type="image/svg+xml">
 {FONTS}
@@ -463,7 +506,7 @@ def write_article(a):
 <p class="source">{where}. Shown on {", ".join(SITES[s] for s in a["sites"])}.</p>
 <p><a class="tlink" href="../../{back[0]}">&larr; {back[1]}</a></p>
 </div></article>'''
-    (d / 'index.html').write_text(chrome(a['title'] + ' | Toca news', a['subtitle'], body, a['url'], depth=2))
+    (d / 'index.html').write_text(chrome(a['title'] + ' | Toca news', a['subtitle'], body, a['url'], depth=2, article=a))
 
 def write_404():
     body = '''
