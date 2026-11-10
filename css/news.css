@@ -114,6 +114,10 @@ body.dark .chip--solid:hover { background: #d81b60; border-color: #d81b60; }
 .prose img { max-width: 100%; border-radius: 10px; border: var(--rule-hair) solid var(--color-rule); }
 .prose img[src$=".svg"] { display: block; width: 100%; max-width: 22rem; background: var(--color-paper-3); }   /* a drawing sits as a small plate, not at full measure */
 .prose blockquote { margin: var(--space-lg) 0; padding-left: 1rem; border-left: 1.5px solid var(--color-accent); color: var(--color-ink); }
+.prose table { display: block; overflow-x: auto; border-collapse: collapse; margin: var(--space-lg) 0; font-size: .95rem; line-height: 1.45; }   /* a wide table scrolls inside the measure on a phone */
+.prose th, .prose td { text-align: left; vertical-align: top; padding: .6rem 1rem .6rem 0; border-bottom: var(--rule-hair) solid var(--color-rule); }
+.prose th { font-weight: 600; color: var(--color-ink); border-bottom-color: var(--color-ink-2); }
+.prose td:first-child { color: var(--color-ink); font-weight: 500; }
 .article .source { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-muted); margin-top: var(--space-xl); }
 
 
