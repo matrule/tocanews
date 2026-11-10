@@ -4,6 +4,9 @@ The news site for all three Toca sites. Static, generated, no backend.
 
     pip install -r requirements.txt
     python3 build.py        # writes site/
+    python3 serve.py        # previews it at http://localhost:8002/news/
+
+The pages are served at www.toca.io/news/ through toca.io's proxy, and at news.toca.io. Every link on them is root-absolute under `/news/` (`PATH` in `build.py`); `netlify.toml` rewrites `/news/*` back to the site root here. See `HANDOVER.md` (10 Nov 2026) for the go-live switch of `BASE`.
 
 ## Content
 

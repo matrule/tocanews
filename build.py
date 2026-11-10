@@ -18,7 +18,7 @@ Front matter fields:
     quote, quote_by, quote_role
     video, video_start    a YouTube ID (and optional start second). The film plays on a page here, whatever `external` says.
 
-A story with a body and no `external` gets its own page at /articles/<slug>/ and the card links there.
+A story with a body and no `external` gets its own page at /articles/<slug>/ and the card links there (as /news/articles/<slug>/: see PATH).
 
 OUTPUTS
   index.html              customer stories: the lead as a spotlight, then sector filters over the wall, plus the latest news
@@ -43,7 +43,15 @@ from PIL import Image
 
 ROOT = pathlib.Path(__file__).parent
 CONTENT, SITE = ROOT / 'content', ROOT / 'site'
-BASE = 'https://news.toca.io'
+BASE = 'https://news.toca.io'    # the pages' address: canonicals, Open Graph, JSON-LD, the feeds' item URLs, sitemap, robots.txt.
+                                 # Becomes 'https://www.toca.io/news' at go-live, with the DNS move, not before (HANDOVER.md).
+FEEDS = 'https://news.toca.io'   # where the feeds, card images, news-cards.js and llms.txt are fetched from, CORS open:
+                                 # stays here when BASE moves, because toca.io's and toca.health's cards read them here.
+# The pages are served at www.toca.io/news/ through toca.io's proxy (Mat, 10 Nov 2026: what the blog earns in search
+# builds www.toca.io), so every link and asset the pages use is root-absolute under PATH. netlify.toml rewrites
+# /news/* to /:splat, so the same links work at news.toca.io. Never write a relative link: Netlify cannot add the
+# trailing slash to www.toca.io/news, and a relative link there resolves against www.toca.io. main() refuses to build one.
+PATH = '/news/'
 CARD_W = 640
 OG_W = 1200   # link-preview image (og:image): JPEG, since not every unfurler reads WebP
 FULL_W = 1600          # images inside an article body
@@ -99,7 +107,7 @@ def card_image(name):
     im = Image.open(src).convert('RGB')
     if im.width > CARD_W: im = im.resize((CARD_W, round(im.height * CARD_W / im.width)), Image.LANCZOS)
     im.save(out, 'WEBP', quality=78)
-    return f'{BASE}/img/cards/{out.name}', im.width, im.height
+    return f'{FEEDS}/img/cards/{out.name}', im.width, im.height
 
 def og_image(name):
     """The link-preview image: JPEG, at most OG_W wide. Returns (url, w, h)."""
@@ -167,9 +175,9 @@ def load():
         a['url'] = a.get('external') or f'{BASE}/articles/{a["slug"]}/'
         # 'url' is the absolute, canonical link (used in JSON, canonical tags, sitemap: these must stay absolute
         # regardless of where the site is hosted). 'href' is what pages link with: external stories still go
-        # out to their absolute URL, but a native story links relative to the site root, so cards work the
-        # same on a Netlify preview domain as on news.toca.io once DNS is pointed.
-        a['href'] = f'articles/{a["slug"]}/' if (a['video'] or not a.get('external')) else a['external']
+        # out to their absolute URL, but a native story links root-absolute under PATH, so cards work the
+        # same at www.toca.io/news/, at news.toca.io and on a Netlify preview domain.
+        a['href'] = f'{PATH}articles/{a["slug"]}/' if (a['video'] or not a.get('external')) else a['external']
         a['source'] = source_of(a['external']) if a.get('external') else 'news.toca.io'
         a['card'] = card_image(a.get('image'))
         a['og'] = og_image(a.get('image')) if a['card'] and (a['video'] or not a.get('external')) else None   # only stories with a page here
@@ -207,12 +215,12 @@ def feed_doc(arts, feed_url, title, next_url=None):
     return json.dumps(d, indent=1, ensure_ascii=False)
 
 def write_feeds(arts):
-    (SITE / 'feed.json').write_text(feed_doc(arts[:FEED_MAX], BASE + '/feed.json', 'Toca news', BASE + '/archive.json'))
-    (SITE / 'archive.json').write_text(feed_doc(arts, BASE + '/archive.json', 'Toca news · archive'))
+    (SITE / 'feed.json').write_text(feed_doc(arts[:FEED_MAX], FEEDS + '/feed.json', 'Toca news', FEEDS + '/archive.json'))
+    (SITE / 'archive.json').write_text(feed_doc(arts, FEEDS + '/archive.json', 'Toca news · archive'))
     (SITE / 'feed').mkdir(exist_ok=True)
     for s, host in SITES.items():
         sub = [a for a in arts if s in a['sites']]
-        (SITE / 'feed' / f'{s}.json').write_text(feed_doc(sub[:FEED_MAX], f'{BASE}/feed/{s}.json', f'Toca news · {host}'))
+        (SITE / 'feed' / f'{s}.json').write_text(feed_doc(sub[:FEED_MAX], f'{FEEDS}/feed/{s}.json', f'Toca news · {host}'))
 
 # ---------------------------------------------------------------- page chrome
 def social_meta(title, desc, canonical, a=None):
@@ -245,8 +253,8 @@ def social_meta(title, desc, canonical, a=None):
         out += '\n<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace('</', '<\\/') + '</script>'
     return out
 
-def chrome(title, desc, body, canonical, depth=0, current='', dark=False, article=None):
-    R = '../' * depth   # relative root, so the built pages open styled from file:// as well as the site root
+def chrome(title, desc, body, canonical, current='', dark=False, article=None):
+    R = PATH   # root-absolute: the pages are served at www.toca.io/news/ and news.toca.io alike
     cur = lambda k: ' aria-current="page"' if k == current else ''
     return f'''<!doctype html>
 <html lang="en-GB">
@@ -255,7 +263,7 @@ def chrome(title, desc, body, canonical, depth=0, current='', dark=False, articl
 <title>{esc(title)}</title><meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{canonical}">
 {social_meta(title, desc, canonical, article)}
-<link rel="alternate" type="application/feed+json" title="Toca news" href="{BASE}/feed.json">
+<link rel="alternate" type="application/feed+json" title="Toca news" href="{FEEDS}/feed.json">
 <link rel="icon" href="{R}toca-mark.svg" type="image/svg+xml">
 {FONTS}
 <link rel="stylesheet" href="{R}css/site.css"><link rel="stylesheet" href="{R}css/news.css">
@@ -299,7 +307,7 @@ def chrome(title, desc, body, canonical, depth=0, current='', dark=False, articl
     </div>
     <a href="{IO}/partners.html">Partners</a>
     <a href="{IO}/company.html">Company</a>
-    <a href="{R}index.html" aria-current="page">News</a>
+    <a href="{IO}/news/" aria-current="page">News</a>
   </nav>
   <div class="nav-cta">
     <a class="chip chip--solid" href="{IO}/contact.html">Talk to us</a>
@@ -307,7 +315,7 @@ def chrome(title, desc, body, canonical, depth=0, current='', dark=False, articl
   </div>
   </div>
 </header>
-<nav class="subnav" aria-label="News"><div class="band-narrow"><span class="lbl">News</span><a href="{R}index.html"{cur('customers')}>Customer stories</a><a href="{R}blog/index.html"{cur('blog')}>Blog</a></div></nav>
+<nav class="subnav" aria-label="News"><div class="band-narrow"><span class="lbl">News</span><a href="{R}"{cur('customers')}>Customer stories</a><a href="{R}blog/"{cur('blog')}>Blog</a></div></nav>
 <main id="main">{body}</main>
 <footer class="foot">
   <div class="band-narrow">
@@ -318,7 +326,7 @@ def chrome(title, desc, body, canonical, depth=0, current='', dark=False, articl
     <li><a href="{IO}/legal/">Legal</a></li>
     <li><a href="{IO}/partners.html">Partners</a></li>
     <li><a href="{IO}/company.html">Company</a></li>
-    <li><a href="{R}index.html">News</a></li>
+    <li><a href="{IO}/news/">News</a></li>
     <li><a href="https://docs.toca.io">Documentation</a></li>
     <li><a href="{IO}/contact.html">Contact</a></li>
   </ul>
@@ -343,18 +351,22 @@ def chrome(title, desc, body, canonical, depth=0, current='', dark=False, articl
 </body></html>'''
 
 # ---------------------------------------------------------------- index
-def rel(url): return url.replace(BASE + '/', '')
+def rel(h):
+    """Links and image URLs written with this site's address (either one), made root-absolute under PATH,
+    so a reader stays on whichever host they came in on."""
+    for b in {BASE, FEEDS}:
+        if h.startswith(b + '/'): return PATH + h[len(b) + 1:]
+    return h
 
-def card(a, lead=False, R=''):
-    img = f'<img src="{R}{esc(rel(a["card"][0]))}" width="{a["card"][1]}" height="{a["card"][2]}" alt="" loading="{"eager" if lead else "lazy"}">' if a['card'] else '<span class="noimg" aria-hidden="true"></span>'
+def card(a, lead=False):
+    img = f'<img src="{esc(rel(a["card"][0]))}" width="{a["card"][1]}" height="{a["card"][2]}" alt="" loading="{"eager" if lead else "lazy"}">' if a['card'] else '<span class="noimg" aria-hidden="true"></span>'
     ext = a.get('external')
     ext = ext and not a['video']   # a film opens its page here, then links out
     target = ' target="_blank" rel="noopener"' if ext else ''
     where = f'<span class="where">{esc(a["source"])} &nearr;</span>' if ext else (f'<span class="where">Film</span>' if a['video'] else '')
     cls = 'story lead' if lead else 'story'
     h = 'h2' if lead else 'h3'
-    href = a['href'] if a['href'].startswith('http') else R + a['href']
-    return (f'<a class="{cls}" href="{esc(href)}"{target} data-tag="{esc(a["tag"])}" data-sites="{esc(" ".join(a["sites"]))}">'
+    return (f'<a class="{cls}" href="{esc(a["href"])}"{target} data-tag="{esc(a["tag"])}" data-sites="{esc(" ".join(a["sites"]))}">'
             f'{img}<span class="body"><span class="meta"><time datetime="{a["date"]}">{nice(a["date"])}</time><span class="tag">{esc(a["tag"])}</span>{where}</span>'
             f'<{h}>{esc(a["title"])}</{h}><p>{esc(a["subtitle"])}</p></span></a>')
 
@@ -380,41 +392,41 @@ INDEX_JS = r'''
 })();'''
 
 # ---------------------------------------------------------------- customer stories (the home page)
-def logo(a, R=''):
+def logo(a):
     """The customer's mark if we have one; the name set in the display face until we do."""
     if a['logo']:
         path = logo_image(a['logo'])
-        if path: return f'<img class="mark" src="{R}{esc(path)}" alt="{esc(a["customer"])}">'
+        if path: return f'<img class="mark" src="{PATH}{esc(path)}" alt="{esc(a["customer"])}">'
     return f'<span class="mark-text">{esc(a["customer"] or a["title"])}</span>'
 
 def yt_thumb(vid): return f'https://i.ytimg.com/vi/{vid}/hqdefault.jpg'
 
-def tile(a, i, R=''):
+def tile(a, i):
     """One tile on the customer wall. The first is the lead; every seventh after it is wide.
     Shape follows the data: a film gets a play tile, a quote gets a quote card, a figure gets a figure card."""
-    href = a['href'] if a['href'].startswith('http') else R + a['href']
+    href = a['href']
     ext = a.get('external') and not a['video']
     target = ' target="_blank" rel="noopener"' if ext else ''
     sector = f'<span class="sector">{esc(a["sector"])}</span>' if a['sector'] else ''
     fig = f'<span class="fig"><b>{esc(a["figure"])}</b><span>{esc(a["figure_label"])}</span></span>' if a['figure'] else ''
     common = f'data-sector="{esc(a["sector"])}" href="{esc(href)}"{target}'
-    poster = f'{R}{esc(rel(a["card"][0]))}' if a['card'] else (yt_thumb(a['video']) if a['video'] else '')
+    poster = esc(rel(a["card"][0])) if a['card'] else (yt_thumb(a['video']) if a['video'] else '')
     filmpic = lambda eager: f'<span class="pic film"><img src="{poster}" alt="" loading="{"eager" if eager else "lazy"}" onerror="this.remove()"><span class="play" aria-hidden="true"></span></span>'
     if i == 0:
-        pic = filmpic(True) if a['video'] else (f'<span class="pic"><img src="{R}{esc(rel(a["card"][0]))}" alt="" loading="eager"></span>' if a['card'] else '<span class="pic empty"></span>')
+        pic = filmpic(True) if a['video'] else (f'<span class="pic"><img src="{esc(rel(a["card"][0]))}" alt="" loading="eager"></span>' if a['card'] else '<span class="pic empty"></span>')
         by = f'<span class="by"><b>{esc(a["quote_by"])}</b>{esc(a["quote_role"])}</span>' if a['quote_by'] and not fig else ''
-        return f'<a class="tile lead" {common}><span class="txt">{logo(a, R)}{sector}<h2>{esc(a["title"])}</h2><p>{esc(a["subtitle"])}</p>{fig}{by}</span>{pic}</a>'
+        return f'<a class="tile lead" {common}><span class="txt">{logo(a)}{sector}<h2>{esc(a["title"])}</h2><p>{esc(a["subtitle"])}</p>{fig}{by}</span>{pic}</a>'
     wide = i % 7 == 0 or bool(a.get('wide'))
     if a['video']:
         if wide:   # text left, film right, like the lead
-            return f'<a class="tile film wide pictured" {common}><span class="txt">{logo(a, R)}{sector}<h3>{esc(a["title"])}</h3><p>{esc(a["subtitle"])}</p>{fig}</span>{filmpic(False)}</a>'
-        return f'<a class="tile film" {common}>{filmpic(False)}<span class="txt">{logo(a, R)}{sector}<h3>{esc(a["title"])}</h3></span></a>'
+            return f'<a class="tile film wide pictured" {common}><span class="txt">{logo(a)}{sector}<h3>{esc(a["title"])}</h3><p>{esc(a["subtitle"])}</p>{fig}</span>{filmpic(False)}</a>'
+        return f'<a class="tile film" {common}>{filmpic(False)}<span class="txt">{logo(a)}{sector}<h3>{esc(a["title"])}</h3></span></a>'
     if a['quote']:
         by = f'<span class="by"><b>{esc(a["quote_by"])}</b>{esc(a["quote_role"])}</span>' if a['quote_by'] else ''
-        return f'<a class="tile said{" wide" if wide else ""}" {common}>{logo(a, R)}<blockquote>{esc(a["quote"])}</blockquote>{by}</a>'
+        return f'<a class="tile said{" wide" if wide else ""}" {common}>{logo(a)}<blockquote>{esc(a["quote"])}</blockquote>{by}</a>'
     if wide and a['card']:
-        return f'<a class="tile wide pictured" {common}><span class="txt">{logo(a, R)}{sector}<h3>{esc(a["title"])}</h3><p>{esc(a["subtitle"])}</p>{fig}</span><span class="pic"><img src="{R}{esc(rel(a["card"][0]))}" alt="" loading="lazy"></span></a>'
-    return f'<a class="tile story" {common}>{logo(a, R)}{sector}<h3>{esc(a["title"])}</h3><p>{esc(a["subtitle"])}</p>{fig}</a>'
+        return f'<a class="tile wide pictured" {common}><span class="txt">{logo(a)}{sector}<h3>{esc(a["title"])}</h3><p>{esc(a["subtitle"])}</p>{fig}</span><span class="pic"><img src="{esc(rel(a["card"][0]))}" alt="" loading="lazy"></span></a>'
+    return f'<a class="tile story" {common}>{logo(a)}{sector}<h3>{esc(a["title"])}</h3><p>{esc(a["subtitle"])}</p>{fig}</a>'
 
 WALL_JS = (ROOT / 'js' / 'wall.js').read_text()
 
@@ -435,7 +447,7 @@ def write_home(arts):
 <p class="empty" hidden>No stories in that sector yet.</p>
 </div></section>
 <section class="band latest"><div class="band-narrow">
-<div class="strip-head"><h2>Latest from Toca</h2><a class="tlink" href="blog/index.html">All news and writing &rarr;</a></div>
+<div class="strip-head"><h2>Latest from Toca</h2><a class="tlink" href="{PATH}blog/">All news and writing &rarr;</a></div>
 <div class="grid">{latest}</div>
 </div></section>
 <script>{WALL_JS}</script>'''
@@ -443,7 +455,6 @@ def write_home(arts):
 
 # ---------------------------------------------------------------- the blog
 def write_blog(all_arts):
-    R = '../'
     arts = [a for a in all_arts if not a['customer_story']]
     lead, recent, older = arts[0], arts[1:BLOG_RECENT + 1], arts[BLOG_RECENT + 1:]
     tags = sorted({a['tag'] for a in arts})
@@ -453,7 +464,7 @@ def write_blog(all_arts):
     filt = (f'<nav class="filters" aria-label="Filter"><div class="frow"><span class="flab">Type</span>{links("tag", [(t, t) for t in tags], "All")}</div>'
             f'<div class="frow"><span class="flab">Site</span>{links("site", list(SITES.items()), "All three")}</div></nav>')
     def row(a):
-        href = a['href'] if a['href'].startswith('http') else R + a['href']
+        href = a['href']
         ext = a.get('external') and not a['video']
         tgt = ' target="_blank" rel="noopener"' if ext else ''
         return (f'<a class="story row" href="{esc(href)}"{tgt} data-tag="{esc(a["tag"])}" data-sites="{esc(" ".join(a["sites"]))}">'
@@ -462,10 +473,10 @@ def write_blog(all_arts):
     for a in older: years.setdefault(a['date'][:4], []).append(a)
     archive = ''.join(f'<p class="year"><span>{y}</span><span class="n">{len(items)}</span></p><div class="rows">{"".join(row(a) for a in items)}</div>' for y, items in years.items())
     body = f'''
-<section class="page-head"><div class="band-narrow"><p class="kicker">Blog</p><h1>What Toca has been up to.</h1><p class="support">Announcements, events, partner news and writing. Customer stories live <a class="tlink" href="../index.html">on their own page</a>.</p></div></section>
+<section class="page-head"><div class="band-narrow"><p class="kicker">Blog</p><h1>What Toca has been up to.</h1><p class="support">Announcements, events, partner news and writing. Customer stories live <a class="tlink" href="{PATH}">on their own page</a>.</p></div></section>
 <section class="band news"><div class="band-narrow">
-<div class="lead-wrap">{card(lead, lead=True, R=R)}</div>
-<div class="grid">{''.join(card(a, R=R) for a in recent)}</div>
+<div class="lead-wrap">{card(lead, lead=True)}</div>
+<div class="grid">{''.join(card(a) for a in recent)}</div>
 </div></section>
 <section class="band archive"><div class="band-narrow">
 <div class="strip-head"><h2>Everything else</h2><span class="count-static">{len(older)} more, back to {nice(arts[-1]["date"], True)}</span></div>
@@ -476,7 +487,7 @@ def write_blog(all_arts):
 </div></section>
 <script>{INDEX_JS}</script>'''
     (SITE / 'blog').mkdir(exist_ok=True)
-    (SITE / 'blog' / 'index.html').write_text(chrome('Blog | Toca news', 'Announcements, events, partner news and writing from Toca.', body, BASE + '/blog/', depth=1, current='blog'))
+    (SITE / 'blog' / 'index.html').write_text(chrome('Blog | Toca news', 'Announcements, events, partner news and writing from Toca.', body, BASE + '/blog/', current='blog'))
 
 # ---------------------------------------------------------------- articles
 def write_article(a):
@@ -484,30 +495,31 @@ def write_article(a):
     if not a['body'] and not a['video']: return
     d = SITE / 'articles' / a['slug']; d.mkdir(parents=True, exist_ok=True)
     show_hero = a['card'] and a.get('image') not in a['body_images'] and not a['video']
-    hero = f'<img class="hero" src="../../img/cards/{pathlib.Path(a["image"]).stem}.webp" alt="">' if show_hero else ''
+    hero = f'<img class="hero" src="{PATH}img/cards/{pathlib.Path(a["image"]).stem}.webp" alt="">' if show_hero else ''
     film = ''
     if a['video']:
         start = f'&start={int(a["video_start"])}' if a.get('video_start') else ''
         film = f'<div class="film-wrap"><iframe src="https://www.youtube-nocookie.com/embed/{esc(a["video"])}?rel=0{start}" title="{esc(a["title"])}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>'
     draft = '<p class="draft">Draft. Built to preview; not in the index or any feed.</p>' if a.get('draft') else ''
-    html_body = a['html'].replace(f'src="{BASE}/img/full/', 'src="../../img/full/')
+    # body images, and links to other stories here written as https://news.toca.io/articles/...: attribute values only
+    html_body = re.sub(r'="(https://[^"]*)"', lambda m: '="' + rel(m.group(1)) + '"', a['html'])
     readon = f'<p class="readon"><a class="tlink" href="{esc(a["external"])}" target="_blank" rel="noopener">{esc(a.get("link_text") or "Read the full story")} on {esc(a["source"])} &nearr;</a></p>' if a.get('external') else ''
     kick = f'{esc(a["customer"])} <span class="sep">·</span> ' if a['customer'] else ''
     where = f'Published on news.toca.io, {nice(a["date"], True)}' if not a.get('external') else f'Story dated {nice(a["date"], True)}'
-    back = ('index.html', 'Customer stories') if a['customer_story'] else ('blog/index.html', 'Blog')
+    back = ('', 'Customer stories') if a['customer_story'] else ('blog/', 'Blog')
     body = f'''
 <article class="article"><div class="band-narrow measure">
 <p class="kicker">{kick}{esc(a["tag"])} <span class="sep">·</span> <time datetime="{a["date"]}">{nice(a["date"], True)}</time></p>
 <h1>{esc(a["title"])}</h1><p class="support lead">{esc(a["subtitle"])}</p>{draft}{film}{hero}
 <div class="prose">{html_body}</div>{readon}
 <p class="source">{where}. Shown on {", ".join(SITES[s] for s in a["sites"])}.</p>
-<p><a class="tlink" href="../../{back[0]}">&larr; {back[1]}</a></p>
+<p><a class="tlink" href="{PATH}{back[0]}">&larr; {back[1]}</a></p>
 </div></article>'''
-    (d / 'index.html').write_text(chrome(a['title'] + ' | Toca news', a['subtitle'], body, a['url'], depth=2, article=a))
+    (d / 'index.html').write_text(chrome(a['title'] + ' | Toca news', a['subtitle'], body, a['url'], article=a))
 
 def write_404():
-    body = '''
-<section class="page-head"><div class="band-narrow"><p class="kicker">404</p><h1>Not here.</h1><p class="support">That story may have moved to Medium, or the link is old. <a class="tlink" href="/">All news</a>.</p></div></section>'''
+    body = f'''
+<section class="page-head"><div class="band-narrow"><p class="kicker">404</p><h1>Not here.</h1><p class="support">That story may have moved to Medium, or the link is old. <a class="tlink" href="{PATH}">All news</a>.</p></div></section>'''
     (SITE / '404.html').write_text(chrome('Not found | Toca news', 'Page not found.', body, BASE + '/404.html'))
 
 # ---------------------------------------------------------------- main
@@ -556,6 +568,10 @@ def main():
     for p in SITE.rglob('*'):
         if p.suffix in ('.html', '.json', '.js', '.xml', '.txt') and '\u2014' in p.read_text():
             raise SystemExit(f'em dash in {p.relative_to(SITE)}')
+    # every link and asset the pages use is root-absolute under PATH, a full URL, a fragment or mailto: (see PATH)
+    for p in SITE.rglob('*.html'):
+        bad = [v for v in re.findall(r'\s(?:href|src|poster|action)="([^"]*)"', p.read_text()) if not v.startswith((PATH, 'https://', 'http://', '#', 'mailto:'))]
+        if bad: raise SystemExit(f'link not under {PATH} in {p.relative_to(SITE)}: {", ".join(bad[:3])}')
     n_local = sum(1 for a in arts if not a.get('external') or a['video']); n_draft = len(everything) - len(arts); n_cust = sum(1 for a in arts if a['customer_story'])
     print(f'built {len(arts)} stories ({n_cust} customer, {n_local} with their own page, {n_draft} draft); feed.json has {min(len(arts), FEED_MAX)}; per site: ' + ', '.join(f'{s} {sum(1 for a in arts if s in a["sites"])}' for s in SITES))
 

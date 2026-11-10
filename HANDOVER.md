@@ -25,7 +25,7 @@ Also static, also generated. `build.py` reads `content/articles/*.md` (front mat
 
 `news-cards.js` is the drop-in for toca.io and toca.health: `<div data-news-cards data-site="health" data-count="3"></div>`. It applies three rules and the next session must keep them: every string via `textContent`, never `innerHTML`; only expected fields, every URL checked against the allow-list (`news.toca.io`, `medium.com/@toca.io`, `legalgeek.co`) or the item is skipped; any failure hides the container. It is **not yet wired into toca.io** (see next steps).
 
-Build note: the shared `css/site.css` loads fonts from `url(../assets/fonts/…)`, so `build.py` copies `fonts/*.woff2` to `site/assets/fonts/` (fixed 21 Sept; the index was unstyled before). All paths in the built pages are relative (the generator passes a depth to `chrome()`), so `site/index.html` and the article pages open styled straight from `file://` as well as from the site root.
+Build note: the shared `css/site.css` loads fonts from `url(../assets/fonts/…)`, so `build.py` copies `fonts/*.woff2` to `site/assets/fonts/` (fixed 21 Sept; the index was unstyled before). All paths in the built pages were relative then (the generator passed a depth to `chrome()`); since 10 Nov 2026 they are root-absolute under `/news/` (see the end of this file), and `python3 serve.py` previews them.
 
 Deploy target: not created yet. A Netlify site for `news.toca.io`, publish directory `site/`, build command `python3 build.py` (Python with `markdown python-frontmatter Pillow`), or build locally and drag `site/` in.
 
@@ -51,7 +51,7 @@ Open items, in priority order:
 
 ## How to verify things here
 
-Playwright with Chromium is available in the sandbox (`from playwright.sync_api import sync_playwright`). Open pages with `file:///…/index.html`; the site uses `scroll-behavior: smooth`, so scroll with `window.scrollTo({top, behavior:'instant'})` before measuring. The news site's built pages open styled from `file://` too. Check `pg.on('pageerror')` for JS errors on every page after a change. `node -e "new Function(require('fs').readFileSync('js/x.js','utf8'))"` parses a script quickly.
+Playwright with Chromium is available in the sandbox (`from playwright.sync_api import sync_playwright`). Open pages with `file:///…/index.html`; the site uses `scroll-behavior: smooth`, so scroll with `window.scrollTo({top, behavior:'instant'})` before measuring. The news site's built pages need `python3 serve.py` (http://localhost:8002/news/) since 10 Nov 2026. Check `pg.on('pageerror')` for JS errors on every page after a change. `node -e "new Function(require('fs').readFileSync('js/x.js','utf8'))"` parses a script quickly.
 
 ## Things not to do
 
@@ -88,3 +88,26 @@ Later still, 21 Sept: Mat asked for the JSON and architecture to come off the pa
 Knowledge Hub resolved: it is Toca Vault at vault.toca.io, kept under that name. It sits in the family bar as a fifth site ("Docs and training") and the nav item and its [link] placeholder are gone.
 
 Footer is now toca.io\x27s exactly (display line, link row, meta row with wordmark and sister sites, company line), using site.css\x27s own .foot rules; news.css only aligns its left edge to the header. Wordmark and mark follow the dark tokens on the customer page.
+
+## 10 Nov 2026: served at www.toca.io/news/
+
+Mat decided the blog lives under www.toca.io/news/, so that what it earns in search builds www.toca.io's standing; long-form comparison articles ("Toca vs X", "X alternatives") follow there. toca.io's half is in toca-io-rebuild (its HANDOVER.md open item 20): `_redirects` proxies `/news/*` and `/news` to `https://tocanews.netlify.app` with status 200, every toca.io link says `/news/...`, its vendored `js/news-cards.js` and Ami turn the feed's story links into `/news/...`, and `/blog` and `/article-sign-up` 301 to `/news/...`.
+
+Done here:
+- Every link and asset the pages use is root-absolute under `/news/` (`PATH` in `build.py`): the stylesheets (site.css's `url(../assets/fonts/…)` then resolves to `/news/assets/fonts/`), the mark, card and logo images, body images, article links, the sub-nav, the blog and back links, the 404's "All news". Links inside a story's Markdown to another story here (`https://news.toca.io/articles/...`) become `/news/articles/...` on the page, so a reader stays on whichever host they came in on; the feeds' `content_html` keeps them absolute. Fragment links (`#tag=`, `#sector=`, `#site=`, `#main`) stay as they are: they resolve against the page itself, slash or no slash. `main()` refuses to build if any other `href`, `src`, `poster` or `action` gets in.
+- `netlify.toml` rewrites `/news/*` to `/:splat` and `/news` to `/` (200), so the same links work at news.toca.io. The old `/feed` to `/feed/` 301 is gone: that page was removed on 21 Sept, and behind the proxy a root-relative target sends the browser to www.toca.io/feed/.
+- The nav's and footer's News link is `https://www.toca.io/news/`, as on toca.io. Customer stories and Blog in the sub-nav are `/news/` and `/news/blog/`.
+- `FEEDS` (new, `https://news.toca.io`) is where the feeds, card images, `news-cards.js` and `llms.txt` are fetched from: the feeds' `feed_url` and `next_url`, the item `image` URLs and the pages' `rel="alternate"` link use it. It stays when `BASE` moves, because toca.io's cards read the feeds there with CORS (`_headers` is unchanged).
+- `BASE` is unchanged: canonicals, Open Graph, JSON-LD, the feeds' item URLs, `sitemap.xml` and `robots.txt` still say https://news.toca.io. The built feeds, sitemap, robots.txt and llms.txt are byte-identical to before.
+- `python3 serve.py` previews `site/` at http://localhost:8002/news/. It serves a folder without adding the trailing slash, as the proxy does, so a relative link would show up broken there too. The pages no longer open styled from `file://`.
+
+Verified locally (serve.py, Chromium): `/news`, `/news/blog`, `/news/blog#tag=Events` (18 of 58 archive rows), an article with four body images and links to another story, a film page and the 404, each without the trailing slash: both stylesheets and all seven faces load, no failed requests, no relative links in any built page.
+
+**After the first deploy** (needs toca.io's proxy deployed too): check that https://tocaio.netlify.app/news and https://tocaio.netlify.app/news/ both load styled, with an article under /news/articles/. Then check Netlify's own slash redirects through the proxy. news.toca.io answers `/blog` and `/articles/<slug>` without the slash with a 301 to `/blog/` and `/articles/<slug>/` (Netlify's doing, root-relative, not a rule here). If the proxy hands that 301 to the browser, www.toca.io/news/articles/toca-10 lands on www.toca.io/articles/toca-10/, which toca.io does not have (`/news/blog` happens to land, because toca.io 301s `/blog/*` to `/news/blog/`). Every link we write has the slash, so only typed or trimmed URLs hit it. The fix is on toca.io: `/articles/*  /news/articles/:splat  301` in its `_redirects`, beside the `/blog` rules.
+
+**Go-live, with the DNS move and not before** (www.toca.io is still the old site until then):
+1. `BASE = 'https://www.toca.io/news'` in `build.py`, one line. That moves canonicals, `og:url`, `og:image`, the JSON-LD, the feeds' item `url`, `id` and `_toca.page` and their `home_page_url`, `sitemap.xml`, and `robots.txt`'s Sitemap line to www.toca.io/news. `FEEDS` stays: the feeds, card images and CORS stay at news.toca.io (dry run on 10 Nov: `feed_url` and item images stayed on news.toca.io, everything else moved, pages still only link under `/news/`). Item `id` changes with `url`, so a feed reader may show the stories once more as new.
+2. toca.io's `robots.txt` gains `Sitemap: https://www.toca.io/news/sitemap.xml` (toca-io-rebuild's `gen.py` writes it).
+3. `news-cards.js` here: add `https://www.toca.io/news/` to `ALLOWED` (and to the same-tab test on line 29) in the same push, or the hosted renderer skips every native story. toca.io's vendored copy already takes both addresses.
+4. `FEED.md` (served as `llms.txt`): the item `url` values become www.toca.io/news/...; the "See all" links become `https://www.toca.io/news/` and `https://www.toca.io/news/blog/`. The endpoints stay on news.toca.io.
+5. Optional, later: 301 news.toca.io's pages to www.toca.io/news/ by host, keeping `/feed*`, `/archive.json`, `/img/cards/*`, `/news-cards.js` and `/llms.txt` served at news.toca.io. A host rule here would also catch the proxy's requests (they arrive as tocanews.netlify.app), so match the news.toca.io host only.

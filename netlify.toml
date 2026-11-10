@@ -5,8 +5,16 @@
 [build.environment]
   PYTHON_VERSION = "3.11"
 
-# /feed is the page for integrators, /feed.json is the data; be forgiving about the slash
+# The pages are served at www.toca.io/news/ through toca.io's proxy (Mat, 10 Nov 2026), so every link on them is
+# /news/... (build.py PATH). These make the same links work when the site is visited here at news.toca.io.
+# Never add a redirect here with a root-relative target such as "/feed/": behind the proxy the browser follows it to
+# www.toca.io/feed/. (The old /feed to /feed/ redirect went on 10 Nov: the /feed/ page was removed on 21 Sept.)
 [[redirects]]
-  from = "/feed"
-  to = "/feed/"
-  status = 301
+  from = "/news/*"
+  to = "/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/news"
+  to = "/"
+  status = 200

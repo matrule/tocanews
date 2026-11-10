@@ -13,6 +13,7 @@ Static site for Toca's customer stories (home, on navy) and blog (`/blog/`, on p
 - One pink thing per view. Pink is the only colour; everything else is a neutral (or a shade of the navy on the customer page).
 - Headings sentence case. British spelling. Do not describe anything as "retro".
 - The strip, nav and footer are toca.io's (Mat, 10 Nov 2026): `chrome()` in `build.py` mirrors toca-io-rebuild's `gen.py` `chrome()` and `FOOT` with every link absolute (`IO`), the "chrome" block in `css/news.css` mirrors its `css/io.css`, and `NAV_JS` is its phone menu and its header that slides away while you read down and comes back on any scroll up. News is the current nav item; Customer stories and Blog sit in the sub-nav below. When toca.io's nav or footer changes, change this too.
+- The pages are served at www.toca.io/news/ (Mat, 10 Nov 2026): toca.io's `_redirects` proxies `/news/*` to `tocanews.netlify.app`, so what the blog earns in search builds www.toca.io. Every link and asset the pages use is root-absolute under `/news/` (`PATH` in `build.py`); `netlify.toml` rewrites `/news/*` to `/:splat` so the same links work at news.toca.io. Never write a relative link (Netlify cannot add the slash to www.toca.io/news, so it would resolve against www.toca.io); the build refuses one. Never add a redirect with a root-relative target: behind the proxy the browser follows it to www.toca.io. `BASE` (canonicals, sitemap, the feeds' item URLs) stays `https://news.toca.io` until the go-live DNS move; `FEEDS` (feeds, card images, CORS) stays there for good. HANDOVER.md, 10 Nov.
 - `news-cards.js` has three rules that must survive any edit: every string via `textContent`; only expected fields, every URL checked against the allow-list; any failure hides the container.
 - Figures on customer tiles come only from Toca's own copy (a story's subtitle, toca.io, the brand deck). Do not invent or round.
 - Do not add a CMS, a backend, dark-mode toggles, analytics or ads.
@@ -25,7 +26,7 @@ One file in `content/articles/`, named `YYYY-MM-DD-slug.md`. The schema is the f
 - From a Medium MHTML: parse with `email`, the article HTML is the `text/html` part, images are the `image/*` parts; place each photo with the section it illustrates; missing dashes in the export are usually em dashes, replace with colons.
 
 ## Verify before claiming it works
-Playwright with Chromium is available: open `site/index.html`, `site/blog/index.html` and any new article via `file://`, check `pageerror`, check no horizontal overflow at 1400 and 390 wide, check hidden elements are hidden by `offsetParent === null` (not by attribute). Screenshot anything visual and look at it. `node -e "new Function(require('fs').readFileSync('js/x.js','utf8'))"` parses a script quickly.
+The pages no longer open styled from `file://`. Run `python3 serve.py` and open http://localhost:8002/news/ (it serves `site/` under `/news/` and, like the proxy, serves a folder without adding the slash). Check `/news/`, `/news/blog/` and any new article, check `pageerror`, check no horizontal overflow at 1400 and 390 wide, check hidden elements are hidden by `offsetParent === null` (not by attribute). Screenshot anything visual and look at it. `node -e "new Function(require('fs').readFileSync('js/x.js','utf8'))"` parses a script quickly.
 
 ## Deploy
-`git add . && git commit -m "Add: <title>" && git push`. Netlify builds. Nothing else.
+`git add . && git commit -m "Add: <title>" && git push`. Netlify builds. Nothing else. A push changes news.toca.io and www.toca.io/news/ at once.
