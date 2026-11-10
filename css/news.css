@@ -14,6 +14,11 @@
 .family a:hover, .family a[aria-current] { color: var(--color-ink); }
 .nav { display: block; }
 .nav > .band-narrow { display: flex; justify-content: space-between; align-items: center; gap: var(--space-lg); }
+/* the header comes back when you scroll up, as on toca.io (NAV_JS): the nav row is sticky and slides away while you read down */
+body > .nav { position: sticky; top: 0; background: var(--color-paper); transition: transform .28s var(--ease-out), box-shadow .28s ease; }
+body > .nav.nav--hidden { transform: translateY(-100%); }
+html.nav-stuck body > .nav:not(.nav--hidden) { box-shadow: 0 12px 30px -20px rgba(2,4,12,.45); }
+@media (prefers-reduced-motion: reduce) { body > .nav { transition: none; } }
 .nav-links .has-menu { position: relative; display: flex; align-items: center; }
 .nav-links .has-menu > a::after { content: ""; display: inline-block; width: .4em; height: .4em; margin-left: .4em; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-.2em) rotate(45deg); }
 .menu { position: absolute; top: 100%; left: -1rem; min-width: 15rem; margin: 0; padding: .5rem 0; list-style: none; background: var(--color-paper-3); border: var(--rule-hair) solid var(--color-rule); border-radius: 10px; box-shadow: 0 12px 30px -12px rgba(43,33,23,.25); opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 120ms, transform 120ms, visibility 0s 120ms; }

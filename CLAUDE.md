@@ -12,7 +12,7 @@ Static site for Toca's customer stories (home, on navy) and blog (`/blog/`, on p
 - No square brackets in copy unless the text is undecided: that is the brand's convention for placeholder copy and it shows on the site.
 - One pink thing per view. Pink is the only colour; everything else is a neutral (or a shade of the navy on the customer page).
 - Headings sentence case. British spelling. Do not describe anything as "retro".
-- The strip, nav and footer are toca.io's (Mat, 10 Nov 2026): `chrome()` in `build.py` mirrors toca-io-rebuild's `gen.py` `chrome()` and `FOOT` with every link absolute (`IO`), the "chrome" block in `css/news.css` mirrors its `css/io.css`, and `NAV_JS` is its phone menu. News is the current nav item; Customer stories and Blog sit in the sub-nav below. When toca.io's nav or footer changes, change this too.
+- The strip, nav and footer are toca.io's (Mat, 10 Nov 2026): `chrome()` in `build.py` mirrors toca-io-rebuild's `gen.py` `chrome()` and `FOOT` with every link absolute (`IO`), the "chrome" block in `css/news.css` mirrors its `css/io.css`, and `NAV_JS` is its phone menu and its header that slides away while you read down and comes back on any scroll up. News is the current nav item; Customer stories and Blog sit in the sub-nav below. When toca.io's nav or footer changes, change this too.
 - `news-cards.js` has three rules that must survive any edit: every string via `textContent`; only expected fields, every URL checked against the allow-list; any failure hides the container.
 - Figures on customer tiles come only from Toca's own copy (a story's subtitle, toca.io, the brand deck). Do not invent or round.
 - Do not add a CMS, a backend, dark-mode toggles, analytics or ads.

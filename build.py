@@ -59,6 +59,21 @@ NAV_JS = '''(function () {
   toggle.addEventListener('click', function () { var open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); });
   document.addEventListener('click', function (e) { if (nav.classList.contains('open') && !nav.contains(e.target)) shut(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nav.classList.contains('open')) shut(true); });
+  /* the header comes back when you scroll up, as on toca.io (its js/site.js): sticky, hidden while reading down */
+  var root = document.documentElement, lastY = window.scrollY, NUDGE = 6;
+  function start() { var p = nav.previousElementSibling; return p ? p.offsetTop + p.offsetHeight : 0; }
+  function apply(y) {
+    var stuck = y > start(), past = y > start() + nav.offsetHeight;
+    if (!stuck || nav.classList.contains('open') || nav.contains(document.activeElement)) nav.classList.remove('nav--hidden');
+    else if (past && y > lastY + NUDGE) nav.classList.add('nav--hidden');
+    else if (y < lastY - NUDGE) nav.classList.remove('nav--hidden');
+    root.classList.toggle('nav-stuck', stuck);
+    if (Math.abs(y - lastY) > NUDGE || !stuck) lastY = y;
+  }
+  if (window.scrollY > start() + nav.offsetHeight) nav.classList.add('nav--hidden');
+  apply(window.scrollY);
+  addEventListener('scroll', function () { apply(window.scrollY); }, { passive: true });
+  nav.addEventListener('focusin', function () { nav.classList.remove('nav--hidden'); apply(window.scrollY); });
 })();'''
 BLOG_RECENT = 6
 SOURCES = {'medium.com': 'Medium', 'legalgeek.co': 'Legal Geek', 'youtube.com': 'YouTube', 'youtu.be': 'YouTube', 'linkedin.com': 'LinkedIn'}
