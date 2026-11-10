@@ -47,7 +47,19 @@ CARD_W = 640
 FULL_W = 1600          # images inside an article body
 FEED_MAX = 50
 SITES = {'io': 'toca.io', 'health': 'toca.health', 'legal': 'toca.legal'}
-VAULT = 'https://vault.toca.io'   # Toca Vault: docs and training, a fifth site in the family bar
+IO = 'https://www.toca.io'   # toca.io, where the shared nav and footer point: the go-live address (toca-io-rebuild gen.py SITE)
+FONTS = '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@600&display=swap">'   # toca.io's footer line face
+# The strip, nav and footer are toca.io's (Mat, 10 Nov 2026: "acts and looks the toca.io one"): the markup mirrors
+# toca-io-rebuild gen.py chrome() and FOOT with every link absolute, the rules mirror its css/io.css (in css/news.css,
+# "chrome"), and the phone menu is its js/site.js nav toggle. Change both sites together.
+NAV_JS = '''(function () {
+  var nav = document.querySelector('.nav'), toggle = document.querySelector('.nav-toggle');
+  if (!nav || !toggle) return;
+  function shut(focus) { nav.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); if (focus) toggle.focus(); }
+  toggle.addEventListener('click', function () { var open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); });
+  document.addEventListener('click', function (e) { if (nav.classList.contains('open') && !nav.contains(e.target)) shut(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nav.classList.contains('open')) shut(true); });
+})();'''
 BLOG_RECENT = 6
 SOURCES = {'medium.com': 'Medium', 'legalgeek.co': 'Legal Geek', 'youtube.com': 'YouTube', 'youtu.be': 'YouTube', 'linkedin.com': 'LinkedIn'}
 BUILT = datetime.date.today().isoformat()
@@ -187,34 +199,92 @@ def chrome(title, desc, body, canonical, depth=0, current='', dark=False):
 <link rel="canonical" href="{canonical}">
 <link rel="alternate" type="application/feed+json" title="Toca news" href="{BASE}/feed.json">
 <link rel="icon" href="{R}toca-mark.svg" type="image/svg+xml">
+{FONTS}
 <link rel="stylesheet" href="{R}css/site.css"><link rel="stylesheet" href="{R}css/news.css">
 </head>
 <body{' class="dark"' if dark else ''}>
 <a class="skip" href="#main">Skip to content</a>
-<div class="family"><nav class="family-in" aria-label="Toca sites"><a class="fsite" href="https://toca.io"><b>toca<span class="dim">.io</span></b><span class="what">The platform</span></a><a class="fsite" href="https://toca.health"><b>toca<span class="dim">.health</span></b><span class="what">Healthcare</span></a><a class="fsite" href="https://toca.legal"><b>toca<span class="dim">.legal</span></b><span class="what">Law firms</span></a><a class="fsite" href="{VAULT}"><b>vault<span class="dim">.toca.io</span></b><span class="what">Docs and training</span></a></nav></div>
-<header class="hdr"><div class="hdr-in"><a class="brand" href="{R}index.html"><img src="{R}toca-mark.svg" alt="" width="28" height="28"><span>toca.io</span> <span class="brand-sub">news</span></a><nav class="hdr-nav" aria-label="Site"><a href="{R}index.html"{cur('customers')}>Customer stories</a><a href="{R}blog/index.html"{cur('blog')}>Blog</a></nav></div></header>
+<div class="family">
+  <div class="band-narrow">
+  <ul>
+    <li><a href="{IO}/">toca.io</a></li>
+    <li><a href="https://toca.health" target="_blank" rel="noopener">toca.health</a></li>
+  </ul>
+  </div>
+</div>
+<header class="nav nav--paper">
+  <div class="band-narrow">
+  <a class="wordmark" href="{IO}/"><img class="mark" src="{R}toca-mark.svg" alt="" width="26" height="26"><span>toca<span class="tld">.io</span></span></a>
+  <nav class="nav-links" id="navlinks" aria-label="Site">
+    <a href="{IO}/">Home</a>
+    <div class="has-menu">
+      <a href="{IO}/platform.html">Platform</a>
+      <ul class="menu">
+        <li><a href="{IO}/platform.html">Overview<small>three products, two layers</small></a></li>
+        <li class="sep"></li>
+        <li><a href="{IO}/platform.html#apps">Apps and Portals<small>product</small></a></li>
+        <li><a href="{IO}/platform.html#automation">Automation<small>product</small></a></li>
+        <li><a href="{IO}/spectral.html">Spectral<small>product</small></a></li>
+        <li class="sep"></li>
+        <li><a href="{IO}/platform.html#integration">Integration<small>enabling layer</small></a></li>
+        <li><a href="{IO}/platform.html#tdk">Toca Development Kit<small>enabling layer</small></a></li>
+        <li class="sep"></li>
+        <li><a href="{IO}/pricing.html">Pricing</a></li>
+      </ul>
+    </div>
+    <a href="{IO}/spectral.html">Spectral</a>
+    <div class="has-menu">
+      <a href="{IO}/company.html#customers">Sectors</a>
+      <ul class="menu">
+        <li><a href="{IO}/legal/">Law firms<small>automation and AI for volume law</small></a></li>
+        <li><a href="https://toca.health" target="_blank" rel="noopener">Healthcare <span aria-hidden="true">&#8599;</span><small>eTriage, clinical letters and coding</small></a></li>
+        <li><a href="{IO}/company.html#customers">More sectors<small>payroll, accounting, charities and immigration</small></a></li>
+      </ul>
+    </div>
+    <a href="{IO}/partners.html">Partners</a>
+    <a href="{IO}/company.html">Company</a>
+    <a href="{R}index.html" aria-current="page">News</a>
+  </nav>
+  <div class="nav-cta">
+    <a class="chip chip--solid" href="{IO}/contact.html">Talk to us</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navlinks"><span class="burger">Menu</span><span class="x">Close</span></button>
+  </div>
+  </div>
+</header>
+<nav class="subnav" aria-label="News"><div class="band-narrow"><span class="lbl">News</span><a href="{R}index.html"{cur('customers')}>Customer stories</a><a href="{R}blog/index.html"{cur('blog')}>Blog</a></div></nav>
 <main id="main">{body}</main>
 <footer class="foot">
+  <div class="band-narrow">
   <p class="foot-line">The platform the platforms are built on.</p>
   <ul class="foot-links">
-    <li><a href="{R}index.html">Customer stories</a></li>
-    <li><a href="{R}blog/index.html">Blog</a></li>
-    <li><a href="https://toca.io/platform.html">Platform</a></li>
-    <li><a href="https://toca.io/partners.html">Partners</a></li>
-    <li><a href="https://toca.io/company.html">Company</a></li>
-    <li><a href="https://toca.io/pricing.html">Pricing</a></li>
-    <li><a href="{VAULT}">Vault</a></li>
-    <li><a href="https://toca.io/contact.html">Contact</a></li>
+    <li><a href="{IO}/platform.html">Platform</a></li>
+    <li><a href="{IO}/spectral.html">Spectral</a></li>
+    <li><a href="{IO}/legal/">Legal</a></li>
+    <li><a href="{IO}/partners.html">Partners</a></li>
+    <li><a href="{IO}/company.html">Company</a></li>
+    <li><a href="{R}index.html">News</a></li>
+    <li><a href="{IO}/pricing.html">Pricing</a></li>
+    <li><a href="https://docs.toca.io">Documentation</a></li>
+    <li><a href="{IO}/contact.html">Contact</a></li>
   </ul>
   <div class="foot-meta">
     <span class="wordmark"><img class="mark" src="{R}toca-mark.svg" alt="" width="26" height="26"><span>toca<span class="tld">.io</span></span></span>
     <a href="https://toca.health">toca.health</a>
-    <a href="https://toca.legal">toca.legal</a>
-    <a href="{R}index.html">news.toca.io</a>
     <span>&copy; 2026 Toca</span>
   </div>
-  <p class="foot-company">TocaLabs Limited, trading as Toca. Registered in England &amp; Wales, company no. 11396834. VAT GB&nbsp;303504844. Reading, United Kingdom. Toca&reg;, Toca.Health&reg;, Tocabot&reg; and Tocalabs&reg; are registered trademarks of Tocalabs Ltd. <a href="mailto:sales@toca.io">sales@toca.io</a></p>
+  <ul class="foot-links foot-links--small">
+    <li><a href="{IO}/terms.html">Terms and policies</a></li>
+    <li><a href="{IO}/privacy-policy.html">Privacy policy</a></li>
+    <li><a href="{IO}/cloud-terms.html">Cloud terms</a></li>
+    <li><a href="{IO}/carbon-reduction.html">Carbon reduction plan</a></li>
+    <li><a href="https://www.linkedin.com/company/tocaio" rel="noopener">LinkedIn</a></li>
+    <li><a href="https://www.youtube.com/@tocabot" rel="noopener">YouTube</a></li>
+    <li><a href="https://github.com/tocalabs" rel="noopener">GitHub</a></li>
+  </ul>
+  <p class="foot-company">Tocalabs Limited, trading as Toca. Registered in England &amp; Wales, company no. 11396834. Registered office 5th Floor, One New Change, London EC4M 9AF. VAT GB&nbsp;303504844. Offices in Reading. Toca&reg;, Toca.Health&reg;, Tocabot&reg; and Tocalabs&reg; are registered trademarks of Tocalabs Ltd. <a href="mailto:sales@toca.io">sales@toca.io</a></p>
+  </div>
 </footer>
+<script>{NAV_JS}</script>
 </body></html>'''
 
 # ---------------------------------------------------------------- index
