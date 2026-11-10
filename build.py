@@ -286,8 +286,6 @@ def chrome(title, desc, body, canonical, depth=0, current='', dark=False, articl
         <li class="sep"></li>
         <li><a href="{IO}/platform.html#integration">Integration<small>enabling layer</small></a></li>
         <li><a href="{IO}/platform.html#tdk">Toca Development Kit<small>enabling layer</small></a></li>
-        <li class="sep"></li>
-        <li><a href="{IO}/pricing.html">Pricing</a></li>
       </ul>
     </div>
     <a href="{IO}/spectral.html">Spectral</a>
@@ -321,7 +319,6 @@ def chrome(title, desc, body, canonical, depth=0, current='', dark=False, articl
     <li><a href="{IO}/partners.html">Partners</a></li>
     <li><a href="{IO}/company.html">Company</a></li>
     <li><a href="{R}index.html">News</a></li>
-    <li><a href="{IO}/pricing.html">Pricing</a></li>
     <li><a href="https://docs.toca.io">Documentation</a></li>
     <li><a href="{IO}/contact.html">Contact</a></li>
   </ul>
