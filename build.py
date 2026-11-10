@@ -307,7 +307,7 @@ def chrome(title, desc, body, canonical, current='', dark=False, article=None):
     </div>
     <a href="{IO}/partners.html">Partners</a>
     <a href="{IO}/company.html">Company</a>
-    <a href="{IO}/news/" aria-current="page">News</a>
+    <a href="{R}" aria-current="page">News</a>
   </nav>
   <div class="nav-cta">
     <a class="chip chip--solid" href="{IO}/contact.html">Talk to us</a>
@@ -326,7 +326,7 @@ def chrome(title, desc, body, canonical, current='', dark=False, article=None):
     <li><a href="{IO}/legal/">Legal</a></li>
     <li><a href="{IO}/partners.html">Partners</a></li>
     <li><a href="{IO}/company.html">Company</a></li>
-    <li><a href="{IO}/news/">News</a></li>
+    <li><a href="{R}">News</a></li>
     <li><a href="https://docs.toca.io">Documentation</a></li>
     <li><a href="{IO}/contact.html">Contact</a></li>
   </ul>
