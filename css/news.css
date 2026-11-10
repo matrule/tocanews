@@ -81,6 +81,7 @@ a.fsite:hover b, a.fsite:hover .dim { color: var(--color-ink); }
 .prose pre { background: var(--color-paper-3); border: var(--rule-hair) solid var(--color-rule); border-radius: 10px; padding: 1rem 1.2rem; overflow-x: auto; }
 .prose pre code { background: none; padding: 0; }
 .prose img { max-width: 100%; border-radius: 10px; border: var(--rule-hair) solid var(--color-rule); }
+.prose img[src$=".svg"] { display: block; width: 100%; max-width: 22rem; background: var(--color-paper-3); }   /* a drawing sits as a small plate, not at full measure */
 .prose blockquote { margin: var(--space-lg) 0; padding-left: 1rem; border-left: 1.5px solid var(--color-accent); color: var(--color-ink); }
 .article .source { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-muted); margin-top: var(--space-xl); }
 

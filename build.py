@@ -29,7 +29,7 @@ OUTPUTS
   archive.json            everything, all sites
   news-cards.js           the drop-in renderer, served from here as well as vendored
   img/cards/*.webp        card thumbnails, CARD_W wide
-  img/full/*.webp         images inside native articles, FULL_W wide
+  img/full/*.webp         images inside native articles, FULL_W wide (a .gif or .svg is copied here unchanged)
   toca-mark.svg           the mark for the header, footer and favicon (source: img/toca-mark.svg)
   llms.txt                FEED.md served as plain text: the integration how-to, unlisted
   404.html, robots.txt, sitemap.xml, _headers
@@ -73,9 +73,14 @@ def card_image(name):
     return f'{BASE}/img/cards/{out.name}', im.width, im.height
 
 def full_image(name):
-    """Resize once for an article body (WebP, at most FULL_W wide). Returns the site-relative path or None."""
+    """Resize once for an article body (WebP, at most FULL_W wide). Returns the site-relative path or None.
+    A GIF or an SVG is copied as it is: re-encoding would stop an animation and rasterise a drawing."""
     src = CONTENT / 'images' / name
     if not src.exists(): print('  missing image', name); return None
+    if src.suffix.lower() in ('.gif', '.svg'):
+        out = SITE / 'img/full' / src.name; out.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(src, out)
+        return f'img/full/{out.name}'
     out = SITE / 'img/full' / (pathlib.Path(name).stem + '.webp'); out.parent.mkdir(parents=True, exist_ok=True)
     im = Image.open(src).convert('RGB')
     if im.width > FULL_W: im = im.resize((FULL_W, round(im.height * FULL_W / im.width)), Image.LANCZOS)
@@ -103,6 +108,12 @@ def body_images(body):
         return f'![{alt}]({BASE}/{path})'
     return re.sub(r'!\[([^\]]*)\]\(([^)\s]+)\)', sub, body), used
 
+def lazy_images(h):
+    """Every body image after the first loads lazily: a story can carry several animations."""
+    seen = []
+    def sub(m): seen.append(1); return m.group(0) if len(seen) == 1 else '<img loading="lazy" '
+    return re.sub(r'<img ', sub, h)
+
 def load():
     arts = []
     for p in sorted((CONTENT / 'articles').glob('*.md')):
@@ -126,7 +137,7 @@ def load():
         a['body_images'] = []
         if a['body'] and not a.get('external'):
             a['body'], a['body_images'] = body_images(a['body'])
-            a['html'] = markdown.markdown(a['body'], extensions=['extra', 'smarty'])
+            a['html'] = lazy_images(markdown.markdown(a['body'], extensions=['extra', 'smarty']))
         else: a['html'] = ''
         arts.append(a)
     arts.sort(key=lambda a: a['date'], reverse=True)
