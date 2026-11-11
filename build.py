@@ -9,6 +9,9 @@ Front matter fields:
   title, subtitle, date (YYYY-MM-DD), tag, sites (["io"], ["health"], ["legal"] or any mix),
   image (file name in content/images), external (URL: the story lives elsewhere, the card links out),
   link_text (optional), draft: true (optional: built to preview, left out of the index and every feed).
+  author, author_role (optional: a person's byline; Article markup names them), updated (YYYY-MM-DD, optional: shown and
+  used as dateModified), reviewed_by (optional: "Name, role, firm", shown under the byline).
+  A native article whose body has a "## Questions" section of ### question / answer paragraphs also gets FAQPage markup.
   kind: customer          puts the story on the customer wall (the home page). With it:
     customer, sector      who and which sector filter ("Healthcare", "Law", "Finance", "Charity", ...)
     logo                  file name in content/images, single-colour ink mark (recoloured to paper for the dark page); the name is used until one exists
@@ -166,6 +169,7 @@ def load():
         fm = frontmatter.load(p)
         a = dict(fm.metadata); a['body'] = fm.content.strip(); a['slug'] = slug_of(p)
         a['date'] = str(a['date'])[:10]
+        if a.get('updated'): a['updated'] = str(a['updated'])[:10]
         a.setdefault('sites', ['io']); a.setdefault('tag', 'Blog'); a.setdefault('subtitle', '')
         a['customer_story'] = a.get('kind') == 'customer'
         for k in ('customer', 'sector', 'figure', 'figure_label', 'quote', 'quote_by', 'quote_role', 'video', 'logo'): a.setdefault(k, '')
@@ -244,14 +248,27 @@ def social_meta(title, desc, canonical, a=None):
     if a and not a.get('external'):
         ld = {'@context': 'https://schema.org', '@type': 'Article', 'headline': a['title'], 'description': a['subtitle'],
               'datePublished': a['date'], 'url': canonical, 'mainEntityOfPage': canonical, 'inLanguage': 'en-GB',
-              'articleSection': a['tag'], 'author': {'@type': 'Organization', 'name': 'Toca', 'url': IO},
+              'articleSection': a['tag'], 'author': ({'@type': 'Person', 'name': a['author'], **({'jobTitle': a['author_role']} if a.get('author_role') else {}), 'worksFor': {'@type': 'Organization', 'name': 'Toca', 'url': IO}} if a.get('author') else {'@type': 'Organization', 'name': 'Toca', 'url': IO}),
               'publisher': {'@type': 'Organization', 'name': 'Toca', 'url': IO}}
         if img: ld['image'] = img[0]
         if a['video']: ld['video'] = {'@type': 'VideoObject', 'name': a['title'], 'description': a['subtitle'] or a['title'],
                                       'embedUrl': f'https://www.youtube-nocookie.com/embed/{a["video"]}',
                                       'thumbnailUrl': f'https://i.ytimg.com/vi/{a["video"]}/hqdefault.jpg', 'uploadDate': a['date']}
+        if a.get('updated'): ld['dateModified'] = a['updated']
         out += '\n<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace('</', '<\\/') + '</script>'
+        faq = faqs_of(a['html'])
+        if faq:
+            fq = {'@context': 'https://schema.org', '@type': 'FAQPage', 'url': canonical,
+                  'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': ans}} for q, ans in faq]}
+            out += '\n<script type="application/ld+json">' + json.dumps(fq, ensure_ascii=False).replace('</', '<\\/') + '</script>'
     return out
+
+def faqs_of(h):
+    """the question and answer pairs under a "Questions" h2: each h3, then its paragraphs, as plain text"""
+    m = re.search(r'<h2[^>]*>Questions</h2>(.*?)(?=<h2|$)', h, re.S)
+    if not m: return []
+    txt = lambda x: re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', x))).strip()
+    return [(txt(q), txt(a)) for q, a in re.findall(r'<h3[^>]*>(.*?)</h3>(.*?)(?=<h3|$)', m.group(1), re.S)]
 
 def chrome(title, desc, body, canonical, current='', dark=False, article=None):
     R = PATH   # root-absolute: the pages are served at www.toca.io/news/ and news.toca.io alike
@@ -490,6 +507,15 @@ def write_blog(all_arts):
     (SITE / 'blog' / 'index.html').write_text(chrome('Blog | Toca news', 'Announcements, events, partner news and writing from Toca.', body, BASE + '/blog/', current='blog'))
 
 # ---------------------------------------------------------------- articles
+def byline(a):
+    """who wrote it, when it was last checked, and who reviewed it: what readers and AI assistants look for before citing"""
+    if not (a.get('author') or a.get('updated')): return ''
+    who = esc(a['author']) + (f', {esc(a["author_role"])}' if a.get('author_role') else '') if a.get('author') else ''
+    when = f'Last updated <time datetime="{a["updated"]}">{nice(a["updated"], True)}</time>' if a.get('updated') else ''
+    line = ' <span class="sep">·</span> '.join(x for x in (who and 'By ' + who, when) if x)
+    rev = f'<br>Reviewed by {esc(a["reviewed_by"])}' if a.get('reviewed_by') else ''
+    return f'<p class="byline">{line}{rev}</p>'
+
 def write_article(a):
     if a.get('external') and not a['video']: return
     if not a['body'] and not a['video']: return
@@ -510,7 +536,7 @@ def write_article(a):
     body = f'''
 <article class="article"><div class="band-narrow measure">
 <p class="kicker">{kick}{esc(a["tag"])} <span class="sep">·</span> <time datetime="{a["date"]}">{nice(a["date"], True)}</time></p>
-<h1>{esc(a["title"])}</h1><p class="support lead">{esc(a["subtitle"])}</p>{draft}{film}{hero}
+<h1>{esc(a["title"])}</h1><p class="support lead">{esc(a["subtitle"])}</p>{byline(a)}{draft}{film}{hero}
 <div class="prose">{html_body}</div>{readon}
 <p class="source">{where}. Shown on {", ".join(SITES[s] for s in a["sites"])}.</p>
 <p><a class="tlink" href="{PATH}{back[0]}">&larr; {back[1]}</a></p>
