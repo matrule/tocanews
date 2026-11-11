@@ -10,7 +10,7 @@ section: learn
 sites: ["io", "health", "legal"]
 image: ""
 ---
-**The short answer.** "UK-hosted" means one of three things, and they are not the same. A global platform running in its **UK cloud region** keeps your data in the UK but runs on the vendor's terms. A **UK vendor hosting in UK data centres** adds a UK company answering for it. A platform you can **run in your own tenancy or on your own servers** keeps everything inside your boundary. Power Platform offers the first; Netcall and Responsiv the second; n8n and Responsiv's self-hosted product the third; Toca offers all three, its UK cloud, your tenancy or your own servers, air-gapped if you need it. Decide which one your data actually needs, then check the vendor's G-Cloud listing or contract, not just its website. Toca is ours, so read this with that in mind.
+**The short answer.** "UK-hosted" means one of three things, and they are not the same. A global platform running in its **UK cloud region** keeps your data in the UK but runs on the vendor's terms. A **UK vendor hosting in UK data centres** adds a UK company answering for it. A platform you can **run in your own tenancy or on your own servers** keeps everything inside your boundary. Power Platform offers the first; Responsiv the second; n8n and Responsiv's self-hosted product the third; Toca, which is ours, offers all three: its UK cloud, your tenancy or your own servers, air-gapped if you need it. Decide which one your data actually needs, then check the vendor's G-Cloud listing or contract, not just its website.
 
 ## The three kinds of UK hosting
 
@@ -27,7 +27,6 @@ These are the platforms that come up when UK buyers ask, described from each ven
 | Platform | What it is | UK hosting, as published | Choose it when |
 |---|---|---|---|
 | **Microsoft Power Platform** | Low-code apps, automation and RPA in Microsoft 365 | Microsoft's cloud in the region you choose, the UK included; on-premises systems reached through a gateway | You are on Microsoft 365 and the work is team-level |
-| **Netcall Liberty Create** | UK low-code platform for public sector, health and utilities | UK hosting on AWS; storage and processing in the United Kingdom (G-Cloud listing) | UK public sector or NHS portals and case management, bought through G-Cloud |
 | **Responsiv** | UK integration and automation platform | Responsiv Cloud in ISO 27001 certified UK data centres; Responsiv Unity self-hosted | Integration-led work where you want a UK specialist, managed or self-hosted |
 | **n8n** | Workflow automation with an open, self-hostable core | Self-host it anywhere, including your own UK infrastructure; or its cloud | Your technical team wants to run and extend workflow automation itself |
 | **Mendix, OutSystems** | Enterprise low-code application platforms | Vendor clouds, or self-managed on the products and plans that allow it | You are building a portfolio of complex applications with your own developers |
@@ -35,7 +34,7 @@ These are the platforms that come up when UK buyers ask, described from each ven
 
 ## What to ask every vendor
 
-1. **Where exactly is my data stored and processed?** In the UK, and can I choose? Netcall's G-Cloud listing, for example, states United Kingdom and that users cannot change it, which is clear either way.
+1. **Where exactly is my data stored and processed?** In the UK, and can I choose? A vendor's G-Cloud listing answers both in a standard form.
 2. **Can any feature move data outside the UK?** AI features are the usual exception. Microsoft, for instance, says some generative AI features can process UK data outside the UK once an administrator allows it.
 3. **Can it run in my own tenancy or on my own servers, and on which plan?** "Self-managed is available" often means a particular product or tier.
 4. **Who are the sub-processors?** A UK data centre run under a non-UK parent may still matter to your DPIA.
@@ -50,7 +49,6 @@ Toca is a UK company. The platform runs in Toca's UK cloud, in your own cloud te
 ## When to choose something else
 
 - **Power Platform**, if UK residency in Microsoft's cloud is enough and your people already have the licences.
-- **Netcall**, if you are a council or NHS body buying a portal or case management product through G-Cloud and want a supplier with that track record.
 - **Responsiv**, if the job is mainly integration and you want a UK specialist.
 - **n8n**, if your engineers want to self-host and extend workflow automation themselves.
 - **Mendix or OutSystems**, if you are building many complex applications with a large development team.
@@ -75,11 +73,10 @@ Where data is stored and processed, the sub-processors, which features can move 
 
 ### Are there UK low-code platforms on G-Cloud?
 
-Yes. Netcall Liberty Create, Responsiv and Toca all list services on G-Cloud; search the Digital Marketplace for "low-code platform" to see the current list.
+Yes. Responsiv and Toca both list services on G-Cloud; search the Digital Marketplace for "low-code platform" to see the current list.
 
 ## Sources
 
-- Netcall, [Liberty Create on G-Cloud](https://www.applytosupply.digitalmarketplace.service.gov.uk/g-cloud/services/647914775105348) (hosting and data location)
 - Responsiv, [Cloud solutions](https://responsiv.co.uk/cloud-solutions/) and [Responsiv Unity](https://responsiv.co.uk/products-hub/responsiv-unity/)
 - Microsoft, [Power Platform regions overview](https://learn.microsoft.com/en-us/power-platform/admin/regions-overview), checked 10 November 2026
 - [n8n](https://n8n.io/), [Mendix](https://www.mendix.com/), [OutSystems](https://www.outsystems.com/): each vendor's site for current deployment options
