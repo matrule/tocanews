@@ -66,7 +66,7 @@ FULL_W = 1600          # images inside an article body
 FEED_MAX = 50
 SITES = {'io': 'toca.io', 'health': 'toca.health', 'legal': 'toca.legal'}
 IO = 'https://www.toca.io'   # toca.io, where the shared nav and footer point: the go-live address (toca-io-rebuild gen.py SITE)
-FONTS = '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@600&display=swap">'   # toca.io's footer line face
+FONTS = ''   # toca.io's footer line face, wide Barlow 600, is self-hosted now (fonts/barlow-600.woff2, @font-face in css/news.css; Mat, 11 Nov 2026): it came from Google Fonts
 # The strip, nav and footer are toca.io's (Mat, 10 Nov 2026: "acts and looks the toca.io one"): the markup mirrors
 # toca-io-rebuild gen.py chrome() and FOOT with every link absolute, the rules mirror its css/io.css (in css/news.css,
 # "chrome"), and the phone menu is its js/site.js nav toggle. Change both sites together.

@@ -41,7 +41,11 @@ html.nav-stuck body > .nav:not(.nav--hidden) { box-shadow: 0 12px 30px -20px rgb
 .subnav .lbl { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--color-muted); margin-right: .5rem; align-self: center; }
 .foot { margin-top: var(--space-xl); }
 .foot > .band-narrow { display: block; }
-.foot-line { font-family: "Barlow", "Barlow Condensed", "Arial Narrow", sans-serif; }   /* toca.io's display face, from Google Fonts in the head */
+/* toca.io's display face, wide Barlow 600, self-hosted as on toca.io (its css/io.css; it came from Google Fonts until 11 Nov 2026) */
+@font-face { font-family:'Barlow'; font-style:normal; font-weight:600; font-display:swap;
+  src:url(../assets/fonts/barlow-600.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+.foot-line { font-family: "Barlow", "Barlow Condensed", "Arial Narrow", sans-serif; }
 .foot-links--small { gap: var(--space-xs) var(--space-lg); margin-bottom: var(--space-md); }
 .foot-links--small a { font-size: var(--text-xs); color: var(--color-muted); }
 /* the wordmark row: social icons at the right beside the copyright line, their own line on phones (toca.io css/io.css, 11 Nov 2026) */
