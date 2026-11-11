@@ -11,6 +11,9 @@ Front matter fields:
   link_text (optional), draft: true (optional: built to preview, left out of the index and every feed).
   author, author_role (optional: a person's byline; Article markup names them), updated (YYYY-MM-DD, optional: shown and
   used as dateModified), reviewed_by (optional: "Name, role, firm", shown under the byline).
+  section: learn          (optional) a guide or comparison written for search and AI answers: it lives at /learn/<slug>/, is listed on
+                          the Learn pages by its tag (the category: "Comparisons", "Guides", ...), and stays off the blog, the home page's
+                          latest strip and every feed. feed: true puts one in the feeds as well, deliberately.
   A native article whose body has a "## Questions" section of ### question / answer paragraphs also gets FAQPage markup.
   kind: customer          puts the story on the customer wall (the home page). With it:
     customer, sector      who and which sector filter ("Healthcare", "Law", "Finance", "Charity", ...)
@@ -27,6 +30,8 @@ OUTPUTS
   index.html              customer stories: the lead as a spotlight, then sector filters over the wall, plus the latest news
   blog/index.html         the blog, everything that is not a customer story: lead, the latest BLOG_RECENT, then the archive as rows
   articles/<slug>/        native stories, and pages for any story with a film (the film plays here)
+  learn/index.html        Learn: the guides and comparisons as rows, after fin.ai/learn; learn/category/<tag>/ one per category
+  learn/<slug>/           a Learn article (its old articles/<slug>/ address forwards to it)
   feed.json               JSON Feed 1.1, newest FEED_MAX, all sites
   feed/<site>.json        the same, filtered to one site (io, health, legal)
   archive.json            everything, all sites
@@ -89,6 +94,11 @@ NAV_JS = '''(function () {
   nav.addEventListener('focusin', function () { nav.classList.remove('nav--hidden'); apply(window.scrollY); });
 })();'''
 BLOG_RECENT = 6
+# Learn categories, in pill order, with the line under each category page's heading. A tag missing here still works (no intro line).
+LEARN = {'Comparisons': 'Side-by-side comparisons of low-code, automation and integration platforms for regulated, high-volume work: where each one runs, what it costs, and when to choose something else.',
+         'Guides': 'How to automate a regulated process step by step, what it saves, and how to show a regulator who decided what.'}
+LEARN_INTRO = 'Guides and side-by-side comparisons for regulated, high-volume work: what each option does, where it runs, and when to choose something else.'
+def cat_slug(t): return re.sub(r'[^a-z0-9]+', '-', t.lower()).strip('-')
 SOURCES = {'medium.com': 'Medium', 'legalgeek.co': 'Legal Geek', 'youtube.com': 'YouTube', 'youtu.be': 'YouTube', 'linkedin.com': 'LinkedIn'}
 BUILT = datetime.date.today().isoformat()
 
@@ -172,16 +182,20 @@ def load():
         if a.get('updated'): a['updated'] = str(a['updated'])[:10]
         a.setdefault('sites', ['io']); a.setdefault('tag', 'Blog'); a.setdefault('subtitle', '')
         a['customer_story'] = a.get('kind') == 'customer'
+        a['learn'] = a.get('section') == 'learn'
+        a['in_feed'] = not a['learn'] or a.get('feed') is True   # Learn articles stay out of the feeds unless marked feed: true
         for k in ('customer', 'sector', 'figure', 'figure_label', 'quote', 'quote_by', 'quote_role', 'video', 'logo'): a.setdefault(k, '')
         a['video'] = str(a['video']) if a['video'] else ''
         bad = [s for s in a['sites'] if s not in SITES]
         assert not bad, f'{p.name}: unknown site {bad}'
-        a['url'] = a.get('external') or f'{BASE}/articles/{a["slug"]}/'
+        a['dir'] = 'learn' if a['learn'] else 'articles'
+        assert not (a['learn'] and (a.get('external') or a['customer_story'])), f'{p.name}: a Learn article is native and not a customer story'
+        a['url'] = a.get('external') or f'{BASE}/{a["dir"]}/{a["slug"]}/'
         # 'url' is the absolute, canonical link (used in JSON, canonical tags, sitemap: these must stay absolute
         # regardless of where the site is hosted). 'href' is what pages link with: external stories still go
         # out to their absolute URL, but a native story links root-absolute under PATH, so cards work the
         # same at www.toca.io/news/, at news.toca.io and on a Netlify preview domain.
-        a['href'] = f'{PATH}articles/{a["slug"]}/' if (a['video'] or not a.get('external')) else a['external']
+        a['href'] = f'{PATH}{a["dir"]}/{a["slug"]}/' if (a['video'] or not a.get('external')) else a['external']
         a['source'] = source_of(a['external']) if a.get('external') else 'news.toca.io'
         a['card'] = card_image(a.get('image'))
         a['og'] = og_image(a.get('image')) if a['card'] and (a['video'] or not a.get('external')) else None   # only stories with a page here
@@ -219,6 +233,7 @@ def feed_doc(arts, feed_url, title, next_url=None):
     return json.dumps(d, indent=1, ensure_ascii=False)
 
 def write_feeds(arts):
+    arts = [a for a in arts if a['in_feed']]
     (SITE / 'feed.json').write_text(feed_doc(arts[:FEED_MAX], FEEDS + '/feed.json', 'Toca news', FEEDS + '/archive.json'))
     (SITE / 'archive.json').write_text(feed_doc(arts, FEEDS + '/archive.json', 'Toca news · archive'))
     (SITE / 'feed').mkdir(exist_ok=True)
@@ -332,7 +347,7 @@ def chrome(title, desc, body, canonical, current='', dark=False, article=None):
   </div>
   </div>
 </header>
-<nav class="subnav" aria-label="News"><div class="band-narrow"><span class="lbl">News</span><a href="{R}"{cur('customers')}>Customer stories</a><a href="{R}blog/"{cur('blog')}>Blog</a></div></nav>
+<nav class="subnav" aria-label="News"><div class="band-narrow"><span class="lbl">News</span><a href="{R}"{cur('customers')}>Customer stories</a><a href="{R}blog/"{cur('blog')}>Blog</a><a href="{R}learn/"{cur('learn')}>Learn</a></div></nav>
 <main id="main">{body}</main>
 <footer class="foot">
   <div class="band-narrow">
@@ -449,7 +464,7 @@ WALL_JS = (ROOT / 'js' / 'wall.js').read_text()
 
 def write_home(arts):
     cust = sorted([a for a in arts if a['customer_story']], key=lambda a: (not a.get('lead'), ))  # stable: keeps date order after the pinned lead
-    news = [a for a in arts if not a['customer_story']][:3]
+    news = [a for a in arts if not a['customer_story'] and not a['learn']][:3]
     sectors = sorted({a['sector'] for a in cust if a['sector']})
     filt = '<nav class="sectors" aria-label="Sector"><a href="#" data-val="">All</a>' + ''.join(f'<a href="#sector={esc(x)}" data-val="{esc(x)}">{esc(x)}</a>' for x in sectors) + '</nav>'
     spot = tile(cust[0], 0) if cust else ''                                   # the lead: the spotlight, above the filters and never filtered
@@ -472,7 +487,7 @@ def write_home(arts):
 
 # ---------------------------------------------------------------- the blog
 def write_blog(all_arts):
-    arts = [a for a in all_arts if not a['customer_story']]
+    arts = [a for a in all_arts if not a['customer_story'] and not a['learn']]
     lead, recent, older = arts[0], arts[1:BLOG_RECENT + 1], arts[BLOG_RECENT + 1:]
     tags = sorted({a['tag'] for a in arts})
     def links(key, items, all_label):
@@ -519,7 +534,7 @@ def byline(a):
 def write_article(a):
     if a.get('external') and not a['video']: return
     if not a['body'] and not a['video']: return
-    d = SITE / 'articles' / a['slug']; d.mkdir(parents=True, exist_ok=True)
+    d = SITE / a['dir'] / a['slug']; d.mkdir(parents=True, exist_ok=True)
     show_hero = a['card'] and a.get('image') not in a['body_images'] and not a['video']
     hero = f'<img class="hero" src="{PATH}img/cards/{pathlib.Path(a["image"]).stem}.webp" alt="">' if show_hero else ''
     film = ''
@@ -532,16 +547,60 @@ def write_article(a):
     readon = f'<p class="readon"><a class="tlink" href="{esc(a["external"])}" target="_blank" rel="noopener">{esc(a.get("link_text") or "Read the full story")} on {esc(a["source"])} &nearr;</a></p>' if a.get('external') else ''
     kick = f'{esc(a["customer"])} <span class="sep">·</span> ' if a['customer'] else ''
     where = f'Published on news.toca.io, {nice(a["date"], True)}' if not a.get('external') else f'Story dated {nice(a["date"], True)}'
-    back = ('', 'Customer stories') if a['customer_story'] else ('blog/', 'Blog')
+    back = ('', 'Customer stories') if a['customer_story'] else (('learn/', 'Learn') if a['learn'] else ('blog/', 'Blog'))
+    if a['learn']:   # a breadcrumb: Learn, then the category
+        kick = f'<a href="{PATH}learn/">Learn</a> <span class="sep">&rsaquo;</span> <a href="{PATH}learn/category/{cat_slug(a["tag"])}/">{esc(a["tag"])}</a> <span class="sep">·</span> '
+        tag_txt = ''
+    else: tag_txt = esc(a["tag"]) + ' <span class="sep">·</span> '
     body = f'''
 <article class="article"><div class="band-narrow measure">
-<p class="kicker">{kick}{esc(a["tag"])} <span class="sep">·</span> <time datetime="{a["date"]}">{nice(a["date"], True)}</time></p>
+<p class="kicker">{kick}{tag_txt}<time datetime="{a["date"]}">{nice(a["date"], True)}</time></p>
 <h1>{esc(a["title"])}</h1><p class="support lead">{esc(a["subtitle"])}</p>{byline(a)}{draft}{film}{hero}
 <div class="prose">{html_body}</div>{readon}
 <p class="source">{where}. Shown on {", ".join(SITES[s] for s in a["sites"])}.</p>
 <p><a class="tlink" href="{PATH}{back[0]}">&larr; {back[1]}</a></p>
 </div></article>'''
-    (d / 'index.html').write_text(chrome(a['title'] + ' | Toca news', a['subtitle'], body, a['url'], article=a))
+    (d / 'index.html').write_text(chrome(a['title'] + (' | Toca' if a['learn'] else ' | Toca news'), a['subtitle'], body, a['url'], current='learn' if a['learn'] else '', article=a))
+    if a['learn']:   # it was first published under articles/ (11 Nov 2026): forward that address. A page, not a Netlify
+        # redirect: a redirect's root-relative target escapes toca.io's proxy (netlify.toml)
+        old = SITE / 'articles' / a['slug']; old.mkdir(parents=True, exist_ok=True)
+        to = f'{PATH}learn/{a["slug"]}/'
+        old.joinpath('index.html').write_text(f'''<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><title>{esc(a["title"])}</title>
+<link rel="canonical" href="{a["url"]}"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url={to}"></head>
+<body><p>This article has moved to <a href="{to}">{esc(a["title"])}</a>.</p><script>location.replace({json.dumps(to)} + location.hash)</script></body></html>''')
+
+# ---------------------------------------------------------------- learn (after fin.ai/learn): guides and comparisons as rows
+def write_learn(all_arts):
+    arts = [a for a in all_arts if a['learn']]
+    cats = list(LEARN) + sorted({a['tag'] for a in arts} - set(LEARN))
+    cats = [c for c in cats if any(a['tag'] == c for a in arts)]
+    crumbs_ld = lambda items: {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'name': n, 'item': u} for i, (n, u) in enumerate(items)]}
+    def page(cat):
+        shown = [a for a in arts if not cat or a['tag'] == cat]
+        here = f'{BASE}/learn/' + (f'category/{cat_slug(cat)}/' if cat else '')
+        on = lambda yes: ' aria-current="page"' if yes else ''
+        pills = f'<nav class="sectors pills" aria-label="Category"><a href="{PATH}learn/"{on(not cat)}>All</a>' + ''.join(
+            f'<a href="{PATH}learn/category/{cat_slug(c)}/"{on(c == cat)}>{esc(c)}</a>' for c in cats) + '</nav>'
+        rows = ''.join(f'<a class="lrow" href="{esc(a["href"])}"><span class="lt">{esc(a["title"])}</span><span class="ls">{esc(a["subtitle"])}</span>'
+                       f'<time datetime="{a.get("updated") or a["date"]}">{nice(a.get("updated") or a["date"], True)}</time></a>' for a in shown)
+        crumb = f'<a href="{PATH}">News</a> <span class="sep">&rsaquo;</span> ' + (f'<a href="{PATH}learn/">Learn</a> <span class="sep">&rsaquo;</span> <span>{esc(cat)}</span>' if cat else '<span>Learn</span>')
+        trail = [('News', BASE + '/'), ('Learn', BASE + '/learn/')] + ([(cat, here)] if cat else [])
+        ld = [crumbs_ld(trail), {'@context': 'https://schema.org', '@type': 'CollectionPage', 'name': cat or 'Learn', 'url': here, 'inLanguage': 'en-GB',
+              'mainEntity': {'@type': 'ItemList', 'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': a['url'], 'name': a['title']} for i, a in enumerate(shown)]}}]
+        ld_html = ''.join('<script type="application/ld+json">' + json.dumps(x, ensure_ascii=False).replace('</', '<\\/') + '</script>' for x in ld)
+        intro = LEARN.get(cat, '') if cat else LEARN_INTRO
+        body = f'''
+<section class="page-head learn-head"><div class="band-narrow"><p class="crumbs">{crumb}</p><h1>{esc(cat or "Learn")}</h1>{f'<p class="support">{esc(intro)}</p>' if intro else ''}</div></section>
+<section class="band learn"><div class="band-narrow">
+{pills}
+<p class="lcount">{len(shown)} article{"" if len(shown) == 1 else "s"}</p>
+<div class="lrows">{rows}</div>
+</div></section>{ld_html}'''
+        title = f'{cat} | Toca Learn' if cat else 'Learn: guides and comparisons | Toca'
+        d = SITE / 'learn' / ('category/' + cat_slug(cat) if cat else ''); d.mkdir(parents=True, exist_ok=True)
+        (d / 'index.html').write_text(chrome(title, intro or LEARN_INTRO, body, here, current='learn'))
+        return here
+    return [page('')] + [page(c) for c in cats]
 
 def write_404():
     body = f'''
@@ -550,7 +609,7 @@ def write_404():
 
 # ---------------------------------------------------------------- main
 def main():
-    for d in ('articles', 'feed', 'fonts', 'img/full', 'img/logos', 'blog'):
+    for d in ('articles', 'feed', 'fonts', 'img/full', 'img/logos', 'blog', 'learn'):
         if (SITE / d).exists(): shutil.rmtree(SITE / d)
     (SITE / 'css').mkdir(parents=True, exist_ok=True)
     for c in ('site.css', 'news.css'): shutil.copy(ROOT / 'css' / c, SITE / 'css' / c)
@@ -561,7 +620,7 @@ def main():
     shutil.copy(ROOT / 'img' / 'toca-mark.svg', SITE / 'toca-mark.svg')   # header, footer and favicon; the pink mark as toca.health serves it
     shutil.copy(ROOT / 'FEED.md', SITE / 'llms.txt')   # the integration how-to for the sister sites' people and agents; unlisted, plain text
     everything = load(); arts = [a for a in everything if not a.get('draft')]
-    write_feeds(arts); write_home(arts); write_blog(arts); write_404()
+    write_feeds(arts); write_home(arts); write_blog(arts); learn_urls = write_learn(arts); write_404()
     for a in everything: write_article(a)   # drafts get a page to preview, but no card and no feed entry
     (SITE / '_headers').write_text('''/feed.json
   Access-Control-Allow-Origin: *
@@ -588,7 +647,8 @@ def main():
 ''')
     (SITE / 'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: ' + BASE + '/sitemap.xml\n')
     urls = [f'<url><loc>{BASE}/</loc><lastmod>{BUILT}</lastmod></url>', f'<url><loc>{BASE}/blog/</loc><lastmod>{BUILT}</lastmod></url>']
-    urls += [f'<url><loc>{BASE}/articles/{a["slug"]}/</loc><lastmod>{a["date"]}</lastmod></url>' for a in arts if not a.get('external') or a['video']]
+    urls += [f'<url><loc>{u}</loc><lastmod>{BUILT}</lastmod></url>' for u in learn_urls]
+    urls += [f'<url><loc>{a["url"]}</loc><lastmod>{a.get("updated") or a["date"]}</lastmod></url>' for a in arts if not a.get('external') or a['video']]
     (SITE / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + ''.join(urls) + '</urlset>')
     # house rule shared with gen.py on toca.io: no em dashes in anything we write (site.css is shared, and has one in a comment)
     for p in SITE.rglob('*'):
@@ -599,6 +659,8 @@ def main():
         bad = [v for v in re.findall(r'\s(?:href|src|poster|action)="([^"]*)"', p.read_text()) if not v.startswith((PATH, 'https://', 'http://', '#', 'mailto:'))]
         if bad: raise SystemExit(f'link not under {PATH} in {p.relative_to(SITE)}: {", ".join(bad[:3])}')
     n_local = sum(1 for a in arts if not a.get('external') or a['video']); n_draft = len(everything) - len(arts); n_cust = sum(1 for a in arts if a['customer_story'])
-    print(f'built {len(arts)} stories ({n_cust} customer, {n_local} with their own page, {n_draft} draft); feed.json has {min(len(arts), FEED_MAX)}; per site: ' + ', '.join(f'{s} {sum(1 for a in arts if s in a["sites"])}' for s in SITES))
+    n_learn = sum(1 for a in arts if a['learn'])
+    fed = [a for a in arts if a['in_feed']]
+    print(f'built {len(arts)} stories ({n_cust} customer, {n_learn} learn (not in feeds unless feed: true), {n_local} with their own page, {n_draft} draft); feed.json has {min(len(fed), FEED_MAX)}; per site: ' + ', '.join(f'{s} {sum(1 for a in fed if s in a["sites"])}' for s in SITES))
 
 if __name__ == '__main__': main()

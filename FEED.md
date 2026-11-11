@@ -38,6 +38,8 @@ Standard item fields: `id`, `url`, `title`, `summary`, `date_published` (09:00Z 
 
 Feed level: `_toca.built` (YYYY-MM-DD), `_toca.sites`, and `next_url` pointing at the archive.
 
+Learn articles (the guides and comparisons at `/learn/`) are written for search and AI answers and are left out of every feed unless one is deliberately marked for it; do not scrape them into a news strip.
+
 Underscore fields are ours and may grow; the rest is the JSON Feed standard. Treat unknown fields as optional and ignore them.
 
 ## Common uses

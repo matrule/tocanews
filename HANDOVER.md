@@ -111,3 +111,12 @@ Verified locally (serve.py, Chromium): `/news`, `/news/blog`, `/news/blog#tag=Ev
 3. `news-cards.js` here: add `https://www.toca.io/news/` to `ALLOWED` (and to the same-tab test on line 29) in the same push, or the hosted renderer skips every native story. toca.io's vendored copy already takes both addresses.
 4. `FEED.md` (served as `llms.txt`): the item `url` values become www.toca.io/news/...; the "See all" links become `https://www.toca.io/news/` and `https://www.toca.io/news/blog/`. The endpoints stay on news.toca.io.
 5. Optional, later: 301 news.toca.io's pages to www.toca.io/news/ by host, keeping `/feed*`, `/archive.json`, `/img/cards/*`, `/news-cards.js` and `/llms.txt` served at news.toca.io. A host rule here would also catch the proxy's requests (they arrive as tocanews.netlify.app), so match the news.toca.io host only.
+
+## 11 Nov 2026: Learn
+
+Mat: the comparison and guide articles are for search and AI answers, not news, so they have their own section, designed after fin.ai/learn/category/comparisons, and stay out of the JSON feeds unless deliberately marked.
+- `section: learn` in the front matter; `tag:` is the category (Comparisons: Power Platform alternatives, UK-hosted low-code; Guides: credit hire, Mazur). `feed: true` puts one in the feeds deliberately. Category intros are `LEARN` in `build.py`; a new tag works without one.
+- Pages: `/learn/` and `/learn/category/<tag>/`: breadcrumb, big title, intro, category pills (links, not a filter, so each category is its own indexable page), an article count, then hairline rows of title, summary and last-updated date. BreadcrumbList and CollectionPage/ItemList JSON-LD. Articles at `/learn/<slug>/` with a Learn › category breadcrumb in the kicker; the sub-nav is Customer stories · Blog · Learn.
+- The four were first published at `/articles/<slug>/` this morning, so each old address is a noindex page that forwards to `/news/learn/<slug>/` (meta refresh plus `location.replace`), not a Netlify redirect, which would escape the proxy. toca-io-rebuild's SEO-GEO-RUNBOOK.md 4.1 to 4.4 still give the old paths.
+- Off the blog, the home page's latest strip, `feed.json`, `feed/*.json` and `archive.json`; in the sitemap.
+- Verified with serve.py in Chromium at 1400 and 390: /news/learn (no slash), a category page, an article, the old address forwarding, /news/ and /news/blog/; no page errors, no failed requests, no horizontal overflow. Built with Python 3.11, as Netlify runs.

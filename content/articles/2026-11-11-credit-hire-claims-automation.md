@@ -5,7 +5,8 @@ date: 2026-11-11
 updated: 2026-11-11
 author: "Mat Rule"
 author_role: "Founder and CEO, Toca"
-tag: "Blog"
+tag: "Guides"
+section: learn
 sites: ["io", "legal"]
 image: ""
 ---
@@ -57,7 +58,7 @@ We set out the comparison row by row, with Microsoft's side from Microsoft's own
 2. **Price it.** Put your own numbers into the [calculator](https://www.toca.io/legal/cost/credit-hire).
 3. **Run it on your own documents.** A demo on a sample of your statements or invoices shows the real time saved and where people still need to look.
 4. **Keep your CMS.** Toca reads from and writes back to Proclaim, Visualfiles, ActionStep, Aderant or Clio, and connects to the MOJ Portal, the OIC portal and MedCo, so nothing is replaced.
-5. **Keep the evidence.** Every approval is logged with who signed it off and the passage behind it. See [how supervision works after Mazur](https://www.toca.io/news/articles/supervising-ai-on-volume-files-after-mazur/).
+5. **Keep the evidence.** Every approval is logged with who signed it off and the passage behind it. See [how supervision works after Mazur](https://www.toca.io/news/learn/supervising-ai-on-volume-files-after-mazur/).
 
 ## Questions
 

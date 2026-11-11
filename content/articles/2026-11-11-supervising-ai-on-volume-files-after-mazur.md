@@ -5,7 +5,8 @@ date: 2026-11-11
 updated: 2026-11-11
 author: "Mat Rule"
 author_role: "Founder and CEO, Toca"
-tag: "Blog"
+tag: "Guides"
+section: learn
 sites: ["io", "legal"]
 image: ""
 ---
