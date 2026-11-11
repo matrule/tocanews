@@ -359,7 +359,7 @@ def chrome(title, desc, body, canonical, current='', dark=False, article=None):
     <li><a href="{IO}/partners.html">Partners</a></li>
     <li><a href="{IO}/company.html">Company</a></li>
     <li><a href="{R}">News</a></li>
-    <li><a href="https://docs.toca.io">Documentation</a></li>
+    <li><a href="https://github.com/tocalabs/toca-docs">Documentation</a></li>
     <li><a href="{IO}/contact.html">Contact</a></li>
   </ul>
   <div class="foot-meta">
