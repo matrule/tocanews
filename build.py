@@ -285,6 +285,16 @@ def faqs_of(h):
     txt = lambda x: re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', x))).strip()
     return [(txt(q), txt(a)) for q, a in re.findall(r'<h3[^>]*>(.*?)</h3>(.*?)(?=<h3|$)', m.group(1), re.S)]
 
+# toca.io's footer social links (gen.py SOCIAL, copied as written; Mat, 11 Nov 2026): LinkedIn, GitHub, Instagram,
+# YouTube, by how active each account is. No Facebook or X.
+SOCIAL = '''<ul class="foot-social">
+      <li><a href="https://www.linkedin.com/company/tocaio" rel="noopener" aria-label="Toca on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="M3 1h18a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zM7 5.4a1.75 1.75 0 1 0 0 3.5a1.75 1.75 0 1 0 0-3.5zM5.5 10h3v9h-3zM10.5 10h2.9v1.3c.5-.9 1.6-1.5 2.9-1.5 2.4 0 3.2 1.5 3.2 3.9V19h-3v-4.3c0-1-.2-1.9-1.3-1.9s-1.6.8-1.6 1.9V19h-3.1z"/></svg></a></li>
+      <li><a href="https://github.com/tocalabs" rel="noopener" aria-label="Toca on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
+      <li><a href="https://www.instagram.com/toca.io/" rel="noopener" aria-label="Toca on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/></svg></a></li>
+      <li><a href="https://www.youtube.com/@tocabot" rel="noopener" aria-label="Toca on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="M22.5 7.2a2.8 2.8 0 0 0-2-2C18.7 4.7 12 4.7 12 4.7s-6.7 0-8.5.5a2.8 2.8 0 0 0-2 2C1 9 1 12 1 12s0 3 .5 4.8a2.8 2.8 0 0 0 2 2c1.8.5 8.5.5 8.5.5s6.7 0 8.5-.5a2.8 2.8 0 0 0 2-2C23 15 23 12 23 12s0-3-.5-4.8zM9.8 15.2V8.8l5.6 3.2z"/></svg></a></li>
+    </ul>'''
+
+
 def chrome(title, desc, body, canonical, current='', dark=False, article=None):
     R = PATH   # root-absolute: the pages are served at www.toca.io/news/ and news.toca.io alike
     cur = lambda k: ' aria-current="page"' if k == current else ''
@@ -356,6 +366,7 @@ def chrome(title, desc, body, canonical, current='', dark=False, article=None):
     <li><a href="{IO}/platform.html">Platform</a></li>
     <li><a href="{IO}/spectral.html">Spectral</a></li>
     <li><a href="{IO}/legal/">Legal</a></li>
+    <li><a href="https://toca.health" target="_blank" rel="noopener">toca.health <span aria-hidden="true">&#8599;</span></a></li>
     <li><a href="{IO}/partners.html">Partners</a></li>
     <li><a href="{IO}/company.html">Company</a></li>
     <li><a href="{R}">News</a></li>
@@ -364,7 +375,7 @@ def chrome(title, desc, body, canonical, current='', dark=False, article=None):
   </ul>
   <div class="foot-meta">
     <span class="wordmark"><img class="mark" src="{R}toca-mark.svg" alt="" width="26" height="26"><span>toca<span class="tld">.io</span></span></span>
-    <a href="https://toca.health">toca.health</a>
+    {SOCIAL}
     <span>&copy; 2026 Toca</span>
   </div>
   <ul class="foot-links foot-links--small">
@@ -372,9 +383,6 @@ def chrome(title, desc, body, canonical, current='', dark=False, article=None):
     <li><a href="{IO}/privacy-policy.html">Privacy policy</a></li>
     <li><a href="{IO}/cloud-terms.html">Cloud terms</a></li>
     <li><a href="{IO}/carbon-reduction.html">Carbon reduction plan</a></li>
-    <li><a href="https://www.linkedin.com/company/tocaio" rel="noopener">LinkedIn</a></li>
-    <li><a href="https://www.youtube.com/@tocabot" rel="noopener">YouTube</a></li>
-    <li><a href="https://github.com/tocalabs" rel="noopener">GitHub</a></li>
   </ul>
   <p class="foot-company">Tocalabs Limited, trading as Toca. Registered in England &amp; Wales, company no. 11396834. Registered office 5th Floor, One New Change, London EC4M 9AF. VAT GB&nbsp;303504844. Offices in Reading. Toca&reg;, Toca.Health&reg;, Tocabot&reg; and Tocalabs&reg; are registered trademarks of Tocalabs Ltd. <a href="mailto:sales@toca.io">sales@toca.io</a></p>
   </div>
