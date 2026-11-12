@@ -316,7 +316,7 @@ def chrome(title, desc, body, canonical, current='', dark=False, article=None):
   <div class="band-narrow">
   <ul>
     <li><a href="{IO}/">toca.io</a></li>
-    <li><a href="https://toca.health" target="_blank" rel="noopener">toca.health</a></li>
+    <li><a href="{IO}/health/">toca.health</a></li>
   </ul>
   </div>
 </div>
@@ -343,7 +343,7 @@ def chrome(title, desc, body, canonical, current='', dark=False, article=None):
       <a href="{IO}/company.html#customers">Sectors</a>
       <ul class="menu">
         <li><a href="{IO}/legal/">Law firms<small>automation and AI for volume law</small></a></li>
-        <li><a href="https://toca.health" target="_blank" rel="noopener">Healthcare <span aria-hidden="true">&#8599;</span><small>eTriage, clinical letters and coding</small></a></li>
+        <li><a href="{IO}/health/">Healthcare<small>eTriage, clinical letters and coding</small></a></li>
         <li><a href="{IO}/company.html#customers">More sectors<small>payroll, accounting, charities and immigration</small></a></li>
       </ul>
     </div>
@@ -366,7 +366,7 @@ def chrome(title, desc, body, canonical, current='', dark=False, article=None):
     <li><a href="{IO}/platform.html">Platform</a></li>
     <li><a href="{IO}/spectral.html">Spectral</a></li>
     <li><a href="{IO}/legal/">Legal</a></li>
-    <li><a href="https://toca.health" target="_blank" rel="noopener">toca.health <span aria-hidden="true">&#8599;</span></a></li>
+    <li><a href="{IO}/health/">toca.health</a></li>
     <li><a href="{IO}/partners.html">Partners</a></li>
     <li><a href="{IO}/company.html">Company</a></li>
     <li><a href="{R}">News</a></li>
