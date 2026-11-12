@@ -32,7 +32,12 @@ html.nav-stuck body > .nav:not(.nav--hidden) { box-shadow: 0 12px 30px -20px rgb
   .menu { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: 0; padding-left: 1rem; }
   .nav-links .has-menu > a::after { display: none; }
   .nav-links { max-width: calc(100% - 2 * var(--page-gutter)); } .nav-links .menu a { white-space: normal; }   /* the open phone menu stays inside the gutters */
+  /* the open phone menu scrolls inside itself, never past the bottom of the screen, as on toca.io (its css/io.css, 11 Nov
+     2026): the header that holds it is sticky, so on an iPhone SE everything after Sectors was out of reach (Andreea,
+     12 Nov 2026). NAV_JS keeps --menu-room at the height left under the header. */
+  .nav-links { max-height: var(--menu-room, calc(100svh - 7rem)); overflow-y: auto; overscroll-behavior: contain; }
 }
+@media (max-width: 64rem) and (max-height: 40rem) { .nav-links .menu li small { display: none; } }   /* short screens drop the one-line descriptions */
 .subnav { padding: var(--space-md) var(--page-gutter); border-bottom: var(--rule-hair) solid var(--color-rule); font-size: var(--text-sm); }
 .subnav > .band-narrow { display: flex; flex-wrap: wrap; gap: var(--space-xs) var(--space-lg); }
 .subnav a { color: var(--color-ink-2); text-decoration: none; padding: .3rem 0; border-bottom: 1px solid transparent; }

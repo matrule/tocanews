@@ -74,7 +74,17 @@ NAV_JS = '''(function () {
   var nav = document.querySelector('.nav'), toggle = document.querySelector('.nav-toggle');
   if (!nav || !toggle) return;
   function shut(focus) { nav.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); if (focus) toggle.focus(); }
-  toggle.addEventListener('click', function () { var open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); });
+  /* the open menu scrolls inside itself (css/news.css): --menu-room is the height left under the header, as on toca.io */
+  var menu = nav.querySelector('.nav-links');
+  function room() {
+    if (!menu || !nav.classList.contains('open')) return;
+    var vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    menu.style.setProperty('--menu-room', Math.max(160, Math.floor(vh - nav.getBoundingClientRect().bottom - 12)) + 'px');
+  }
+  addEventListener('scroll', room, { passive: true });
+  addEventListener('resize', room);
+  nav.addEventListener('transitionend', room);
+  toggle.addEventListener('click', function () { var open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); room(); });
   document.addEventListener('click', function (e) { if (nav.classList.contains('open') && !nav.contains(e.target)) shut(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nav.classList.contains('open')) shut(true); });
   /* the header comes back when you scroll up, as on toca.io (its js/site.js): sticky, hidden while reading down */
