@@ -5,6 +5,7 @@ date: 2026-11-12
 tag: "Partners"
 sites: ["io", "legal"]
 image: "2026-11-12-toca-actionstep-integration.png"
+draft: true
 ---
 Toca is now listed on the [Actionstep Integration Directory](https://www.actionstep.com/integrations/toca/). Actionstep is the cloud practice management system that law firms use to run their matters. Toca is the low-code automation and integration platform that connects a firm's systems and takes the repetitive work between them off its people. With the listing, a firm on Actionstep can find Toca where it already looks for integrations.
 
