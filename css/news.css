@@ -275,17 +275,21 @@ body.dark img { opacity: .96; }
 .learn-head .support { max-width: 40rem; }
 .learn { padding-top: 0; }
 .learn .pills { margin-bottom: var(--space-xl); }
+.learn .pills:has(+ .lsites:not([hidden])) { margin-bottom: var(--space-sm); }   /* the sector pills sit close under the category pills */
+.lrow[hidden] { display: none; }
 .lcount { font-family: var(--font-display); font-weight: 600; font-size: var(--text-xl); color: var(--color-ink); margin: 0 0 var(--space-sm); }
 .lrows { border-top: var(--rule-hair) solid var(--color-rule); }
 .lrow { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr) 9rem; gap: var(--space-lg); align-items: start; padding: 1.3rem 0 1.5rem; border-bottom: var(--rule-hair) solid var(--color-rule); text-decoration: none; color: var(--color-ink); }
 .lrow .lt { font-family: var(--font-display); font-weight: 600; font-size: 1.45rem; line-height: 1.15; letter-spacing: -.005em; }
 .lrow .ls { font-size: var(--text-sm); line-height: 1.5; color: var(--color-ink-2); padding-top: .2rem; }
-.lrow time { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: .04em; color: var(--color-muted); text-align: right; padding-top: .35rem; }
+.lrow .lm { display: flex; flex-direction: column; align-items: flex-end; gap: .35rem; padding-top: .35rem; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-muted); }
+.lrow time { letter-spacing: .04em; }
+.lrow .lsec { letter-spacing: .08em; text-transform: uppercase; color: var(--color-ink-2); }
 .lrow:hover .lt { color: var(--color-accent-text); }
 .article .kicker a { color: inherit; text-decoration: none; border-bottom: var(--rule-hair) solid var(--color-rule); } .article .kicker a:hover { color: var(--color-ink); }
 @media (max-width: 60rem) {
   .lrow { grid-template-columns: minmax(0, 1fr); gap: .5rem; padding: 1.1rem 0 1.2rem; }
-  .lrow time { order: -1; text-align: left; padding-top: 0; }
+  .lrow .lm { order: -1; flex-direction: row; align-items: baseline; gap: .8rem; padding-top: 0; }
   .lrow .lt { font-size: 1.25rem; }
 }
 .learn-head { padding-bottom: var(--space-lg); } .learn-head + .band { border-top: 0; }   /* no rule between the intro and the pills, as on Fin's */

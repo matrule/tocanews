@@ -590,6 +590,23 @@ def write_article(a):
 <body><p>This article has moved to <a href="{to}">{esc(a["title"])}</a>.</p><script>location.replace({json.dumps(to)} + location.hash)</script></body></html>''')
 
 # ---------------------------------------------------------------- learn (after fin.ai/learn): guides and comparisons as rows
+LEARN_SECTORS = [('health', 'Health'), ('legal', 'Legal')]   # the sector tag on each Learn row and the filter over them, from the article's `sites` (Mat, 13 Nov 2026)
+LEARN_JS = '''<script>
+(function(){
+  var nav=document.querySelector('.lsites');if(!nav)return;nav.hidden=false;
+  var rows=document.querySelectorAll('.lrow'),count=document.querySelector('.lcount');
+  function apply(){
+    var m=/site=([a-z]+)/.exec(location.hash),site=m?m[1]:'',n=0;
+    if(site&&!nav.querySelector('a[data-site="'+site+'"]'))site='';
+    rows.forEach(function(r){var ok=!site||r.getAttribute('data-sites').split(' ').indexOf(site)>=0;r.hidden=!ok;if(ok)n++;});
+    nav.querySelectorAll('a').forEach(function(a){a.toggleAttribute('aria-current',a.getAttribute('data-site')===site);});
+    if(count)count.textContent=n+(n===1?' article':' articles');
+  }
+  nav.addEventListener('click',function(e){var a=e.target.closest('a');if(!a)return;e.preventDefault();var s=a.getAttribute('data-site');
+    if(s)location.hash='site='+s;else history.replaceState(null,'',location.pathname);apply();});
+  window.addEventListener('hashchange',apply);apply();
+})();
+</script>'''
 def write_learn(all_arts):
     arts = [a for a in all_arts if a['learn']]
     cats = list(LEARN) + sorted({a['tag'] for a in arts} - set(LEARN))
@@ -601,8 +618,15 @@ def write_learn(all_arts):
         on = lambda yes: ' aria-current="page"' if yes else ''
         pills = f'<nav class="sectors pills" aria-label="Category"><a href="{PATH}learn/"{on(not cat)}>All</a>' + ''.join(
             f'<a href="{PATH}learn/category/{cat_slug(c)}/"{on(c == cat)}>{esc(c)}</a>' for c in cats) + '</nav>'
-        rows = ''.join(f'<a class="lrow" href="{esc(a["href"])}"><span class="lt">{esc(a["title"])}</span><span class="ls">{esc(a["subtitle"])}</span>'
-                       f'<time datetime="{a.get("updated") or a["date"]}">{nice(a.get("updated") or a["date"], True)}</time></a>' for a in shown)
+        # each row says which sector it is for (Health, Legal; a general piece carries both), and the second row of pills filters on it.
+        # The pills are written hidden and shown by the script, so without JavaScript every row shows and nothing is a dead button.
+        sec = lambda a: ' <span class="sep">·</span> '.join(n for k, n in LEARN_SECTORS if k in a['sites'])
+        secs = [(k, n) for k, n in LEARN_SECTORS if any(k in a['sites'] for a in shown)]
+        sites = ('<nav class="sectors pills lsites" aria-label="Sector" hidden><a href="#" data-site="" aria-current="true">All sectors</a>' + ''.join(
+            f'<a href="#site={k}" data-site="{k}">{n}</a>' for k, n in secs) + '</nav>') if len(secs) > 1 else ''
+        rows = ''.join(f'<a class="lrow" href="{esc(a["href"])}" data-sites="{esc(" ".join(a["sites"]))}"><span class="lt">{esc(a["title"])}</span><span class="ls">{esc(a["subtitle"])}</span>'
+                       f'<span class="lm"><time datetime="{a.get("updated") or a["date"]}">{nice(a.get("updated") or a["date"], True)}</time>'
+                       f'{f"<span class=\"lsec\">{sec(a)}</span>" if sec(a) else ""}</span></a>' for a in shown)
         crumb = f'<a href="{PATH}">News</a> <span class="sep">&rsaquo;</span> ' + (f'<a href="{PATH}learn/">Learn</a> <span class="sep">&rsaquo;</span> <span>{esc(cat)}</span>' if cat else '<span>Learn</span>')
         trail = [('News', BASE + '/'), ('Learn', BASE + '/learn/')] + ([(cat, here)] if cat else [])
         ld = [crumbs_ld(trail), {'@context': 'https://schema.org', '@type': 'CollectionPage', 'name': cat or 'Learn', 'url': here, 'inLanguage': 'en-GB',
@@ -612,10 +636,10 @@ def write_learn(all_arts):
         body = f'''
 <section class="page-head learn-head"><div class="band-narrow"><p class="crumbs">{crumb}</p><h1>{esc(cat or "Learn")}</h1>{f'<p class="support">{esc(intro)}</p>' if intro else ''}</div></section>
 <section class="band learn"><div class="band-narrow">
-{pills}
+{pills}{sites}
 <p class="lcount">{len(shown)} article{"" if len(shown) == 1 else "s"}</p>
 <div class="lrows">{rows}</div>
-</div></section>{ld_html}'''
+</div></section>{ld_html}{LEARN_JS if sites else ''}'''
         title = f'{cat} | Toca Learn' if cat else 'Learn: guides and comparisons | Toca'
         d = SITE / 'learn' / ('category/' + cat_slug(cat) if cat else ''); d.mkdir(parents=True, exist_ok=True)
         (d / 'index.html').write_text(chrome(title, intro or LEARN_INTRO, body, here, current='learn'))
