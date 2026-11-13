@@ -621,12 +621,13 @@ def write_learn(all_arts):
         # each row says which sector it is for (Health, Legal; a general piece carries both), and the second row of pills filters on it.
         # The pills are written hidden and shown by the script, so without JavaScript every row shows and nothing is a dead button.
         sec = lambda a: ' <span class="sep">·</span> '.join(n for k, n in LEARN_SECTORS if k in a['sites'])
+        sec_tag = lambda a: f'<span class="lsec">{sec(a)}</span>' if sec(a) else ''   # kept out of the row's f-string: a backslash inside an f-string expression fails before Python 3.12, and Netlify builds on 3.11
         secs = [(k, n) for k, n in LEARN_SECTORS if any(k in a['sites'] for a in shown)]
         sites = ('<nav class="sectors pills lsites" aria-label="Sector" hidden><a href="#" data-site="" aria-current="true">All sectors</a>' + ''.join(
             f'<a href="#site={k}" data-site="{k}">{n}</a>' for k, n in secs) + '</nav>') if len(secs) > 1 else ''
         rows = ''.join(f'<a class="lrow" href="{esc(a["href"])}" data-sites="{esc(" ".join(a["sites"]))}"><span class="lt">{esc(a["title"])}</span><span class="ls">{esc(a["subtitle"])}</span>'
                        f'<span class="lm"><time datetime="{a.get("updated") or a["date"]}">{nice(a.get("updated") or a["date"], True)}</time>'
-                       f'{f"<span class=\"lsec\">{sec(a)}</span>" if sec(a) else ""}</span></a>' for a in shown)
+                       f'{sec_tag(a)}</span></a>' for a in shown)
         crumb = f'<a href="{PATH}">News</a> <span class="sep">&rsaquo;</span> ' + (f'<a href="{PATH}learn/">Learn</a> <span class="sep">&rsaquo;</span> <span>{esc(cat)}</span>' if cat else '<span>Learn</span>')
         trail = [('News', BASE + '/'), ('Learn', BASE + '/learn/')] + ([(cat, here)] if cat else [])
         ld = [crumbs_ld(trail), {'@context': 'https://schema.org', '@type': 'CollectionPage', 'name': cat or 'Learn', 'url': here, 'inLanguage': 'en-GB',
