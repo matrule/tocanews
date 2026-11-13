@@ -11,6 +11,8 @@ Front matter fields:
   link_text (optional), draft: true (optional: built to preview, left out of the index and every feed).
   author, author_role (optional: a person's byline; Article markup names them), updated (YYYY-MM-DD, optional: shown and
   used as dateModified), reviewed_by (optional: "Name, role, firm", shown under the byline).
+  seo_title, seo_description (optional: what search engines and AI answers read in <title> and the description, when the
+  headline or standfirst carries none of the words people search for; the page and the share card keep the headline).
   section: learn          (optional) a guide or comparison written for search and AI answers: it lives at /learn/<slug>/, is listed on
                           the Learn pages by its tag (the category: "Comparisons", "Guides", ...), and stays off the blog, the home page's
                           latest strip and every feed. feed: true puts one in the feeds as well, deliberately.
@@ -271,7 +273,7 @@ def social_meta(title, desc, canonical, a=None):
     out = ''.join(f'<meta {k}="{n}" content="{esc(v)}">' for k, n, v in tags)
     if a and a.get('draft'): out += '<meta name="robots" content="noindex">'
     if a and not a.get('external'):
-        ld = {'@context': 'https://schema.org', '@type': 'Article', 'headline': a['title'], 'description': a['subtitle'],
+        ld = {'@context': 'https://schema.org', '@type': 'Article', 'headline': a['title'], 'description': a.get('seo_description') or a['subtitle'],
               'datePublished': a['date'], 'url': canonical, 'mainEntityOfPage': canonical, 'inLanguage': 'en-GB',
               'articleSection': a['tag'], 'author': ({'@type': 'Person', 'name': a['author'], **({'jobTitle': a['author_role']} if a.get('author_role') else {}), 'worksFor': {'@type': 'Organization', 'name': 'Toca', 'url': IO}} if a.get('author') else {'@type': 'Organization', 'name': 'Toca', 'url': IO}),
               'publisher': {'@type': 'Organization', 'name': 'Toca', 'url': IO}}
@@ -578,7 +580,7 @@ def write_article(a):
 <p class="source">{where}. Shown on {", ".join(SITES[s] for s in a["sites"])}.</p>
 <p><a class="tlink" href="{PATH}{back[0]}">&larr; {back[1]}</a></p>
 </div></article>'''
-    (d / 'index.html').write_text(chrome(a['title'] + (' | Toca' if a['learn'] else ' | Toca news'), a['subtitle'], body, a['url'], current='learn' if a['learn'] else '', article=a))
+    (d / 'index.html').write_text(chrome((a.get('seo_title') or a['title']) + (' | Toca' if a['learn'] else ' | Toca news'), a.get('seo_description') or a['subtitle'], body, a['url'], current='learn' if a['learn'] else '', article=a))
     if a['learn']:   # it was first published under articles/ (11 Nov 2026): forward that address. A page, not a Netlify
         # redirect: a redirect's root-relative target escapes toca.io's proxy (netlify.toml)
         old = SITE / 'articles' / a['slug']; old.mkdir(parents=True, exist_ok=True)
