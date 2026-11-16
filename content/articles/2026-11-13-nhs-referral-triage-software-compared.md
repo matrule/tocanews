@@ -4,8 +4,7 @@ subtitle: "What e-RS does on its own, what your EPR and the Federated Data Platf
 seo_description: "NHS referral triage and Advice and Guidance software compared: e-RS on its own, your EPR, the Federated Data Platform, eTriage, Cinapsis, Consultant Connect, Isla, NEC Rego, Pathpoint, Strata PathWays and WASP RMS, each from its own published material."
 date: 2026-11-13
 updated: 2026-11-13
-author: "Mat Rule"
-author_role: "Founder and CEO, Toca"
+author: "Kelly Watson"
 tag: "Comparisons"
 section: learn
 sites: ["health"]

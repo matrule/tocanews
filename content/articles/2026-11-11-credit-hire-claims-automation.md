@@ -3,8 +3,8 @@ title: "Credit hire claims automation (2026)"
 subtitle: "Which steps of a credit hire claim to automate first, what each one saves, and where Power Automate runs out."
 date: 2026-11-11
 updated: 2026-11-11
-author: "Mat Rule"
-author_role: "Founder and CEO, Toca"
+author: "Keith Sutton"
+author_role: "Sales Director, Toca"
 tag: "Guides"
 section: learn
 sites: ["io", "legal"]
