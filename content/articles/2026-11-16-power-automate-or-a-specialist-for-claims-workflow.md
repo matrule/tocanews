@@ -116,7 +116,37 @@ That is already more than the upper end of Toca's typical annual price range, be
 
 Of course, not every firm will need 110 bots, and Power Automate can be considerably cheaper for smaller or simpler processes. But it illustrates how quickly the economics can change when you start automating a substantial part of a claims operation.
 
-Toca takes a different approach. Rather than charging for every user and every unattended bot, it is priced around the workflows being automated. As a guide, a law firm would typically pay between £30,000 and £150,000 a year, depending on the scale and complexity of the operation.
+#### Work out your own Microsoft licence bill
+
+The example is a firm with 500 people using ten claims applications, which between them connect to ten systems, among them Proclaim, the MOJ Portal, the OIC portal, MedCo and the finance ledger, with ten jobs running at once on each at the busiest times. The number of applications is not one of the questions, because a Power Apps Premium licence covers every application a person uses. Change the three numbers to match your own firm.
+
+<div class="calc" data-calc>
+<table class="calc-in">
+<thead><tr><th>Your claims applications</th><th>Number</th></tr></thead>
+<tbody>
+<tr><td>People who use them<small>Handlers, supervisors and anyone else who opens any of the applications.</small></td><td class="q" data-in="users" data-label="People who use the applications">500</td></tr>
+<tr><td>Systems they connect to<small>For example Proclaim, the MOJ Portal, the OIC portal, MedCo and the finance ledger.</small></td><td class="q" data-in="systems" data-label="Systems the applications connect to">10</td></tr>
+<tr><td>Jobs running at once on each connection<small>At your busiest. One Process licence runs one unattended job at a time.</small></td><td class="q" data-in="atonce" data-label="Jobs running at once on each connection">10</td></tr>
+</tbody>
+</table>
+<table class="calc-out">
+<thead><tr><th>What Microsoft charges for</th><th>Licences</th><th>Each year</th></tr></thead>
+<tbody>
+<tr data-price="15.40" data-from="users"><td>Power Apps Premium<small>One for each person, covering every application they use. £15.40 per user per month.</small></td><td class="n">500</td><td class="y">£92,400</td></tr>
+<tr data-price="115.30" data-from="systems*atonce"><td>Power Automate Process<small>One for each unattended job running at once on each connection. £115.30 per month.</small></td><td class="n">100</td><td class="y">£138,360</td></tr>
+</tbody>
+<tfoot>
+<tr><th colspan="2">Each month</th><td data-total="m">£19,230</td></tr>
+<tr><th colspan="2">Each year</th><td data-total="y">£230,760</td></tr>
+<tr><th colspan="2">Over three years</th><td data-total="y3">£692,280</td></tr>
+</tfoot>
+</table>
+<p class="calc-note">Microsoft's UK list prices on 16 November 2026, paid yearly and before VAT. It assumes each connection runs unattended in the background; a connection used only when a licensed person presses a button in an application needs no Process licence. This is the licences only. It leaves out extra database storage, AI credits, the machines the unattended jobs run on, the Microsoft 365 unattended licence they may need, and the people who build and maintain the applications.</p>
+</div>
+
+Does the bill go up with every new application? That depends on the licence. Power Apps Premium is charged per user and covers as many applications as that person needs, so a new application only costs more when it brings in people who are not yet licensed. Microsoft's per app plan, at $5 per user per app per month, did rise with every application, and Microsoft stopped selling it to new customers on 2 January 2026. What still grows application by application is everything around the user licence: each process that has to run unattended needs its own bot capacity, and each new application adds to the storage and the AI credits you buy.
+
+Toca takes a different approach. Rather than charging for every user and every unattended bot, it is priced around the workflows being automated. As a guide, a law firm would typically pay between £30,000 and £70,000 a year, depending on the scale and complexity of the operation.
 
 This provides a much clearer view of the annual cost as automation grows across the business. You are not continually adding another licence every time another person needs access or another process needs to run.
 
@@ -269,7 +299,7 @@ Yes. Toca connects to the MOJ Portal, the OIC portal and MedCo, as well as to ca
 
 ### How much does a specialist cost compared with Power Automate?
 
-Toca is typically priced between £30,000 and £150,000 per year, depending on the scale and complexity of the operation. It is priced around the workflows being automated, rather than charging separately for every user and unattended bot.
+Toca is typically priced between £30,000 and £70,000 per year, depending on the scale and complexity of the operation. It is priced around the workflows being automated, rather than charging separately for every user and unattended bot.
 
 Power Automate has a lower entry price, but the total cost grows as more users and processing capacity are needed. At Microsoft's UK list price on 16 November 2026, Power Automate Premium was £11.50 per user per month and Power Automate Process was £115.30 per month per unattended bot, paid annually and before VAT.
 
@@ -279,7 +309,8 @@ Not every firm needs that level of processing capacity, of course. The right com
 
 ## Sources
 
-- Microsoft, [Power Automate pricing (UK)](https://www.microsoft.com/en-gb/power-platform/products/power-automate/pricing) and [Power Apps pricing (UK)](https://www.microsoft.com/en-gb/power-platform/products/power-apps/pricing), read 16 November 2026, including terms on unattended bots.
+- Microsoft, [Power Automate pricing (UK)](https://www.microsoft.com/en-gb/power-platform/products/power-automate/pricing) and [Power Apps pricing (UK)](https://www.microsoft.com/en-gb/power-platform/products/power-apps/pricing), read 16 November 2026, including terms on unattended bots; [Copilot Studio pricing (UK)](https://www.microsoft.com/en-gb/microsoft-365-copilot/pricing/copilot-studio), read 16 November 2026.
+- Microsoft Licensing, [Power Apps per app license sales end](https://www.microsoft.com/en-us/licensing/news/power-app-per-app-end-of-sale), 14 January 2026.
 - Microsoft Learn, [Power Platform licensing FAQ](https://learn.microsoft.com/en-us/power-platform/admin/powerapps-flow-licensing-faq), [Limits of automated, scheduled and instant flows](https://learn.microsoft.com/en-us/power-automate/limits-and-config), [Requests limits and allocations](https://learn.microsoft.com/en-us/power-platform/admin/api-request-limits-allocations) and [Run unattended desktop flows](https://learn.microsoft.com/en-us/power-automate/desktop-flows/run-unattended-desktop-flows), checked 16 November 2026.
 - Claims Portal, [For REST API developers](https://www.claimsportal.org.uk/developer/for-rest-api-developers/), and Official Injury Claim, [Professional users](https://www.officialinjuryclaim.org.uk/professional-users/), checked 16 November 2026.
 - Winn Group, Bond Turner and the anonymised firm: [Toca legal customer evidence](https://www.toca.io/legal#evidence). Winn Group's figures are also reported in Legal IT Insider and Winn Group's press release.

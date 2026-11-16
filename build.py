@@ -553,6 +553,7 @@ def byline(a):
     rev = f'<br>Reviewed by {esc(a["reviewed_by"])}' if a.get('reviewed_by') else ''
     return f'<p class="byline">{line}{rev}</p>'
 
+CALC_JS = (ROOT / 'js' / 'calc.js').read_text()
 def write_article(a):
     if a.get('external') and not a['video']: return
     if not a['body'] and not a['video']: return
@@ -582,6 +583,7 @@ def write_article(a):
 <p class="source">{where}. Shown on {", ".join(SITES[s] for s in a["sites"])}.</p>
 <p><a class="tlink" href="{PATH}{back[0]}">&larr; {back[1]}</a></p>
 </div></article>'''
+    if 'data-calc' in a['html']: body += f'\n<script>{CALC_JS}</script>'   # a licence calculator written into the body as a table (js/calc.js)
     (d / 'index.html').write_text(chrome((a.get('seo_title') or a['title']) + (' | Toca' if a['learn'] else ' | Toca news'), a.get('seo_description') or a['subtitle'], body, a['url'], current='learn' if a['learn'] else '', article=a))
     if a['learn']:   # it was first published under articles/ (11 Nov 2026): forward that address. A page, not a Netlify
         # redirect: a redirect's root-relative target escapes toca.io's proxy (netlify.toml)

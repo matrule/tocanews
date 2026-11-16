@@ -54,7 +54,7 @@ It is in production at scale. Toca runs around 276,000 workflows a day, among th
 | JMK Solicitors | Key dates on personal injury files | 25% fewer files at risk of write-off |
 | EPM | Payroll and pensions as a managed service | Payroll for around 1,750 schools, academies and trusts |
 
-It is priced per workflow, not per seat. In NHS acute and general hospitals that is typically £1 per referral, with no other costs, and for law firms it is £30,000 to £150,000 a year as a guide, depending on how many workflows they run and how many users and apps they have.
+It is priced per workflow, not per seat. In NHS acute and general hospitals that is typically £1 per referral, with no other costs, and for law firms it is £30,000 to £70,000 a year as a guide, depending on how many workflows they run and how many users and apps they have.
 
 Hosting is where a shortlist starts, and the platform still has to do the work once it is there. For the law firms that have come to us from Power Platform, where it was hosted was the lesser problem. The greater one was how hard a complex app had become to maintain, and how much work it had to carry. We have set that out in [Power Platform alternatives for regulated, high-volume work](https://www.toca.io/news/learn/power-platform-alternatives-regulated-work/), and row by row on [Toca and Power Platform](https://www.toca.io/power-platform).
 
@@ -114,7 +114,7 @@ Yes. Toca lists both its platform and Spectral on G-Cloud 15, and Responsiv list
 
 ### What does a UK-hosted low-code platform cost?
 
-It depends on the pricing model, which may be per user, per bot, per app or per workflow. Toca is priced per workflow, not per seat: typically £1 per referral in NHS acute and general hospitals, with no other costs, and £30,000 to £150,000 a year as a guide for law firms.
+It depends on the pricing model, which may be per user, per bot, per app or per workflow. Toca is priced per workflow, not per seat: typically £1 per referral in NHS acute and general hospitals, with no other costs, and £30,000 to £70,000 a year as a guide for law firms.
 
 ## Sources
 

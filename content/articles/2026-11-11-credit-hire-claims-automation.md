@@ -10,7 +10,7 @@ section: learn
 sites: ["io", "legal"]
 image: ""
 ---
-**The short answer.** Automate the steps that are high volume, rule-bound and full of documents, and keep people on the decisions. In a credit hire claim that means four places: reading bank statements to build the impecuniosity position, drafting the basic hire rate rebuttal, keying repair invoices into the ledger, and tracking limitation, CPR and court dates across systems. Toca, the platform we build, runs all four for UK firms today. Those firms report a handler's three to four hours per impecuniosity analysis cut to seconds, rebuttal reports at up to 80% less than commissioning one, and over a thousand repair invoices a month posted without anyone typing them. The case management system you already run stays where it is, and as a guide a law firm pays £30,000 to £150,000 a year, depending on how many workflows it runs and how many users and apps it has.
+**The short answer.** Automate the steps that are high volume, rule-bound and full of documents, and keep people on the decisions. In a credit hire claim that means four places: reading bank statements to build the impecuniosity position, drafting the basic hire rate rebuttal, keying repair invoices into the ledger, and tracking limitation, CPR and court dates across systems. Toca, the platform we build, runs all four for UK firms today. Those firms report a handler's three to four hours per impecuniosity analysis cut to seconds, rebuttal reports at up to 80% less than commissioning one, and over a thousand repair invoices a month posted without anyone typing them. The case management system you already run stays where it is, and as a guide a law firm pays £30,000 to £70,000 a year, depending on how many workflows it runs and how many users and apps it has.
 
 ## Where the time goes in a credit hire claim
 
@@ -44,7 +44,7 @@ The [credit hire cost calculator](https://www.toca.io/legal/cost/credit-hire) pr
 
 ## A worked example
 
-Take the impecuniosity step at the calculator's defaults: 120 claims a month that need a position built, three and a half hours of a case handler's time on each, at a fully loaded £38 an hour. That is 420 hours, or about £16,000 of staff time, every month on one step. With the statements read automatically and a 15-minute review of each claim by a person, it is 30 hours. The step gives back 390 hours a month, which at the same rate is £14,820 a month and £177,840 over a year. Against that, a law firm pays £30,000 to £150,000 a year for Toca as a guide, depending on how many workflows it runs and how many users and apps it has. The defaults are cautious ones, so put your own figures into the calculator and see what the step costs you.
+Take the impecuniosity step at the calculator's defaults: 120 claims a month that need a position built, three and a half hours of a case handler's time on each, at a fully loaded £38 an hour. That is 420 hours, or about £16,000 of staff time, every month on one step. With the statements read automatically and a 15-minute review of each claim by a person, it is 30 hours. The step gives back 390 hours a month, which at the same rate is £14,820 a month and £177,840 over a year. Against that, a law firm pays £30,000 to £70,000 a year for Toca as a guide, depending on how many workflows it runs and how many users and apps it has. The defaults are cautious ones, so put your own figures into the calculator and see what the step costs you.
 
 ## Building it yourself on Power Automate
 
@@ -96,7 +96,7 @@ No. Toca runs alongside Proclaim, Visualfiles, ActionStep, Aderant and Clio, rea
 
 ### How much does it cost?
 
-As a guide, a law firm pays £30,000 to £150,000 a year, depending on how many workflows it runs and how many users and apps it has. Toca is priced per workflow, not per seat, so the cost follows the work. The calculator shows what each step costs you today, to set against it.
+As a guide, a law firm pays £30,000 to £70,000 a year, depending on how many workflows it runs and how many users and apps it has. Toca is priced per workflow, not per seat, so the cost follows the work. The calculator shows what each step costs you today, to set against it.
 
 ## Sources
 

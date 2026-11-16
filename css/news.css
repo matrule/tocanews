@@ -293,3 +293,22 @@ body.dark img { opacity: .96; }
   .lrow .lt { font-size: 1.25rem; }
 }
 .learn-head { padding-bottom: var(--space-lg); } .learn-head + .band { border-top: 0; }   /* no rule between the intro and the pills, as on Fin's */
+
+/* ---------- licence calculator in a Learn article (js/calc.js): a table that reads without the script, live with it */
+.prose h4 { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; margin: var(--space-lg) 0 var(--space-xs); color: var(--color-ink); }
+.calc { margin: var(--space-lg) 0; }
+.calc table { display: table; width: 100%; margin: 0; }
+.calc td small { display: block; margin-top: .2rem; font-size: .85em; font-weight: 400; color: var(--color-muted); }
+.calc td.q { width: 6.5rem; white-space: nowrap; text-align: right; padding-right: 0; }
+.calc td.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.calc thead th:nth-child(n+2) { text-align: right; }
+.calc table.calc-in { margin-bottom: var(--space-md); }
+.calc td.y, .calc tfoot td { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; padding-right: 0; }
+.calc thead th:last-child { text-align: right; padding-right: 0; }
+.calc input { width: 5.5rem; font: inherit; color: var(--color-ink); background: transparent; border: var(--rule-hair) solid var(--color-ink-2); border-radius: 6px; padding: .3rem .45rem; }
+.calc tfoot th { font-weight: 500; border-bottom-color: var(--color-rule); }
+.calc tfoot tr:nth-child(2) th, .calc tfoot tr:nth-child(2) td { font-weight: 600; color: var(--color-ink); }
+.calc-note { font-size: .9rem; color: var(--color-muted); margin-top: var(--space-sm); }
+.calc-reset { margin-top: var(--space-xs); }
+.calc-reset button { font: inherit; font-size: .9rem; color: var(--color-ink); background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
+@media (max-width: 480px) { .calc td.q { width: 4.6rem; } .calc input { width: 4.2rem; } .prose .calc th, .prose .calc td { padding-right: .6rem; } }
