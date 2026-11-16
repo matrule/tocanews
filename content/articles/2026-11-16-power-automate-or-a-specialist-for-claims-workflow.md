@@ -3,8 +3,8 @@ title: "Power Automate or a specialist? Choosing the right automation approach f
 subtitle: "Power Automate, an in-house build, your case management system's own workflow or a specialist: what each one does with high-volume personal injury and credit hire claims, and where each one runs out."
 date: 2026-11-16
 updated: 2026-11-16
-author: "James Swash"
-author_role: "CTO, Toca"
+author: "Mat Rule"
+author_role: "Founder and CEO, Toca"
 tag: "Comparisons"
 section: learn
 sites: ["io", "legal"]
