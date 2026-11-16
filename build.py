@@ -16,7 +16,8 @@ Front matter fields:
   section: learn          (optional) a guide or comparison written for search and AI answers: it lives at /learn/<slug>/, is listed on
                           the Learn pages by its tag (the category: "Comparisons", "Guides", ...), and stays off the blog, the home page's
                           latest strip and every feed. feed: true puts one in the feeds as well, deliberately.
-  A native article whose body has a "## Questions" section of ### question / answer paragraphs also gets FAQPage markup.
+  A native article whose body has a "## Questions" (or "## Frequently asked questions") section of ### question / answer
+  paragraphs also gets FAQPage markup.
   kind: customer          puts the story on the customer wall (the home page). With it:
     customer, sector      who and which sector filter ("Healthcare", "Law", "Finance", "Charity", ...)
     logo                  file name in content/images, single-colour ink mark (recoloured to paper for the dark page); the name is used until one exists
@@ -291,8 +292,8 @@ def social_meta(title, desc, canonical, a=None):
     return out
 
 def faqs_of(h):
-    """the question and answer pairs under a "Questions" h2: each h3, then its paragraphs, as plain text"""
-    m = re.search(r'<h2[^>]*>Questions</h2>(.*?)(?=<h2|$)', h, re.S)
+    """the question and answer pairs under a "Questions" (or "Frequently asked questions") h2: each h3, then its paragraphs, as plain text"""
+    m = re.search(r'<h2[^>]*>(?:Frequently asked q|Q)uestions</h2>(.*?)(?=<h2|$)', h, re.S)
     if not m: return []
     txt = lambda x: re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', x))).strip()
     return [(txt(q), txt(a)) for q, a in re.findall(r'<h3[^>]*>(.*?)</h3>(.*?)(?=<h3|$)', m.group(1), re.S)]
