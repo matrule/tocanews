@@ -3,8 +3,8 @@ title: "Data sovereignty for law firms: a practical framework (2026)"
 subtitle: "What control of your systems and client data means for a law firm, what the SRA expects, what happens when it goes wrong, and how to keep control of your own work."
 date: 2026-11-16
 updated: 2026-11-16
-author: "Mat Rule"
-author_role: "Founder and CEO, Toca"
+author: "Keith Sutton"
+author_role: "Sales Director, Toca"
 tag: "Guides"
 section: learn
 sites: ["io", "legal"]
