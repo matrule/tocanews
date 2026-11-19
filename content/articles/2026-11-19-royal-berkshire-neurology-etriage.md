@@ -31,9 +31,6 @@ That is a different kind of value from the headline figures Royal Berkshire repo
 The clinicians noticed. At a wider service meeting, colleagues singled out how much more straightforward the new way of working was:
 
 > "The clinicians said it's so much easier to use and that it just makes sense."
->
-> **Beth Riding**, Service Manager for Specialist Medicine, Neurology, Royal Berkshire NHS Foundation Trust
-{: .cite }
 
 For a service that already had a working process, that matters more than it might seem. Nobody had to be persuaded that triage was worth doing. They had to be persuaded that a new tool was worth switching to, and it was the clinicians who made that case.
 
@@ -42,16 +39,10 @@ For a service that already had a working process, that matters more than it migh
 Like any system, eTriage has had the occasional issue. What the team remarked on was how quickly each one was dealt with, and that their feedback went into the improvements that followed:
 
 > "You guys are on it when an issue arises and we get it ironed out."
->
-> **Beth Riding**, Service Manager for Specialist Medicine, Neurology, Royal Berkshire NHS Foundation Trust
-{: .cite }
 
 That confidence has travelled beyond the department. The neurology team has been recommending eTriage to colleagues elsewhere:
 
 > "We've been singing its praises and one of our neurologists shared the benefits of the tool with colleagues in Oxford."
->
-> **Beth Riding**, Service Manager for Specialist Medicine, Neurology, Royal Berkshire NHS Foundation Trust
-{: .cite }
 
 Neurology's experience is the other half of the argument for eTriage. It helps services that are behind, and it adds value where triage already works, by making a good process quicker to run, easier to hand between specialists and lighter on admin.
 
