@@ -28,9 +28,7 @@ As the service's manager explains:
 
 eTriage didn't change how neurology's clinicians make decisions. The criteria, clinical judgement and people involved remained the same. What changed was the work surrounding those decisions.
 
-Referrals are now managed in one worklist rather than tracked across systems. Cases can be passed directly to another specialist, and referrals assigned to a named clinician's own worklist.
-
-Individually, these are relatively small improvements. Together, they remove much of the administrative effort that made the previous process cumbersome.
+Referrals are now managed in one worklist rather than tracked across systems. Cases can be passed directly to another specialist, and referrals assigned to a named clinician's own worklist. Individually, these are relatively small improvements. Together, they remove much of the administrative effort that made the previous process cumbersome.
 
 For a service that already had an effective clinical process, that was the value of eTriage: making good triage easier to run without having to change how clinicians work.
 
@@ -53,7 +51,5 @@ Perhaps the strongest indication of how the neurology team feels about eTriage i
 > "We've been singing its praises and one of our neurologists shared the benefits of the tool with colleagues in Oxford."
 
 Neurology's experience demonstrates that the case for referral triage software isn't limited to services with backlogs or struggling administrative teams. Even where clinical triage already works well, there may be considerable scope to make it quicker to manage, easier to pass between specialists and less reliant on administrative effort.
-
-Sometimes the best technology doesn't change how a service works. It simply makes doing the job easier.
 
 *Royal Berkshire's wider experience of eTriage is featured in [Royal Berkshire, in its own words](/news/articles/royal-berkshire-e-triage-in-its-own-words/). Find out more about [eTriage by Toca Health](https://www.toca.io/health/etriage.html).*
