@@ -2,6 +2,7 @@
 customer: Sandhata Technologies
 date: '2026-09-22'
 kind: customer
+sink: true
 sector: Technology
 sites:
 - io

@@ -22,6 +22,7 @@ Front matter fields:
     customer, sector      who and which sector filter ("Healthcare", "Law", "Finance", "Charity", ...)
     logo                  file name in content/images, single-colour ink mark (recoloured to paper for the dark page); the name is used until one exists
     lead: true            pins this story as the wall's lead tile; otherwise the newest customer story leads
+    sink: true            moves this story to the end of the wall, whatever its date (Mat, 19 Nov 2026: Sandhata)
     wide: true            gives the tile two of the wall's three columns (every seventh tile is wide anyway); the lead always takes all three
     figure, figure_label  one number and its claim ("15%", "of England's GP referrals")
     quote, quote_by, quote_role
@@ -458,9 +459,10 @@ def logo(a):
 
 def yt_thumb(vid): return f'https://i.ytimg.com/vi/{vid}/hqdefault.jpg'
 
-def tile(a, i):
+def tile(a, i, wide=False):
     """One tile on the customer wall. The first is the lead; every seventh after it is wide.
-    Shape follows the data: a film gets a play tile, a quote gets a quote card, a figure gets a figure card."""
+    Shape follows the data: a film gets a play tile, a quote gets a quote card, a figure gets a figure card.
+    wide comes from pack(), which decides it with the tile's place in the grid."""
     href = a['href']
     ext = a.get('external') and not a['video']
     target = ' target="_blank" rel="noopener"' if ext else ''
@@ -473,27 +475,43 @@ def tile(a, i):
         pic = filmpic(True) if a['video'] else (f'<span class="pic"><img src="{esc(rel(a["card"][0]))}" alt="" loading="eager"></span>' if a['card'] else '<span class="pic empty"></span>')
         by = f'<span class="by"><b>{esc(a["quote_by"])}</b>{esc(a["quote_role"])}</span>' if a['quote_by'] and not fig else ''
         return f'<a class="tile lead" {common}><span class="txt">{logo(a)}{sector}<h2>{esc(a["title"])}</h2><p>{esc(a["subtitle"])}</p>{fig}{by}</span>{pic}</a>'
-    wide = i % 7 == 0 or bool(a.get('wide'))
     if a['video']:
         if wide:   # text left, film right, like the lead
             return f'<a class="tile film wide pictured" {common}><span class="txt">{logo(a)}{sector}<h3>{esc(a["title"])}</h3><p>{esc(a["subtitle"])}</p>{fig}</span>{filmpic(False)}</a>'
         return f'<a class="tile film" {common}>{filmpic(False)}<span class="txt">{logo(a)}{sector}<h3>{esc(a["title"])}</h3></span></a>'
     if a['quote']:
         by = f'<span class="by"><b>{esc(a["quote_by"])}</b>{esc(a["quote_role"])}</span>' if a['quote_by'] else ''
-        return f'<a class="tile said{" wide" if wide else ""}" {common}>{logo(a)}<blockquote>{esc(a["quote"])}</blockquote>{by}</a>'
+        return f'<a class="tile said{" wide" if wide else ""}" {common}>{logo(a)}{sector}<h3>{esc(a["title"])}</h3><blockquote>{esc(a["quote"])}</blockquote>{by}</a>'
     if wide and a['card']:
         return f'<a class="tile wide pictured" {common}><span class="txt">{logo(a)}{sector}<h3>{esc(a["title"])}</h3><p>{esc(a["subtitle"])}</p>{fig}</span><span class="pic"><img src="{esc(rel(a["card"][0]))}" alt="" loading="lazy"></span></a>'
     return f'<a class="tile story" {common}>{logo(a)}{sector}<h3>{esc(a["title"])}</h3><p>{esc(a["subtitle"])}</p>{fig}</a>'
 
+def pack(cust, cols=3):
+    """The wall after the lead, in date order, laid into a grid of cols columns with no holes (Mat, 19 Nov 2026).
+    A tile is wide when it asks to be (wide: true) or is every seventh; only films, quotes and pictured stories can be.
+    A wide tile that would start in the last column swaps places with the next narrow tile, so the row fills;
+    a sink: true story is never moved up. With no narrow tile left to swap, the wide tile goes narrow."""
+    items = [[a, (i % 7 == 0 or bool(a.get('wide'))) and bool(a['video'] or a['quote'] or a['card'])] for i, a in enumerate(cust, 1)]
+    out, col = [], 0
+    while items:
+        a, w = items[0]
+        if w and col + 2 > cols:
+            j = next((k for k in range(1, len(items)) if not items[k][1] and not items[k][0].get('sink')), None)
+            if j is not None:
+                items.insert(0, items.pop(j)); continue
+            w = False
+        out.append((a, w)); items.pop(0); col = (col + (2 if w else 1)) % cols
+    return out
+
 WALL_JS = (ROOT / 'js' / 'wall.js').read_text()
 
 def write_home(arts):
-    cust = sorted([a for a in arts if a['customer_story']], key=lambda a: (not a.get('lead'), ))  # stable: keeps date order after the pinned lead
+    cust = sorted([a for a in arts if a['customer_story']], key=lambda a: (not a.get('lead'), bool(a.get('sink'))))  # stable: keeps date order after the pinned lead; sink: true goes to the end
     news = [a for a in arts if not a['customer_story'] and not a['learn']][:3]
     sectors = sorted({a['sector'] for a in cust if a['sector']})
     filt = '<nav class="sectors" aria-label="Sector"><a href="#" data-val="">All</a>' + ''.join(f'<a href="#sector={esc(x)}" data-val="{esc(x)}">{esc(x)}</a>' for x in sectors) + '</nav>'
     spot = tile(cust[0], 0) if cust else ''                                   # the lead: the spotlight, above the filters and never filtered
-    wall = ''.join(tile(a, i) for i, a in enumerate(cust) if i)              # indices kept so every seventh tile stays wide
+    wall = ''.join(tile(a, i, w) for i, (a, w) in enumerate(pack(cust[1:]), 1))   # packed: no holes in the three columns
     latest = ''.join(card(a) for a in news)
     body = f'''
 <section class="page-head"><div class="band-narrow"><p class="kicker">Customer stories</p><h1>Built on Toca.</h1><p class="support">NHS trusts, law firms, charities and a portfolio platform: what they built, in their numbers and their words.</p></div></section>
