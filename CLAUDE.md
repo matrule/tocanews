@@ -32,3 +32,5 @@ The pages no longer open styled from `file://`. Run `python3 serve.py` and open 
 
 ## Deploy
 `git add . && git commit -m "Add: <title>" && git push`. Netlify builds. Nothing else. A push changes news.toca.io and www.toca.io/news/ at once.
+
+After every production deploy, `netlify/plugins/indexnow` sends every sitemap URL to IndexNow (Bing, Copilot and ChatGPT search), so a new article is known the same day (17 Nov 2026). The key file is written by `build.py` (`INDEXNOW_KEY`) at `BASE/<key>.txt`; the plugin works its address out from the sitemap, so it follows `BASE` when that moves to www.toca.io/news. Set `INDEXNOW=off` in Netlify's environment variables to stop it. It never fails a deploy; the deploy log says `indexnow: sent N URLs`. When a Learn article goes live, also add it to `LEARN` in toca-io-rebuild's gen.py so www.toca.io/llms.txt lists it.

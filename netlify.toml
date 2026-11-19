@@ -5,6 +5,10 @@
 [build.environment]
   PYTHON_VERSION = "3.11"
 
+# IndexNow ping after each production deploy (netlify/plugins/indexnow; the key file is build.py's INDEXNOW_KEY).
+[[plugins]]
+  package = "./netlify/plugins/indexnow"
+
 # The pages are served at www.toca.io/news/ through toca.io's proxy (Mat, 10 Nov 2026), so every link on them is
 # /news/... (build.py PATH). These make the same links work when the site is visited here at news.toca.io.
 # Never add a redirect here with a root-relative target such as "/feed/": behind the proxy the browser follows it to

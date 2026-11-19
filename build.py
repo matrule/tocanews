@@ -56,6 +56,8 @@ ROOT = pathlib.Path(__file__).parent
 CONTENT, SITE = ROOT / 'content', ROOT / 'site'
 BASE = 'https://news.toca.io'    # the pages' address: canonicals, Open Graph, JSON-LD, the feeds' item URLs, sitemap, robots.txt.
                                  # Becomes 'https://www.toca.io/news' at go-live, with the DNS move, not before (HANDOVER.md).
+INDEXNOW_KEY = '68a39c9cdd7a18f075b639eac3eee1fe'   # IndexNow (17 Nov 2026): netlify/plugins/indexnow sends every sitemap URL to Bing after each
+                                                    # production deploy, so a new Learn article is known the same day. Not secret: it is published.
 FEEDS = 'https://news.toca.io'   # where the feeds, card images, news-cards.js and llms.txt are fetched from, CORS open:
                                  # stays here when BASE moves, because toca.io's and toca.health's cards read them here.
 # The pages are served at www.toca.io/news/ through toca.io's proxy (Mat, 10 Nov 2026: what the blog earns in search
@@ -700,6 +702,7 @@ def main():
     urls += [f'<url><loc>{u}</loc><lastmod>{BUILT}</lastmod></url>' for u in learn_urls]
     urls += [f'<url><loc>{a["url"]}</loc><lastmod>{a.get("updated") or a["date"]}</lastmod></url>' for a in arts if not a.get('external') or a['video']]
     (SITE / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + ''.join(urls) + '</urlset>')
+    (SITE / f'{INDEXNOW_KEY}.txt').write_text(INDEXNOW_KEY)   # IndexNow's proof of ownership, served at BASE/<key>.txt (netlify/plugins/indexnow)
     # house rule shared with gen.py on toca.io: no em dashes in anything we write (site.css is shared, and has one in a comment)
     for p in SITE.rglob('*'):
         if p.suffix in ('.html', '.json', '.js', '.xml', '.txt') and '\u2014' in p.read_text():
