@@ -1,7 +1,7 @@
 ---
 title: "When triage already works: eTriage in neurology at Royal Berkshire"
-subtitle: "Royal Berkshire's neurology service was triaging its referrals well before eTriage. What changed was everything around the decision: quicker to run, easier to pass between specialists, and less admin."
-seo_description: "How Royal Berkshire NHS Foundation Trust's neurology service, already triaging well, used eTriage to streamline referral management, pass cases between specialists and cut admin."
+subtitle: "Royal Berkshire's neurology service was already triaging referrals well. eTriage made the process easier to manage, easier to pass between specialists and lighter on admin."
+seo_description: "How Royal Berkshire's neurology service, already triaging well, used eTriage to simplify referral management, specialist handovers and admin."
 date: 2026-11-19
 tag: "Case Study"
 sites: ["io", "health"]
@@ -13,37 +13,47 @@ quote: "The clinicians said it's so much easier to use and that it just makes se
 quote_by: "Beth Riding"
 quote_role: "Service Manager for Specialist Medicine, Neurology, Royal Berkshire"
 ---
-Most of the case for triage software is made about services that are struggling: referrals waiting days for a consultant to look at them, Advice and Guidance requests piling up, admin teams keying the same outcome into three systems. Neurology at Royal Berkshire NHS Foundation Trust was not one of those services. Its clinicians were already triaging referrals, and doing it well. So why move onto eTriage at all?
+Most of the case for referral triage software is made around services struggling with backlogs, administrative pressure or referrals waiting too long for a clinical decision. But what about a service that is already triaging referrals well?
 
-Because a process can be clinically sound and still hard work to run. The service's manager describes where it started:
+Royal Berkshire NHS Foundation Trust's neurology department was in that position. Its clinicians were already triaging referrals, and doing it quite well. The problem wasn't the clinical process itself, but the system supporting it.
+
+As the service's manager explains:
 
 > "We were already triaging, and we were doing it quite well, but the system was clunky. This has allowed us to streamline things and make it easier to pass cases on to other specialists."
 >
 > **Beth Riding**, Service Manager for Specialist Medicine, Neurology, Royal Berkshire NHS Foundation Trust
 {: .cite }
 
-## The same decisions, with less work around them
+## Making the process easier to manage
 
-eTriage did not change how neurology's clinicians decide. The criteria, the judgement and the people making it stayed exactly as the service had built them. What changed was the work that surrounds each decision. Referrals are now managed in one worklist instead of being tracked across systems. A case that belongs with a different specialist can be passed on directly rather than chased, and a referral can be assigned straight into a named clinician's own worklist. Each of those used to cost somebody time; together they were most of what made the old system clunky.
+eTriage didn't change how neurology's clinicians make decisions. The criteria, clinical judgement and people involved remained the same. What changed was the work surrounding those decisions.
 
-That is a different kind of value from the headline figures Royal Berkshire reports across the Trust. It shows up less as a percentage and more as a service that is simply easier to run, with the admin effort falling while the clinical process stays the one its clinicians trust.
+Referrals are now managed in one worklist rather than tracked across systems. Cases can be passed directly to another specialist, and referrals assigned to a named clinician's own worklist.
 
-The clinicians noticed. At a wider service meeting, colleagues singled out how much more straightforward the new way of working was:
+Individually, these are relatively small improvements. Together, they remove much of the administrative effort that made the previous process cumbersome.
+
+For a service that already had an effective clinical process, that was the value of eTriage: making good triage easier to run without having to change how clinicians work.
+
+## Easier for clinicians to use
+
+Introducing new software into an established clinical service isn't without its challenges. Staff need to learn a new system, and any benefits have to justify the disruption of changing how they work.
+
+In Royal Berkshire's neurology service, the feedback from clinicians was encouraging. At a wider service meeting, colleagues highlighted how straightforward the new system was to use:
 
 > "The clinicians said it's so much easier to use and that it just makes sense."
 
-For a service that already had a working process, that matters more than it might seem. Nobody had to be persuaded that triage was worth doing. They had to be persuaded that a new tool was worth switching to, and it was the clinicians who made that case.
-
-## Support, and word of mouth
-
-Like any system, eTriage has had the occasional issue. What the team remarked on was how quickly each one was dealt with, and that their feedback went into the improvements that followed:
+The team also remarked on the support they received when issues arose, and how their feedback was incorporated into subsequent improvements:
 
 > "You guys are on it when an issue arises and we get it ironed out."
 
-That confidence has travelled beyond the department. The neurology team has been recommending eTriage to colleagues elsewhere:
+## When clinicians recommend it to others
+
+Perhaps the strongest indication of how the neurology team feels about eTriage is that they've been recommending it to colleagues elsewhere.
 
 > "We've been singing its praises and one of our neurologists shared the benefits of the tool with colleagues in Oxford."
 
-Neurology's experience is the other half of the argument for eTriage. It helps services that are behind, and it adds value where triage already works, by making a good process quicker to run, easier to hand between specialists and lighter on admin.
+Neurology's experience demonstrates that the case for referral triage software isn't limited to services with backlogs or struggling administrative teams. Even where clinical triage already works well, there may be considerable scope to make it quicker to manage, easier to pass between specialists and less reliant on administrative effort.
 
-*Royal Berkshire's Trust-wide story is on film in [Royal Berkshire, in its own words](/news/articles/royal-berkshire-e-triage-in-its-own-words/). More on how eTriage works at [toca.io/health](https://www.toca.io/health/etriage.html).*
+Sometimes the best technology doesn't change how a service works. It simply makes doing the job easier.
+
+*Royal Berkshire's wider experience of eTriage is featured in [Royal Berkshire, in its own words](/news/articles/royal-berkshire-e-triage-in-its-own-words/). Find out more about [eTriage by Toca Health](https://www.toca.io/health/etriage.html).*
