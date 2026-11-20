@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 740" width="1200" height="740" role="img" aria-labelledby="t">
+<title id="t">Mock-up of the workflow on Toca: a reading arrives at the API, the device is checked, the reading is loaded to the warehouse and matched to an address</title>
+<defs><style>text{font-family:Inter,Roboto,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}.mono{font-family:'Geist Mono','JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}</style><symbol id="mark" viewBox="82.73 159.62 851.6 851.6"><path d="M553.85,560.06c-45.3,14.72-70.09,63.37-55.37,108.68c14.72,45.3,63.37,70.09,108.67,55.37 c45.3-14.72,70.09-63.37,55.37-108.67C647.81,570.13,599.15,545.34,553.85,560.06z"/><path d="M596.4,424.62l-36.18,71l87-28.27C639.58,443.82,619.34,427.9,596.4,424.62z"/><path d="M770.48,491.44l-100.76,32.74l96.2,49.02C775.57,558.98,789.1,526.8,770.48,491.44z"/><path d="M726.97,621.8l50.89,156.62c42.57-13.83,73.09-47.59,84.59-87.59L726.97,621.8z"/><path d="M693.74,740.48l-10.91,21.41l0,0l-87.27,171.29c35.28,15.4,76.11,18.45,115.6,5.62 c17.29-5.62,33-13.85,46.84-24.12l-59.58-183.37L693.74,740.48z"/><path d="M568.14,799.15L568.14,799.15l-240.41,78.11c0,0,0,0,0,0c23.99,73.85,87.56,123.78,159.59,133.96 l113.46-222.68L568.14,799.15z"/><path d="M460.7,744.41L460.7,744.41L195.18,609.12c-23.3,50.68-28.36,109.91-9.76,167.14 c8.58,26.41,21.49,50.21,37.68,70.87l268.18-87.14L460.7,744.41z"/><path d="M423.44,629.72L320.69,313.51C229.84,348.33,168.5,428.9,154.61,519.99l279.43,142.38L423.44,629.72z"/><path d="M478.18,522.28l165.9-325.6c-69.42-38.29-153.91-48.88-235.26-22.45c-21.53,7-41.7,16.22-60.37,27.33 l114.14,351.3L478.18,522.28z"/></symbol><pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#eceef2" stroke-width="1"/></pattern></defs>
+<rect x="0" y="0" width="1200" height="740" fill="#fff"/>
+<line x1="0" y1="35.5" x2="1200" y2="35.5" stroke="#e5e8ec" stroke-width="1"/>
+<g transform="translate(16,9) scale(1.125)"><path d="M3 5a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM13 5a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM8 14a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM3 5v2h10v-2M8 7v4" fill="none" stroke="#e8175d" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="42" y="24" font-size="15" fill="#1f2933" font-weight="500">Visit readings to warehouse</text>
+<path d="M250 12l8 8M258 12l-8 8" fill="none" stroke="#4b5563" stroke-width="1.3" stroke-linecap="round"/>
+<rect x="8" y="33" width="262" height="2" fill="#e8175d"/>
+<path d="M20 56l9 5-9 5Z" fill="none" stroke="#1f2933" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="40" y="66" font-size="13" fill="#1f2933" font-weight="600" letter-spacing=".3">RUN WORKFLOW</text>
+<rect x="888" y="49" width="122" height="28" fill="#fff" rx="14" stroke="#e5e8ec" stroke-width="1"/>
+<circle cx="904" cy="63" r="4" fill="#1fa971"/>
+<text x="916" y="67.5" font-size="12" fill="#4b5563">Published · v1.0</text>
+<rect x="1026" y="46" width="158" height="34" fill="#e8175d" rx="6"/>
+<path d="M1040 57l9 5-9 5Z" fill="none" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1060" y="67.5" font-size="12.5" fill="#fff" font-weight="600" letter-spacing=".4">RUN WORKFLOW</text>
+<line x1="0" y1="90.5" x2="1200" y2="90.5" stroke="#e5e8ec" stroke-width="1"/>
+<line x1="249.5" y1="91" x2="249.5" y2="740" stroke="#e5e8ec" stroke-width="1"/>
+<text x="18" y="122" font-size="12" fill="#6b7280" font-weight="600" letter-spacing=".8">BLOCKS</text>
+<rect x="10" y="134" width="230" height="46" fill="#fce9f0" rx="6" stroke="#e8175d" stroke-width="1.2"/>
+<g transform="translate(24,144) scale(1.06)"><path d="M2 5h12M2 11h12M5 2l-1.5 12M12.5 2L11 14" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="52" y="155" font-size="15" fill="#1f2933" font-weight="500">Reading received</text>
+<text x="52" y="172" font-size="11.5" fill="#6b7280" class="mono">trigger · API</text>
+<rect x="10" y="192" width="230" height="46" fill="#fff" rx="6" stroke="#e5e8ec" stroke-width="1"/>
+<g transform="translate(24,202) scale(1.06)"><path d="M5 1.5h6a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1ZM7 12.2h2" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="52" y="213" font-size="15" fill="#1f2933" font-weight="500">Check device</text>
+<text x="52" y="230" font-size="11.5" fill="#6b7280" class="mono">action</text>
+<rect x="10" y="250" width="230" height="46" fill="#fff" rx="6" stroke="#e5e8ec" stroke-width="1"/>
+<g transform="translate(24,260) scale(1.06)"><path d="M3 4c0-1.4 2.2-2.5 5-2.5s5 1.1 5 2.5-2.2 2.5-5 2.5S3 5.4 3 4ZM3 4v8c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V4M3 8c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="52" y="271" font-size="15" fill="#1f2933" font-weight="500">Load to warehouse</text>
+<text x="52" y="288" font-size="11.5" fill="#6b7280" class="mono">action · data warehouse</text>
+<rect x="10" y="308" width="230" height="46" fill="#fff" rx="6" stroke="#e5e8ec" stroke-width="1"/>
+<g transform="translate(24,318) scale(1.06)"><path d="M8 14.5S3.5 10 3.5 6.5a4.5 4.5 0 0 1 9 0C12.5 10 8 14.5 8 14.5ZM8 8.2a1.7 1.7 0 1 0 0-3.4a1.7 1.7 0 0 0 0 3.4Z" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="52" y="329" font-size="15" fill="#1f2933" font-weight="500">Match to address</text>
+<text x="52" y="346" font-size="11.5" fill="#6b7280" class="mono">action · haversine</text>
+<text x="18" y="392" font-size="12" fill="#6b7280" font-style="italic">Each phone calls the API.</text>
+<text x="18" y="410" font-size="12" fill="#6b7280" font-style="italic">Each reading runs this workflow.</text>
+<rect x="250" y="91" width="950" height="213" fill="#fafbfc"/>
+<rect x="250" y="91" width="950" height="213" fill="url(#grid)"/>
+<line x1="250" y1="304.5" x2="1200" y2="304.5" stroke="#e5e8ec" stroke-width="1"/>
+<line x1="344" y1="206" x2="442" y2="206" stroke="#9aa3af" stroke-width="1.2"/>
+<path d="M435 201.5l7 4.5-7 4.5" fill="none" stroke="#9aa3af" stroke-width="1.2"/>
+<line x1="496" y1="206" x2="612" y2="206" stroke="#9aa3af" stroke-width="1.2"/>
+<path d="M605 201.5l7 4.5-7 4.5" fill="none" stroke="#9aa3af" stroke-width="1.2"/>
+<line x1="666" y1="206" x2="782" y2="206" stroke="#9aa3af" stroke-width="1.2"/>
+<path d="M775 201.5l7 4.5-7 4.5" fill="none" stroke="#9aa3af" stroke-width="1.2"/>
+<line x1="836" y1="206" x2="952" y2="206" stroke="#9aa3af" stroke-width="1.2"/>
+<path d="M945 201.5l7 4.5-7 4.5" fill="none" stroke="#9aa3af" stroke-width="1.2"/>
+<line x1="1006" y1="206" x2="1104" y2="206" stroke="#9aa3af" stroke-width="1.2"/>
+<path d="M1097 201.5l7 4.5-7 4.5" fill="none" stroke="#9aa3af" stroke-width="1.2"/>
+<circle cx="320" cy="206" r="24" fill="#17a89b"/>
+<path d="M313 196l17 10-17 10Z" fill="#fff"/>
+<circle cx="1130" cy="206" r="24" fill="#e8175d"/>
+<rect x="1121" y="197" width="18" height="18" fill="#fff" rx="3"/>
+<rect x="400.2" y="150" width="139.6" height="20" fill="#3a4553" rx="2"/>
+<text x="470" y="164.5" font-size="11.5" fill="#fff" font-weight="500" text-anchor="middle">Reading received</text>
+<rect x="444" y="180" width="52" height="52" fill="#17a89b" rx="3" stroke="#6f5bd6" stroke-width="2.2"/>
+<rect x="459" y="197" width="22" height="2.8" fill="#fff" rx="1.4"/><rect x="459" y="205" width="15" height="2.8" fill="#fff" rx="1.4"/><rect x="459" y="213" width="22" height="2.8" fill="#fff" rx="1.4"/>
+<circle cx="489" cy="225" r="8.5" fill="#fff"/>
+<circle cx="489" cy="225" r="7" fill="#1fa971"/><path d="M485.8 225.3l2.1 2.1 4.3 -4.6" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="584.4" y="150" width="111.19999999999999" height="20" fill="#3a4553" rx="2"/>
+<text x="640" y="164.5" font-size="11.5" fill="#fff" font-weight="500" text-anchor="middle">Check device</text>
+<rect x="614" y="180" width="52" height="52" fill="#17a89b" rx="3"/>
+<rect x="629" y="197" width="22" height="2.8" fill="#fff" rx="1.4"/><rect x="629" y="205" width="15" height="2.8" fill="#fff" rx="1.4"/><rect x="629" y="213" width="22" height="2.8" fill="#fff" rx="1.4"/>
+<circle cx="659" cy="225" r="8.5" fill="#fff"/>
+<circle cx="659" cy="225" r="7" fill="#1fa971"/><path d="M655.8 225.3l2.1 2.1 4.3 -4.6" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="736.65" y="150" width="146.7" height="20" fill="#3a4553" rx="2"/>
+<text x="810" y="164.5" font-size="11.5" fill="#fff" font-weight="500" text-anchor="middle">Load to warehouse</text>
+<rect x="784" y="180" width="52" height="52" fill="#17a89b" rx="3"/>
+<rect x="799" y="197" width="22" height="2.8" fill="#fff" rx="1.4"/><rect x="799" y="205" width="15" height="2.8" fill="#fff" rx="1.4"/><rect x="799" y="213" width="22" height="2.8" fill="#fff" rx="1.4"/>
+<circle cx="829" cy="225" r="8.5" fill="#fff"/>
+<circle cx="829" cy="225" r="7" fill="#1fa971"/><path d="M825.8 225.3l2.1 2.1 4.3 -4.6" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="910.2" y="150" width="139.6" height="20" fill="#3a4553" rx="2"/>
+<text x="980" y="164.5" font-size="11.5" fill="#fff" font-weight="500" text-anchor="middle">Match to address</text>
+<rect x="954" y="180" width="52" height="52" fill="#17a89b" rx="3"/>
+<rect x="969" y="197" width="22" height="2.8" fill="#fff" rx="1.4"/><rect x="969" y="205" width="15" height="2.8" fill="#fff" rx="1.4"/><rect x="969" y="213" width="22" height="2.8" fill="#fff" rx="1.4"/>
+<circle cx="999" cy="225" r="8.5" fill="#fff"/>
+<circle cx="999" cy="225" r="7" fill="#1fa971"/><path d="M995.8 225.3l2.1 2.1 4.3 -4.6" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="407" y="240" width="126" height="20" fill="#6f5bd6" rx="2"/>
+<text x="470" y="254" font-size="10.5" fill="#fff" font-weight="500" text-anchor="middle" class="mono">POST /api/readings</text>
+<path d="M458 320l12-14 12 14Z" fill="#1f2933"/>
+<rect x="274" y="320" width="902" height="172" fill="#1f2933" rx="6"/>
+<path d="M297 342l-4.5 5 4.5 5M306 342l4.5 5-4.5 5M303.5 340l-4 14" fill="none" stroke="#9aa3af" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="322" y="351.5" font-size="12.5" fill="#e6e9ee">Reading received · what each phone sends, over HTTPS only</text>
+<rect x="1052" y="337" width="108" height="22" fill="#3a4553" rx="3"/>
+<text x="1106" y="352" font-size="11" fill="#7fd7cc" font-weight="500" text-anchor="middle" class="mono">202 Accepted</text>
+<text x="300" y="384" font-size="11.5" fill="#6b7280" text-anchor="end" class="mono">1</text>
+<text x="322" y="384" font-size="12.5" class="mono" xml:space="preserve"><tspan fill="#e6e9ee">{</tspan></text>
+<text x="300" y="406" font-size="11.5" fill="#6b7280" text-anchor="end" class="mono">2</text>
+<text x="322" y="406" font-size="12.5" class="mono" xml:space="preserve"><tspan fill="#7fd7cc">  "device"</tspan><tspan fill="#e6e9ee">:   { </tspan><tspan fill="#7fd7cc">"imei"</tspan><tspan fill="#e6e9ee">: </tspan><tspan fill="#c4a7ff">"35••••••••••4471"</tspan><tspan fill="#e6e9ee">, </tspan><tspan fill="#7fd7cc">"imsi"</tspan><tspan fill="#e6e9ee">: </tspan><tspan fill="#c4a7ff">"234•••••••••082"</tspan><tspan fill="#e6e9ee">, </tspan><tspan fill="#7fd7cc">"msisdn"</tspan><tspan fill="#e6e9ee">: </tspan><tspan fill="#c4a7ff">"+44•••••••193"</tspan><tspan fill="#e6e9ee"> },</tspan></text>
+<text x="300" y="428" font-size="11.5" fill="#6b7280" text-anchor="end" class="mono">3</text>
+<text x="322" y="428" font-size="12.5" class="mono" xml:space="preserve"><tspan fill="#7fd7cc">  "position"</tspan><tspan fill="#e6e9ee">: { </tspan><tspan fill="#7fd7cc">"lat"</tspan><tspan fill="#e6e9ee">: </tspan><tspan fill="#f2c17d">52.48624</tspan><tspan fill="#e6e9ee">, </tspan><tspan fill="#7fd7cc">"lng"</tspan><tspan fill="#e6e9ee">: </tspan><tspan fill="#f2c17d">-1.89041</tspan><tspan fill="#e6e9ee">, </tspan><tspan fill="#7fd7cc">"accuracyMetres"</tspan><tspan fill="#e6e9ee">: </tspan><tspan fill="#f2c17d">8</tspan><tspan fill="#e6e9ee"> },</tspan></text>
+<text x="300" y="450" font-size="11.5" fill="#6b7280" text-anchor="end" class="mono">4</text>
+<text x="322" y="450" font-size="12.5" class="mono" xml:space="preserve"><tspan fill="#7fd7cc">  "takenAt"</tspan><tspan fill="#e6e9ee">:  </tspan><tspan fill="#c4a7ff">"2026-03-12T10:41:07Z"</tspan></text>
+<text x="300" y="472" font-size="11.5" fill="#6b7280" text-anchor="end" class="mono">5</text>
+<text x="322" y="472" font-size="12.5" class="mono" xml:space="preserve"><tspan fill="#e6e9ee">}</tspan></text>
+<text x="290" y="528" font-size="12" fill="#6b7280" font-weight="600" letter-spacing=".8">RUN LOG</text>
+<text x="1176" y="528" font-size="12" fill="#6b7280" text-anchor="end">Last run 10:41:07 · 0.7 s</text>
+<line x1="274" y1="540.5" x2="1176" y2="540.5" stroke="#e5e8ec" stroke-width="1"/>
+<text x="290" y="566" font-size="14" fill="#1f2933">Reading received</text>
+<text x="470" y="566" font-size="12.5" fill="#6b7280">handset ending 4471 · accurate to 8 m</text>
+<circle cx="940" cy="561.5" r="4" fill="#1fa971"/>
+<text x="952" y="566" font-size="13" fill="#4b5563">Completed</text>
+<text x="1176" y="566" font-size="13" fill="#4b5563" text-anchor="end">0.1 s</text>
+<line x1="274" y1="578.5" x2="1176" y2="578.5" stroke="#e5e8ec" stroke-width="1"/>
+<text x="290" y="600" font-size="14" fill="#1f2933">Check device</text>
+<text x="470" y="600" font-size="12.5" fill="#6b7280">issued by the trust · Community nursing, North</text>
+<circle cx="940" cy="595.5" r="4" fill="#1fa971"/>
+<text x="952" y="600" font-size="13" fill="#4b5563">Completed</text>
+<text x="1176" y="600" font-size="13" fill="#4b5563" text-anchor="end">0.1 s</text>
+<line x1="274" y1="612.5" x2="1176" y2="612.5" stroke="#e5e8ec" stroke-width="1"/>
+<text x="290" y="634" font-size="14" fill="#1f2933">Load to warehouse</text>
+<text x="470" y="634" font-size="12.5" fill="#6b7280">one row written to visits.readings</text>
+<circle cx="940" cy="629.5" r="4" fill="#1fa971"/>
+<text x="952" y="634" font-size="13" fill="#4b5563">Completed</text>
+<text x="1176" y="634" font-size="13" fill="#4b5563" text-anchor="end">0.3 s</text>
+<line x1="274" y1="646.5" x2="1176" y2="646.5" stroke="#e5e8ec" stroke-width="1"/>
+<text x="290" y="668" font-size="14" fill="#1f2933">Match to address</text>
+<text x="470" y="668" font-size="12.5" fill="#6b7280">within 40 m of an address on today’s list · visit 3 of 7</text>
+<circle cx="940" cy="663.5" r="4" fill="#1fa971"/>
+<text x="952" y="668" font-size="13" fill="#4b5563">Completed</text>
+<text x="1176" y="668" font-size="13" fill="#4b5563" text-anchor="end">0.2 s</text>
+<line x1="274" y1="680.5" x2="1176" y2="680.5" stroke="#e5e8ec" stroke-width="1"/>
+<rect x="290" y="696" width="430" height="26" fill="#e6f5ee" rx="3"/>
+<text x="302" y="713.5" font-size="12.5" fill="#16794f">Reading stored and matched. Nothing was asked of the nurse.</text>
+</svg>

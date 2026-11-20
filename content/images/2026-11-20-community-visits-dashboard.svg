@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 772" width="1200" height="772" role="img" aria-labelledby="t">
+<title id="t">Mock-up of the service dashboard: a map of one nurse’s morning with each address and its match radius, and the visits and travel worked out from the readings</title>
+<defs><style>text{font-family:Inter,Roboto,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}.mono{font-family:'Geist Mono','JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}</style><symbol id="mark" viewBox="82.73 159.62 851.6 851.6"><path d="M553.85,560.06c-45.3,14.72-70.09,63.37-55.37,108.68c14.72,45.3,63.37,70.09,108.67,55.37 c45.3-14.72,70.09-63.37,55.37-108.67C647.81,570.13,599.15,545.34,553.85,560.06z"/><path d="M596.4,424.62l-36.18,71l87-28.27C639.58,443.82,619.34,427.9,596.4,424.62z"/><path d="M770.48,491.44l-100.76,32.74l96.2,49.02C775.57,558.98,789.1,526.8,770.48,491.44z"/><path d="M726.97,621.8l50.89,156.62c42.57-13.83,73.09-47.59,84.59-87.59L726.97,621.8z"/><path d="M693.74,740.48l-10.91,21.41l0,0l-87.27,171.29c35.28,15.4,76.11,18.45,115.6,5.62 c17.29-5.62,33-13.85,46.84-24.12l-59.58-183.37L693.74,740.48z"/><path d="M568.14,799.15L568.14,799.15l-240.41,78.11c0,0,0,0,0,0c23.99,73.85,87.56,123.78,159.59,133.96 l113.46-222.68L568.14,799.15z"/><path d="M460.7,744.41L460.7,744.41L195.18,609.12c-23.3,50.68-28.36,109.91-9.76,167.14 c8.58,26.41,21.49,50.21,37.68,70.87l268.18-87.14L460.7,744.41z"/><path d="M423.44,629.72L320.69,313.51C229.84,348.33,168.5,428.9,154.61,519.99l279.43,142.38L423.44,629.72z"/><path d="M478.18,522.28l165.9-325.6c-69.42-38.29-153.91-48.88-235.26-22.45c-21.53,7-41.7,16.22-60.37,27.33 l114.14,351.3L478.18,522.28z"/></symbol></defs>
+<rect x="0" y="0" width="1200" height="772" fill="#f7f8fa"/>
+<rect x="0" y="0" width="190" height="772" fill="#fbfbfc"/>
+<line x1="190.5" y1="0" x2="190.5" y2="772" stroke="#e5e8ec" stroke-width="1"/>
+<use href="#mark" x="16" y="16" width="22" height="22" fill="#e8175d"/>
+<text x="46" y="30" font-size="13.5" fill="#1f2933" font-weight="600">Community visits</text>
+<text x="46" y="46" font-size="10.5" fill="#9aa3af">built on Toca</text>
+<rect x="0" y="76" width="190" height="28" fill="#fce9f0"/>
+<rect x="0" y="76" width="3" height="28" fill="#e8175d"/>
+<rect x="16" y="84.5" width="11" height="11" fill="none" rx="2.5" stroke="#e8175d" stroke-width="1.3"/>
+<circle cx="21.5" cy="90" r="1.6" fill="#e8175d"/>
+<text x="36" y="94.5" font-size="12.5" fill="#1f2933" font-weight="600">Today</text>
+<rect x="16" y="118.5" width="11" height="11" fill="none" rx="2.5" stroke="#9aa3af" stroke-width="1.3"/>
+<circle cx="21.5" cy="124" r="1.6" fill="#9aa3af"/>
+<text x="36" y="128.5" font-size="12.5" fill="#4b5563">Routes</text>
+<rect x="16" y="152.5" width="11" height="11" fill="none" rx="2.5" stroke="#9aa3af" stroke-width="1.3"/>
+<circle cx="21.5" cy="158" r="1.6" fill="#9aa3af"/>
+<text x="36" y="162.5" font-size="12.5" fill="#4b5563">Visits</text>
+<rect x="16" y="186.5" width="11" height="11" fill="none" rx="2.5" stroke="#9aa3af" stroke-width="1.3"/>
+<circle cx="21.5" cy="192" r="1.6" fill="#9aa3af"/>
+<text x="36" y="196.5" font-size="12.5" fill="#4b5563">Devices</text>
+<rect x="16" y="220.5" width="11" height="11" fill="none" rx="2.5" stroke="#9aa3af" stroke-width="1.3"/>
+<circle cx="21.5" cy="226" r="1.6" fill="#9aa3af"/>
+<text x="36" y="230.5" font-size="12.5" fill="#4b5563">Data quality</text>
+<rect x="16" y="254.5" width="11" height="11" fill="none" rx="2.5" stroke="#9aa3af" stroke-width="1.3"/>
+<circle cx="21.5" cy="260" r="1.6" fill="#9aa3af"/>
+<text x="36" y="264.5" font-size="12.5" fill="#4b5563">Settings</text>
+<circle cx="25" cy="744" r="9" fill="#3a4553"/>
+<text x="25" y="747.5" font-size="9.5" fill="#fff" font-weight="700" text-anchor="middle">S</text>
+<text x="42" y="748" font-size="11.5" fill="#4b5563">Service manager</text>
+<rect x="191" y="0" width="1009" height="56" fill="#fff"/>
+<line x1="191" y1="56.5" x2="1200" y2="56.5" stroke="#e5e8ec" stroke-width="1"/>
+<text x="210" y="35" font-size="18" fill="#1f2933" font-weight="600">Today</text>
+<rect x="820" y="15" width="136" height="27" fill="#fff" rx="6" stroke="#e5e8ec" stroke-width="1"/>
+<text x="832" y="33" font-size="12" fill="#1f2933">North locality</text>
+<path d="M936 26l4 4 4-4" fill="none" stroke="#6b7280" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="966" y="15" width="106" height="27" fill="#fff" rx="6" stroke="#e5e8ec" stroke-width="1"/>
+<text x="978" y="33" font-size="12" fill="#1f2933">Thu 12 Mar</text>
+<path d="M1052 26l4 4 4-4" fill="none" stroke="#6b7280" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="1082" y="17" width="102" height="23" fill="#f7f8fa" rx="11.5" stroke="#e5e8ec" stroke-width="1"/>
+<text x="1133" y="32.5" font-size="10.5" fill="#6b7280" font-weight="500" text-anchor="middle">Illustrative data</text>
+<rect x="210" y="72" width="233" height="86" fill="#fff" rx="6" stroke="#e5e8ec" stroke-width="1"/>
+<text x="226" y="97" font-size="10.5" fill="#6b7280" font-weight="600" letter-spacing=".8">PHONES REPORTING</text>
+<text x="226" y="138" font-size="28" fill="#1f2933" font-weight="600">642<tspan font-size="12.5" font-weight="400" fill="#6b7280" dx="7">of 668</tspan></text>
+<rect x="457" y="72" width="233" height="86" fill="#fff" rx="6" stroke="#e5e8ec" stroke-width="1"/>
+<text x="473" y="97" font-size="10.5" fill="#6b7280" font-weight="600" letter-spacing=".8">VISITS MATCHED TODAY</text>
+<text x="473" y="138" font-size="28" fill="#1f2933" font-weight="600">3,912<tspan font-size="12.5" font-weight="400" fill="#6b7280" dx="7"></tspan></text>
+<rect x="704" y="72" width="233" height="86" fill="#fff" rx="6" stroke="#e5e8ec" stroke-width="1"/>
+<text x="720" y="97" font-size="10.5" fill="#6b7280" font-weight="600" letter-spacing=".8">TIME ON THE ROAD</text>
+<text x="720" y="138" font-size="28" fill="#1f2933" font-weight="600">24%<tspan font-size="12.5" font-weight="400" fill="#6b7280" dx="7">of shift</tspan></text>
+<rect x="951" y="72" width="233" height="86" fill="#fff" rx="6" stroke="#e5e8ec" stroke-width="1"/>
+<text x="967" y="97" font-size="10.5" fill="#6b7280" font-weight="600" letter-spacing=".8">STOPS NOT MATCHED</text>
+<text x="967" y="138" font-size="28" fill="#1f2933" font-weight="600">47<tspan font-size="12.5" font-weight="400" fill="#6b7280" dx="7">to review</tspan></text>
+<clipPath id="map"><rect x="0" y="0" width="590" height="582" rx="6"/></clipPath><g transform="translate(210,174)"><g clip-path="url(#map)">
+<rect x="0" y="0" width="590" height="582" fill="#eef1f4"/>
+<rect x="104" y="228" width="88" height="84" fill="#e1ede4" rx="4"/>
+<rect x="374" y="354" width="82" height="76" fill="#e1ede4" rx="4"/>
+<rect x="504" y="108" width="86" height="204" fill="#e6eaee" rx="4"/>
+<line x1="0" y1="90" x2="590" y2="90" stroke="#fff" stroke-width="13"/>
+<line x1="0" y1="210" x2="590" y2="210" stroke="#fff" stroke-width="13"/>
+<line x1="0" y1="330" x2="590" y2="330" stroke="#fff" stroke-width="13"/>
+<line x1="0" y1="450" x2="590" y2="450" stroke="#fff" stroke-width="13"/>
+<line x1="80" y1="0" x2="80" y2="582" stroke="#fff" stroke-width="13"/>
+<line x1="210" y1="0" x2="210" y2="582" stroke="#fff" stroke-width="13"/>
+<line x1="350" y1="0" x2="350" y2="582" stroke="#fff" stroke-width="13"/>
+<line x1="480" y1="0" x2="480" y2="582" stroke="#fff" stroke-width="13"/>
+<path d="M0 560L210 505L350 520L590 470" fill="none" stroke="#fff" stroke-width="9"/>
+<path d="M30 450 L80 450 L80 330 L210 330 L210 210 L350 210 L350 90 L480 90 L480 330 L480 450" fill="none" stroke="#17a89b" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="55.0" cy="450.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="80.0" cy="420.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="80.0" cy="390.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="80.0" cy="360.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="106.0" cy="330.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="132.0" cy="330.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="158.0" cy="330.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="184.0" cy="330.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="210.0" cy="300.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="210.0" cy="270.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="210.0" cy="240.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="238.0" cy="210.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="266.0" cy="210.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="294.0" cy="210.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="322.0" cy="210.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="350.0" cy="180.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="350.0" cy="150.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="350.0" cy="120.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="376.0" cy="90.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="402.0" cy="90.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="428.0" cy="90.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="454.0" cy="90.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="480.0" cy="116.66666666666667" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="480.0" cy="143.33333333333334" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="480.0" cy="170.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="480.0" cy="196.66666666666669" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="480.0" cy="223.33333333333334" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="480.0" cy="250.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="480.0" cy="276.66666666666663" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="480.0" cy="303.33333333333337" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="480.0" cy="360.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="480.0" cy="390.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="480.0" cy="420.0" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<circle cx="96" cy="312" r="27" fill="#17a89b" stroke="#17a89b" stroke-width="1" fill-opacity=".13"/>
+<circle cx="226" cy="194" r="27" fill="#17a89b" stroke="#17a89b" stroke-width="1" fill-opacity=".13"/>
+<circle cx="334" cy="228" r="27" fill="#17a89b" stroke="#17a89b" stroke-width="1" fill-opacity=".13"/>
+<circle cx="460" cy="70" r="27" fill="#17a89b" stroke="#17a89b" stroke-width="1" fill-opacity=".13"/>
+<circle cx="500" cy="70" r="27" fill="#17a89b" stroke="#17a89b" stroke-width="1" fill-opacity=".13"/>
+<circle cx="498" cy="318" r="27" fill="#17a89b" stroke="#17a89b" stroke-width="1" fill-opacity=".13"/>
+<circle cx="462" cy="468" r="27" fill="#17a89b" stroke="#17a89b" stroke-width="1" fill-opacity=".13"/>
+<circle cx="96" cy="312" r="11.5" fill="#1f2933" stroke="#fff" stroke-width="2"/>
+<text x="96" y="316.2" font-size="11.5" fill="#fff" font-weight="700" text-anchor="middle">1</text>
+<circle cx="226" cy="194" r="11.5" fill="#1f2933" stroke="#fff" stroke-width="2"/>
+<text x="226" y="198.2" font-size="11.5" fill="#fff" font-weight="700" text-anchor="middle">2</text>
+<circle cx="334" cy="228" r="11.5" fill="#e8175d" stroke="#fff" stroke-width="2"/>
+<text x="334" y="232.2" font-size="11.5" fill="#fff" font-weight="700" text-anchor="middle">3</text>
+<circle cx="460" cy="70" r="11.5" fill="#1f2933" stroke="#fff" stroke-width="2"/>
+<text x="460" y="74.2" font-size="11.5" fill="#fff" font-weight="700" text-anchor="middle">4</text>
+<circle cx="500" cy="70" r="11.5" fill="#1f2933" stroke="#fff" stroke-width="2"/>
+<text x="500" y="74.2" font-size="11.5" fill="#fff" font-weight="700" text-anchor="middle">5</text>
+<circle cx="498" cy="318" r="11.5" fill="#1f2933" stroke="#fff" stroke-width="2"/>
+<text x="498" y="322.2" font-size="11.5" fill="#fff" font-weight="700" text-anchor="middle">6</text>
+<circle cx="462" cy="468" r="11.5" fill="#1f2933" stroke="#fff" stroke-width="2"/>
+<text x="462" y="472.2" font-size="11.5" fill="#fff" font-weight="700" text-anchor="middle">7</text>
+<rect x="22" y="444" width="16" height="12" fill="#1f2933" rx="2"/>
+<text x="30" y="478" font-size="11" fill="#4b5563" font-weight="600" text-anchor="middle">Base</text>
+<line x1="432" y1="50" x2="466" y2="62" stroke="#1f2933" stroke-width="1"/>
+<rect x="226" y="18" width="208" height="46" fill="#fff" rx="6" stroke="#e5e8ec" stroke-width="1"/>
+<text x="238" y="37" font-size="12" fill="#1f2933" font-weight="600">Two addresses in range</text>
+<text x="238" y="54" font-size="10.5" fill="#6b7280">told apart by the time of each reading</text>
+<rect x="16" y="506" width="262" height="58" fill="#fff" rx="6" stroke="#e5e8ec" stroke-width="1"/>
+<text x="30" y="529" font-size="12.5" fill="#1f2933" font-weight="600">Nurse N-0417 · this morning</text>
+<text x="30" y="548" font-size="11.5" fill="#6b7280">7 visits · 21.2 km · 50 min travelling</text>
+<rect x="318" y="526" width="256" height="38" fill="#fff" rx="6" stroke="#e5e8ec" stroke-width="1"/>
+<circle cx="338" cy="545" r="8" fill="#17a89b" stroke="#17a89b" stroke-width="1" fill-opacity=".13"/>
+<text x="352" y="549" font-size="11" fill="#4b5563">40 m match radius</text>
+<circle cx="470" cy="545" r="2.6" fill="#fff" stroke="#17a89b" stroke-width="1.2"/>
+<text x="480" y="549" font-size="11" fill="#4b5563">GPS reading</text>
+</g>
+<rect x="0" y="0" width="590" height="582" fill="none" rx="6" stroke="#e5e8ec" stroke-width="1"/>
+</g>
+<rect x="816" y="174" width="368" height="582" fill="#fff" rx="6" stroke="#e5e8ec" stroke-width="1"/>
+<text x="834" y="202" font-size="14" fill="#1f2933" font-weight="600">N-0417 · Thursday morning</text>
+<text x="834" y="221" font-size="11.5" fill="#6b7280">Worked out from 318 readings</text>
+<line x1="816" y1="234.5" x2="1184" y2="234.5" stroke="#e5e8ec" stroke-width="1"/>
+<circle cx="846" cy="263" r="11" fill="#1f2933"/>
+<text x="846" y="267.2" font-size="11" fill="#fff" font-weight="700" text-anchor="middle">1</text>
+<text x="868" y="261" font-size="13" fill="#1f2933" font-weight="600">08:31 to 08:52</text>
+<text x="868" y="277" font-size="11.5" fill="#6b7280">21 min at the address</text>
+<text x="1166" y="261" font-size="11" fill="#9aa3af" text-anchor="end">planned 08:30</text>
+<line x1="846" y1="276" x2="846" y2="308" stroke="#9aa3af" stroke-width="1.2" stroke-dasharray="2 3"/>
+<text x="868" y="297" font-size="11.5" fill="#6b7280">Travel · 9 min · 4.1 km</text>
+<circle cx="846" cy="331" r="11" fill="#1f2933"/>
+<text x="846" y="335.2" font-size="11" fill="#fff" font-weight="700" text-anchor="middle">2</text>
+<text x="868" y="329" font-size="13" fill="#1f2933" font-weight="600">09:01 to 09:24</text>
+<text x="868" y="345" font-size="11.5" fill="#6b7280">23 min at the address</text>
+<text x="1166" y="329" font-size="11" fill="#9aa3af" text-anchor="end">planned 09:00</text>
+<line x1="846" y1="344" x2="846" y2="376" stroke="#9aa3af" stroke-width="1.2" stroke-dasharray="2 3"/>
+<text x="868" y="365" font-size="11.5" fill="#6b7280">Travel · 12 min · 5.6 km</text>
+<circle cx="846" cy="399" r="11" fill="#e8175d"/>
+<text x="846" y="403.2" font-size="11" fill="#fff" font-weight="700" text-anchor="middle">3</text>
+<text x="868" y="397" font-size="13" fill="#1f2933" font-weight="600">09:36 to 10:02</text>
+<text x="868" y="413" font-size="11.5" fill="#6b7280">26 min at the address</text>
+<text x="1166" y="397" font-size="11" fill="#9aa3af" text-anchor="end">planned 09:30</text>
+<line x1="846" y1="412" x2="846" y2="444" stroke="#9aa3af" stroke-width="1.2" stroke-dasharray="2 3"/>
+<text x="868" y="433" font-size="11.5" fill="#6b7280">Travel · 6 min · 2.2 km</text>
+<circle cx="846" cy="467" r="11" fill="#1f2933"/>
+<text x="846" y="471.2" font-size="11" fill="#fff" font-weight="700" text-anchor="middle">4</text>
+<text x="868" y="465" font-size="13" fill="#1f2933" font-weight="600">10:08 to 10:27</text>
+<text x="868" y="481" font-size="11.5" fill="#6b7280">19 min at the address</text>
+<text x="1166" y="465" font-size="11" fill="#9aa3af" text-anchor="end">planned 10:00</text>
+<line x1="846" y1="480" x2="846" y2="512" stroke="#9aa3af" stroke-width="1.2" stroke-dasharray="2 3"/>
+<text x="868" y="501" font-size="11.5" fill="#6b7280">Next door · same building · 1 min</text>
+<circle cx="846" cy="535" r="11" fill="#1f2933"/>
+<text x="846" y="539.2" font-size="11" fill="#fff" font-weight="700" text-anchor="middle">5</text>
+<text x="868" y="533" font-size="13" fill="#1f2933" font-weight="600">10:28 to 10:49</text>
+<text x="868" y="549" font-size="11.5" fill="#6b7280">21 min at the address</text>
+<text x="1166" y="533" font-size="11" fill="#9aa3af" text-anchor="end">planned 10:30</text>
+<line x1="846" y1="548" x2="846" y2="580" stroke="#9aa3af" stroke-width="1.2" stroke-dasharray="2 3"/>
+<text x="868" y="569" font-size="11.5" fill="#6b7280">Travel · 14 min · 6.3 km</text>
+<circle cx="846" cy="603" r="11" fill="#1f2933"/>
+<text x="846" y="607.2" font-size="11" fill="#fff" font-weight="700" text-anchor="middle">6</text>
+<text x="868" y="601" font-size="13" fill="#1f2933" font-weight="600">11:03 to 11:31</text>
+<text x="868" y="617" font-size="11.5" fill="#6b7280">28 min at the address</text>
+<text x="1166" y="601" font-size="11" fill="#9aa3af" text-anchor="end">planned 11:00</text>
+<line x1="846" y1="616" x2="846" y2="648" stroke="#9aa3af" stroke-width="1.2" stroke-dasharray="2 3"/>
+<text x="868" y="637" font-size="11.5" fill="#6b7280">Travel · 8 min · 3.0 km</text>
+<circle cx="846" cy="671" r="11" fill="#1f2933"/>
+<text x="846" y="675.2" font-size="11" fill="#fff" font-weight="700" text-anchor="middle">7</text>
+<text x="868" y="669" font-size="13" fill="#1f2933" font-weight="600">11:39 to 12:09</text>
+<text x="868" y="685" font-size="11.5" fill="#6b7280">30 min at the address</text>
+<text x="1166" y="669" font-size="11" fill="#9aa3af" text-anchor="end">planned 11:30</text>
+<line x1="816" y1="700.5" x2="1184" y2="700.5" stroke="#e5e8ec" stroke-width="1"/>
+<rect x="834" y="712" width="256" height="8" fill="#17a89b" rx="4"/>
+<rect x="1092" y="712" width="74" height="8" fill="#c9d1d9" rx="4"/>
+<circle cx="838" cy="738" r="4" fill="#17a89b"/>
+<text x="848" y="742" font-size="11.5" fill="#4b5563">With patients 2 h 48</text>
+<circle cx="1010" cy="738" r="4" fill="#c9d1d9"/>
+<text x="1020" y="742" font-size="11.5" fill="#4b5563">Travelling 0 h 50</text>
+</svg>

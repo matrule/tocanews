@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 770" width="1200" height="770" role="img" aria-labelledby="t">
+<title id="t">Mock-up of the Android app: a status screen, a what is recorded screen and the lock screen notification</title>
+<defs><style>text{font-family:Inter,Roboto,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}.mono{font-family:'Geist Mono','JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}</style><symbol id="mark" viewBox="82.73 159.62 851.6 851.6"><path d="M553.85,560.06c-45.3,14.72-70.09,63.37-55.37,108.68c14.72,45.3,63.37,70.09,108.67,55.37 c45.3-14.72,70.09-63.37,55.37-108.67C647.81,570.13,599.15,545.34,553.85,560.06z"/><path d="M596.4,424.62l-36.18,71l87-28.27C639.58,443.82,619.34,427.9,596.4,424.62z"/><path d="M770.48,491.44l-100.76,32.74l96.2,49.02C775.57,558.98,789.1,526.8,770.48,491.44z"/><path d="M726.97,621.8l50.89,156.62c42.57-13.83,73.09-47.59,84.59-87.59L726.97,621.8z"/><path d="M693.74,740.48l-10.91,21.41l0,0l-87.27,171.29c35.28,15.4,76.11,18.45,115.6,5.62 c17.29-5.62,33-13.85,46.84-24.12l-59.58-183.37L693.74,740.48z"/><path d="M568.14,799.15L568.14,799.15l-240.41,78.11c0,0,0,0,0,0c23.99,73.85,87.56,123.78,159.59,133.96 l113.46-222.68L568.14,799.15z"/><path d="M460.7,744.41L460.7,744.41L195.18,609.12c-23.3,50.68-28.36,109.91-9.76,167.14 c8.58,26.41,21.49,50.21,37.68,70.87l268.18-87.14L460.7,744.41z"/><path d="M423.44,629.72L320.69,313.51C229.84,348.33,168.5,428.9,154.61,519.99l279.43,142.38L423.44,629.72z"/><path d="M478.18,522.28l165.9-325.6c-69.42-38.29-153.91-48.88-235.26-22.45c-21.53,7-41.7,16.22-60.37,27.33 l114.14,351.3L478.18,522.28z"/></symbol></defs>
+<rect x="0" y="0" width="1200" height="770" fill="#f7f8fa"/>
+<rect x="120" y="36" width="300" height="630" fill="#0f141a" rx="38"/>
+<clipPath id="scr1"><rect x="129" y="45" width="282" height="612" rx="30"/></clipPath>
+<g clip-path="url(#scr1)"><rect x="129" y="45" width="282" height="612" fill="#fff"/>
+<g transform="translate(129,45)">
+<text x="24" y="27" font-size="12" fill="#1f2933" font-weight="600">10:41</text>
+<rect x="214" y="21.0" width="3" height="4.0" fill="#1f2933" rx="1"/><rect x="219" y="18.5" width="3" height="6.5" fill="#1f2933" rx="1"/><rect x="224" y="16.0" width="3" height="9.0" fill="#1f2933" rx="1"/><rect x="229" y="13.5" width="3" height="11.5" fill="#1f2933" rx="1"/>
+<rect x="240" y="17" width="20" height="10.5" fill="none" rx="2.5" stroke="#1f2933" stroke-width="1.2"/>
+<rect x="242" y="19" width="13" height="6.5" fill="#1f2933" rx="1"/>
+<rect x="261" y="20" width="2" height="4.5" fill="#1f2933" rx="1"/>
+<use href="#mark" x="20" y="48" width="22" height="22" fill="#e8175d"/>
+<text x="52" y="65" font-size="16" fill="#1f2933" font-weight="600">Visit recording</text>
+<line x1="0" y1="86.5" x2="282" y2="86.5" stroke="#e5e8ec" stroke-width="1"/>
+<rect x="16" y="102" width="250" height="186" fill="#f7f8fa" rx="14" stroke="#e5e8ec" stroke-width="1"/>
+<circle cx="141" cy="164" r="38" fill="none" stroke="#d9f0ed" stroke-width="7"/>
+<circle cx="141" cy="164" r="38" fill="none" stroke="#17a89b" stroke-width="7"/>
+<path d="M126 165l10 10 20-21" fill="none" stroke="#17a89b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="141" y="236" font-size="17" fill="#1f2933" font-weight="600" text-anchor="middle">Recording is on</text>
+<text x="141" y="258" font-size="12.5" fill="#6b7280" text-anchor="middle">On shift since 08:02</text>
+<text x="20" y="324" font-size="12.5" fill="#6b7280">Last reading sent</text>
+<text x="262" y="324" font-size="12.5" fill="#1f2933" font-weight="500" text-anchor="end">10:41:07</text>
+<line x1="20" y1="339.5" x2="262" y2="339.5" stroke="#e5e8ec" stroke-width="1"/>
+<text x="20" y="364" font-size="12.5" fill="#6b7280">Readings sent today</text>
+<text x="262" y="364" font-size="12.5" fill="#1f2933" font-weight="500" text-anchor="end">318</text>
+<line x1="20" y1="379.5" x2="262" y2="379.5" stroke="#e5e8ec" stroke-width="1"/>
+<text x="20" y="404" font-size="12.5" fill="#6b7280">Waiting to send</text>
+<text x="262" y="404" font-size="12.5" fill="#1f2933" font-weight="500" text-anchor="end">0</text>
+<line x1="20" y1="419.5" x2="262" y2="419.5" stroke="#e5e8ec" stroke-width="1"/>
+<text x="20" y="444" font-size="12.5" fill="#6b7280">Working hours</text>
+<text x="262" y="444" font-size="12.5" fill="#1f2933" font-weight="500" text-anchor="end">Weekdays 08:00 to 18:00</text>
+<line x1="20" y1="459.5" x2="262" y2="459.5" stroke="#e5e8ec" stroke-width="1"/>
+<text x="20" y="484" font-size="12.5" fill="#6b7280">This phone</text>
+<text x="262" y="484" font-size="12.5" fill="#1f2933" font-weight="500" text-anchor="end">IMEI ending 4471</text>
+<line x1="20" y1="499.5" x2="262" y2="499.5" stroke="#e5e8ec" stroke-width="1"/>
+<text x="141" y="530" font-size="11.5" fill="#6b7280" text-anchor="middle">Nothing to tap. This app runs by itself</text>
+<text x="141" y="547" font-size="11.5" fill="#6b7280" text-anchor="middle">during working hours.</text>
+<text x="134" y="578" font-size="13" fill="#e8175d" font-weight="600" text-anchor="middle">What does this app record?</text>
+<path d="M226 569l5 4.5-5 4.5" fill="none" stroke="#e8175d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="141" y="600" font-size="10.5" fill="#9aa3af" text-anchor="middle">Managed by your trust · v1.0.3</text>
+</g></g>
+<circle cx="270" cy="58" r="4.5" fill="#0f141a"/>
+<rect x="450" y="36" width="300" height="630" fill="#0f141a" rx="38"/>
+<clipPath id="scr2"><rect x="459" y="45" width="282" height="612" rx="30"/></clipPath>
+<g clip-path="url(#scr2)"><rect x="459" y="45" width="282" height="612" fill="#fff"/>
+<g transform="translate(459,45)">
+<text x="24" y="27" font-size="12" fill="#1f2933" font-weight="600">10:41</text>
+<rect x="214" y="21.0" width="3" height="4.0" fill="#1f2933" rx="1"/><rect x="219" y="18.5" width="3" height="6.5" fill="#1f2933" rx="1"/><rect x="224" y="16.0" width="3" height="9.0" fill="#1f2933" rx="1"/><rect x="229" y="13.5" width="3" height="11.5" fill="#1f2933" rx="1"/>
+<rect x="240" y="17" width="20" height="10.5" fill="none" rx="2.5" stroke="#1f2933" stroke-width="1.2"/>
+<rect x="242" y="19" width="13" height="6.5" fill="#1f2933" rx="1"/>
+<rect x="261" y="20" width="2" height="4.5" fill="#1f2933" rx="1"/>
+<path d="M28 52l-7 7 7 7M21 59h15" fill="none" stroke="#1f2933" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="52" y="65" font-size="16" fill="#1f2933" font-weight="600">What is recorded</text>
+<line x1="0" y1="86.5" x2="282" y2="86.5" stroke="#e5e8ec" stroke-width="1"/>
+<text x="20" y="114" font-size="10.5" fill="#6b7280" font-weight="600" letter-spacing=".8">RECORDED</text>
+<circle cx="27" cy="138" r="7" fill="#1fa971"/><path d="M23.8 138.3l2.1 2.1 4.3 -4.6" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="44" y="142.5" font-size="12.5" fill="#1f2933">Where this phone is, in working hours</text>
+<circle cx="27" cy="165" r="7" fill="#1fa971"/><path d="M23.8 165.3l2.1 2.1 4.3 -4.6" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="44" y="169.5" font-size="12.5" fill="#1f2933">The time of each reading</text>
+<circle cx="27" cy="192" r="7" fill="#1fa971"/><path d="M23.8 192.3l2.1 2.1 4.3 -4.6" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="44" y="196.5" font-size="12.5" fill="#1f2933">This handset and SIM’s identifiers</text>
+<text x="20" y="232" font-size="10.5" fill="#6b7280" font-weight="600" letter-spacing=".8">NOT RECORDED</text>
+<circle cx="27" cy="256" r="7" fill="#fff" stroke="#9aa3af" stroke-width="1.2"/><path d="M24.4 253.4l5.2 5.2M29.6 253.4l-5.2 5.2" fill="none" stroke="#9aa3af" stroke-width="1.3" stroke-linecap="round"/>
+<text x="44" y="260.5" font-size="12.5" fill="#4b5563">Anything outside working hours</text>
+<circle cx="27" cy="283" r="7" fill="#fff" stroke="#9aa3af" stroke-width="1.2"/><path d="M24.4 280.4l5.2 5.2M29.6 280.4l-5.2 5.2" fill="none" stroke="#9aa3af" stroke-width="1.3" stroke-linecap="round"/>
+<text x="44" y="287.5" font-size="12.5" fill="#4b5563">Calls, messages, photos or other apps</text>
+<circle cx="27" cy="310" r="7" fill="#fff" stroke="#9aa3af" stroke-width="1.2"/><path d="M24.4 307.4l5.2 5.2M29.6 307.4l-5.2 5.2" fill="none" stroke="#9aa3af" stroke-width="1.3" stroke-linecap="round"/>
+<text x="44" y="314.5" font-size="12.5" fill="#4b5563">Anything you say or type</text>
+<text x="20" y="350" font-size="10.5" fill="#6b7280" font-weight="600" letter-spacing=".8">WHAT IT IS FOR</text>
+<text x="20" y="373" font-size="12.5" fill="#1f2933">Planning routes and understanding</text>
+<text x="20" y="391" font-size="12.5" fill="#1f2933">visit times across the service.</text>
+<text x="20" y="430" font-size="10.5" fill="#6b7280" font-weight="600" letter-spacing=".8">WHERE IT GOES</text>
+<text x="20" y="453" font-size="12.5" fill="#1f2933">Your trust’s own data warehouse,</text>
+<text x="20" y="471" font-size="12.5" fill="#1f2933">over an encrypted connection.</text>
+<rect x="16" y="502" width="250" height="42" fill="#fff" rx="8" stroke="#1f2933" stroke-width="1.3"/>
+<text x="141" y="528" font-size="13" fill="#1f2933" font-weight="600" text-anchor="middle">Read the staff notice</text>
+<text x="141" y="574" font-size="11.5" fill="#6b7280" text-anchor="middle">Questions? Ask your team lead or the</text>
+<text x="141" y="591" font-size="11.5" fill="#6b7280" text-anchor="middle">trust’s data protection officer.</text>
+</g></g>
+<circle cx="600" cy="58" r="4.5" fill="#0f141a"/>
+<rect x="780" y="36" width="300" height="630" fill="#0f141a" rx="38"/>
+<clipPath id="scr3"><rect x="789" y="45" width="282" height="612" rx="30"/></clipPath>
+<g clip-path="url(#scr3)"><rect x="789" y="45" width="282" height="612" fill="#1f2933"/>
+<g transform="translate(789,45)">
+<text x="24" y="27" font-size="12" fill="#fff" font-weight="600">10:41</text>
+<rect x="214" y="21.0" width="3" height="4.0" fill="#fff" rx="1"/><rect x="219" y="18.5" width="3" height="6.5" fill="#fff" rx="1"/><rect x="224" y="16.0" width="3" height="9.0" fill="#fff" rx="1"/><rect x="229" y="13.5" width="3" height="11.5" fill="#fff" rx="1"/>
+<rect x="240" y="17" width="20" height="10.5" fill="none" rx="2.5" stroke="#fff" stroke-width="1.2"/>
+<rect x="242" y="19" width="13" height="6.5" fill="#fff" rx="1"/>
+<rect x="261" y="20" width="2" height="4.5" fill="#fff" rx="1"/>
+<text x="141" y="152" font-size="64" fill="#fff" font-weight="300" text-anchor="middle">10:41</text>
+<text x="141" y="184" font-size="14" fill="#c9d1d9" text-anchor="middle">Thursday 12 March</text>
+<rect x="14" y="232" width="254" height="92" fill="#fff" rx="16"/>
+<use href="#mark" x="28" y="247" width="15" height="15" fill="#e8175d"/>
+<text x="50" y="259" font-size="11" fill="#6b7280">Visit recording · now</text>
+<circle cx="248" cy="255" r="4.5" fill="#17a89b"/>
+<text x="28" y="285" font-size="14.5" fill="#1f2933" font-weight="600">Recording is on</text>
+<text x="28" y="305" font-size="12.5" fill="#4b5563">Last reading sent 10:41</text>
+<text x="20" y="366" font-size="10" fill="#9aa3af" font-weight="600" letter-spacing=".8">THE SAME NOTIFICATION WITH NO SIGNAL</text>
+<rect x="14" y="380" width="254" height="109" fill="#fff" rx="16"/>
+<use href="#mark" x="28" y="395" width="15" height="15" fill="#e8175d"/>
+<text x="50" y="407" font-size="11" fill="#6b7280">Visit recording · now</text>
+<circle cx="248" cy="403" r="4.5" fill="#d97706"/>
+<text x="28" y="433" font-size="14.5" fill="#1f2933" font-weight="600">Waiting for signal</text>
+<text x="28" y="453" font-size="12.5" fill="#4b5563">14 readings saved on this phone.</text>
+<text x="28" y="470" font-size="12.5" fill="#4b5563">They send when it reconnects.</text>
+<rect x="101" y="594" width="80" height="4" fill="#6b7280" rx="2"/>
+</g></g>
+<circle cx="930" cy="58" r="4.5" fill="#0f141a"/>
+<text x="270" y="703" font-size="14.5" fill="#1f2933" font-weight="600" text-anchor="middle">1 · Status</text>
+<text x="270" y="725" font-size="12.5" fill="#6b7280" text-anchor="middle">All there is to see. Nothing to fill in.</text>
+<text x="600" y="703" font-size="14.5" fill="#1f2933" font-weight="600" text-anchor="middle">2 · What is recorded</text>
+<text x="600" y="725" font-size="12.5" fill="#6b7280" text-anchor="middle">The staff notice, inside the app.</text>
+<text x="930" y="703" font-size="14.5" fill="#1f2933" font-weight="600" text-anchor="middle">3 · Lock screen</text>
+<text x="930" y="725" font-size="12.5" fill="#6b7280" text-anchor="middle">The standing notification, with and without signal.</text>
+<rect x="1086" y="16" width="98" height="22" fill="#fff" rx="11" stroke="#e5e8ec" stroke-width="1"/>
+<text x="1135" y="31" font-size="11.5" fill="#6b7280" font-weight="500" text-anchor="middle">Mock-up</text>
+</svg>
