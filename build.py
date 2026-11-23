@@ -406,6 +406,7 @@ def chrome(title, desc, body, canonical, current='', dark=False, article=None):
     <li><a href="{IO}/terms.html">Terms and policies</a></li>
     <li><a href="{IO}/privacy-policy.html">Privacy policy</a></li>
     <li><a href="{IO}/cloud-terms.html">Cloud terms</a></li>
+    <li><a href="{IO}/company.html#trust">Certifications</a></li>
     <li><a href="{IO}/carbon-reduction.html">Carbon reduction plan</a></li>
     <li><button class="foot-cookie" type="button" data-cookie-settings hidden>Cookie settings</button></li>
   </ul>
