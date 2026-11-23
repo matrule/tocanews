@@ -13,6 +13,18 @@
 # /news/... (build.py PATH). These make the same links work when the site is visited here at news.toca.io.
 # Never add a redirect here with a root-relative target such as "/feed/": behind the proxy the browser follows it to
 # www.toca.io/feed/. (The old /feed to /feed/ redirect went on 10 Nov: the /feed/ page was removed on 21 Sept.)
+# PostHog (23 Nov 2026): toca.io's js/analytics.js sends to /ingest on the page's own host. Behind the proxy that is
+# www.toca.io's rule; these are the same rules for visits here at news.toca.io. Absolute targets, so the proxy warning above does not apply.
+[[redirects]]
+  from = "/ingest/static/*"
+  to = "https://eu-assets.i.posthog.com/static/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/ingest/*"
+  to = "https://eu.i.posthog.com/:splat"
+  status = 200
+
 [[redirects]]
   from = "/news/*"
   to = "/:splat"

@@ -72,6 +72,12 @@ FULL_W = 1600          # images inside an article body
 FEED_MAX = 50
 SITES = {'io': 'toca.io', 'health': 'toca.health', 'legal': 'toca.legal'}
 IO = 'https://www.toca.io'   # toca.io, where the shared nav and footer point: the go-live address (toca-io-rebuild gen.py SITE)
+# PostHog (Mat, 23 Nov 2026; toca-io-rebuild SEO-GEO.md 1.2a step 7): toca.io's own js/analytics.js, loaded from www.toca.io
+# so there is one script, one banner and one privacy line for the family. Its data goes to /ingest on whichever host the
+# page is on: www.toca.io's proxy behind /news/, netlify.toml's here at news.toca.io. The key is public by design;
+# None takes it off every page. Nothing is sent from a local preview (analytics.js checks the host).
+POSTHOG = {'key': 'phc_rZ5a29xcE6WmB5KJSx25fnyaCY2kd9xGCCWwW229WTDK', 'host': '/ingest'}
+ANALYTICS = (f'\n<script src="{IO}/js/analytics.js" defer data-ph-key="{POSTHOG["key"]}" data-ph-host="{POSTHOG["host"]}"></script>' if POSTHOG else '')
 FONTS = ''   # toca.io's footer line face, wide Barlow 600, is self-hosted now (fonts/barlow-600.woff2, @font-face in css/news.css; Mat, 11 Nov 2026): it came from Google Fonts
 # The strip, nav and footer are toca.io's (Mat, 10 Nov 2026: "acts and looks the toca.io one"): the markup mirrors
 # toca-io-rebuild gen.py chrome() and FOOT with every link absolute, the rules mirror its css/io.css (in css/news.css,
@@ -324,7 +330,7 @@ def chrome(title, desc, body, canonical, current='', dark=False, article=None):
 <link rel="alternate" type="application/feed+json" title="Toca news" href="{FEEDS}/feed.json">
 <link rel="icon" href="{R}toca-mark.svg" type="image/svg+xml">
 {FONTS}
-<link rel="stylesheet" href="{R}css/site.css"><link rel="stylesheet" href="{R}css/news.css">
+<link rel="stylesheet" href="{R}css/site.css"><link rel="stylesheet" href="{R}css/news.css">{ANALYTICS}
 </head>
 <body{' class="dark"' if dark else ''}>
 <a class="skip" href="#main">Skip to content</a>
@@ -401,6 +407,7 @@ def chrome(title, desc, body, canonical, current='', dark=False, article=None):
     <li><a href="{IO}/privacy-policy.html">Privacy policy</a></li>
     <li><a href="{IO}/cloud-terms.html">Cloud terms</a></li>
     <li><a href="{IO}/carbon-reduction.html">Carbon reduction plan</a></li>
+    <li><button class="foot-cookie" type="button" data-cookie-settings hidden>Cookie settings</button></li>
   </ul>
   <p class="foot-company">Tocalabs Limited, trading as Toca. Registered in England &amp; Wales, company no. 11396834. Registered office 5th Floor, One New Change, London EC4M 9AF. VAT GB&nbsp;303504844. Offices in Reading. Toca&reg;, Toca.Health&reg;, Tocabot&reg; and Tocalabs&reg; are registered trademarks of Tocalabs Ltd. <a href="mailto:sales@toca.io">sales@toca.io</a></p>
   </div>
